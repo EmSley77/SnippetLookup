@@ -9,6 +9,7 @@ export default function SnippetList({ data, snippetIndex, handleCopyButton, isCo
         justifyContent:"center",
         alignItems:"center",
         maxWidth: "1000px",
+        width:"100%",
         margin:"0 auto"
       }}>
 
@@ -18,6 +19,7 @@ export default function SnippetList({ data, snippetIndex, handleCopyButton, isCo
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
         }}>
+
         {data.map((snippet, index) => (
           <SnippetCard
             isCopied={isCopied}

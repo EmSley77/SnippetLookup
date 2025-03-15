@@ -1,12 +1,18 @@
+* {
+    font-family: "Fira code", monospace;
+}
+
 body {
     margin: 0;
-    background: linear-gradient(to right, indigo, lightblue, blue );
+    background: linear-gradient(135deg, #1e1e2e, #252538, #2b2b45);
 }
 
 button {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    color: #333;
     transition: 0.6s ease-out;
     padding: 10px 1rem;
-    background: transparent;
+    background:#e4e4e4 ;
     font-family: "Fira code";
     border-radius: 10px;
     font-size: 1rem;
@@ -20,5 +26,3 @@ button:hover {
 button:active {
     transform: translateY(5px);
 }
-
-

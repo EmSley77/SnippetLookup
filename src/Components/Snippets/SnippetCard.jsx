@@ -5,16 +5,17 @@ export default function SnippetCard({ snippet, index, snippetIndex, handleCopyBu
     <div
       key={index}
       style={{
-        backgroundColor: "#fff",
-        width: "500px",
+        width: "450px",
         display: "flex",
         flexDirection: "column",
-        flex: 1,
         justifyContent: "space-between",
-        padding: "1rem",
+        background: "#fff", // Lighter contrast
+        border: "2px solid #5a5e7a", // Soft border for definition
+        padding: "10px",
         margin: "10px",
         borderRadius: "10px",
-        fontFamily: "Fira code",
+        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.6)", // Stronger shadow for depth
+        color: "#333", // Slightly off-white for readability
       }}>
       <h1>{snippet.title}</h1>
       <h2>{snippet.language}</h2>
@@ -30,6 +31,7 @@ export default function SnippetCard({ snippet, index, snippetIndex, handleCopyBu
           padding: "1rem",
           borderRadius: "10px",
           color: "#a6fa6e",
+          textShadow:"1px 3px 4px #222",
           overflowWrap: "break-word",
           whiteSpace: "pre-wrap",
           wordBreak: "break-word"

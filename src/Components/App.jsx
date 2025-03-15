@@ -7,6 +7,7 @@ export default function App() {
   const [data, setData] = useState([])
   const [isCopied, setIsCopied] = useState(false)
   const [snippetIndex, setSnippetIndex] = useState(null)
+  const [searchInput, setSearchInput] = useState(null)
 
 
   //fetch data
@@ -45,9 +46,36 @@ export default function App() {
     )
   }
 
+  //TODO handle search todo logic here
+  //if empty or blank print all otherwise print related to language or title
+  const handleSearch = () => {
+
+  }
+
   return (
     <>
-      <div style={{}}>
+      {/* Add a header here */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+        <div>
+
+          <input
+            style={{
+              padding: "1rem",
+              margin: "1rem",
+              width: "300px",
+              borderRadius: "10px",
+            }}
+            type="text"
+            placeholder='Search'
+            value={searchInput}
+            onInput={e => setSearchInput(e.target.value)} />
+        </div>
         <SnippetList
           data={data}
           snippetIndex={snippetIndex}
@@ -55,6 +83,7 @@ export default function App() {
           isCopied={isCopied}
         />
       </div>
+      {/* Add a footer here add some map or info */}
     </>
   )
 }
