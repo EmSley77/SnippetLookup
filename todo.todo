@@ -1,0 +1,20 @@
+#create todos here
+- create layout
+- create a theme
+
+- Functions: 
+    - get snippets
+    - open a snippet in full page 
+    - button to copy code using navigator
+    - fetch using useEffect
+    - when Entering a page you can use AI to describe each code snippet by adding a button and opening a chat window like CO-pilot
+    - add a categorize button by coding language
+    - add a search button to search for title
+
+- MVP (Minimal Viable Product)
+    - get code snippets on load
+    - View in full page
+    - copy code
+
+-TODOs:
+     
