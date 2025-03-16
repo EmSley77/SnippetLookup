@@ -6,7 +6,6 @@ export default function App() {
 
   const [data, setData] = useState([])
   const [filteredData, setFilteredData] = useState([])
-  const [snippetId, setSnippetId] = useState(null)
   const [searchInput, setSearchInput] = useState('')
 
 
@@ -55,8 +54,7 @@ export default function App() {
 
         {filteredData.length === 0 && searchInput.length > 0 ? <h1 style={{ color: "#fff" }}>No results were found with: {searchInput}</h1> : <SnippetList
           data={filteredData.length === 0 || searchInput === '' ? data : filteredData}
-          snippetId={snippetId}
-          isCopied={isCopied}
+  
         />}
       </div>
       {/* Add a footer here add some map or info */}

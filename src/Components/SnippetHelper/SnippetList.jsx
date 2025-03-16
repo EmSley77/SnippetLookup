@@ -1,7 +1,7 @@
 import React from 'react'
 import SnippetCard from './SnippetCard.jsx'
 
-export default function SnippetList({ data, snippetId, isCopied }) {
+export default function SnippetList({ data }) {
   return (
     <div
       style={{
@@ -22,9 +22,7 @@ export default function SnippetList({ data, snippetId, isCopied }) {
 
         {data.map((snippet, index) => (
           <SnippetCard
-          key={index}
-            snippetId={snippetId}
-            isCopied={isCopied}
+            key={index}
             snippet={snippet}
           />
         ))}
