@@ -6,14 +6,13 @@ export default function App() {
 
   const [data, setData] = useState([])
   const [isCopied, setIsCopied] = useState(false)
-  const [snippetIndex, setSnippetIndex] = useState(null)
+  const [snippetId, setSnippetId] = useState(null)
   const [searchInput, setSearchInput] = useState(null)
 
 
   //fetch data
   useEffect(() => {
     const fetchData = async () => {
-
       const newData = await getData();
       setData(newData)
     }
@@ -25,16 +24,16 @@ export default function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsCopied(false)
-      setSnippetIndex(null)
+      setSnippetId(null)
       return () => clearTimeout(timer)
     }, 3000)
   }, [isCopied])
 
-  const handleCopyButton = async (code, index) => {
+  const handleCopyButton = async (snippet) => {
     try {
-      await navigator.clipboard.writeText(code)
+      await navigator.clipboard.writeText(snippet.code)
       setIsCopied(true)
-      setSnippetIndex(index)
+      setSnippetId(snippet.id)
     } catch (error) {
       console.error(error)
     }
@@ -78,7 +77,7 @@ export default function App() {
         </div>
         <SnippetList
           data={data}
-          snippetIndex={snippetIndex}
+          snippetId={snippetId}
           handleCopyButton={handleCopyButton}
           isCopied={isCopied}
         />
