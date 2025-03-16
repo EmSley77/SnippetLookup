@@ -1,8 +1,16 @@
 import React from 'react'
+import { colorGenerator } from '../../js/color.js'
+export default function SnippetCard({ snippet }) {
 
-export default function SnippetCard({ snippet, snippetId, handleCopyButton, isCopied }) {
+  const handleClick = () => {
+    console.log("view full page");
+    
+    
+  }
   return (
     <div
+    onClick={handleClick}
+      className='card'
       key={snippet.id}
       style={{
         width: "450px",
@@ -25,40 +33,16 @@ export default function SnippetCard({ snippet, snippetId, handleCopyButton, isCo
           alignItems: "flex-start"
         }}>
 
-        <span style={{height:"100px"}}>
+        <span style={{ height: "100px" }}>
           <h1 style={{ flex: 1 }}>{snippet.title}</h1>
         </span>
-        <span style={{height:"100px"}}>
+        <span style={{ height: "100px", color: colorGenerator(), fontSize: "1.5rem" }}>
           <h1 style={{ flex: 1 }}>{snippet.language}</h1>
         </span>
-        <span style={{height:"100px"}}>
+        <span style={{ height: "100px" }}>
           <h2 style={{ flex: 1 }}>Created by: {snippet.user}</h2>
         </span>
       </div>
-
-      {/*       <pre
-        style={{
-          height: "130px",
-          overflowY: "scroll",
-          fontSize: "1rem",
-          fontWeight: "700",
-          backgroundColor: "#555",
-          padding: "1rem",
-          borderRadius: "10px",
-          color: "#a6fa6e",
-          textShadow: "1px 3px 4px #222",
-          overflowWrap: "break-word",
-          whiteSpace: "pre-wrap",
-          wordBreak: "break-word"
-        }}>{snippet.code}</pre> */}
-
-      <button
-        style={{
-          marginTop: "auto"
-        }}
-        onClick={() => handleCopyButton(snippet)}>
-        {isCopied && snippetId === snippet.id ? "Copied" : "Copy"}
-      </button>
     </div>
   )
 }

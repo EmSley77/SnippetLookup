@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import SnippetList from './Snippets/SnippetList.jsx'
 import { getData } from '../js/data'
+import searchIcon from '../assets/search.png'
 
 export default function App() {
 
   const [data, setData] = useState([])
+  const [filteredData, setFilteredData] = useState([])
   const [isCopied, setIsCopied] = useState(false)
   const [snippetId, setSnippetId] = useState(null)
-  const [searchInput, setSearchInput] = useState(null)
+  const [searchInput, setSearchInput] = useState('')
 
 
   //fetch data
@@ -29,15 +31,7 @@ export default function App() {
     }, 3000)
   }, [isCopied])
 
-  const handleCopyButton = async (snippet) => {
-    try {
-      await navigator.clipboard.writeText(snippet.code)
-      setIsCopied(true)
-      setSnippetId(snippet.id)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+
 
   if (!data || data.length === 0) {
     return (
@@ -45,10 +39,11 @@ export default function App() {
     )
   }
 
-  //TODO handle search todo logic here
   //if empty or blank print all otherwise print related to language or title
-  const handleSearch = () => {
-
+  const handleSearch = (e) => {
+    setSearchInput(e.target.value)
+    const filtered = data.filter(item => item.title.toLowerCase().includes(searchInput.toLowerCase()));
+    setFilteredData(filtered)
   }
 
   return (
@@ -64,23 +59,18 @@ export default function App() {
         <div>
 
           <input
-            style={{
-              padding: "1rem",
-              margin: "1rem",
-              width: "300px",
-              borderRadius: "10px",
-            }}
+            className='search-input' 
             type="text"
             placeholder='Search'
             value={searchInput}
-            onInput={e => setSearchInput(e.target.value)} />
+            onChange={handleSearch} />
         </div>
-        <SnippetList
-          data={data}
+
+        {filteredData.length === 0 && searchInput.length > 0 ? <h1 style={{ color: "#fff" }}>No results were found with: {searchInput}</h1> : <SnippetList
+          data={filteredData.length === 0 || searchInput === '' ? data : filteredData}
           snippetId={snippetId}
-          handleCopyButton={handleCopyButton}
           isCopied={isCopied}
-        />
+        />}
       </div>
       {/* Add a footer here add some map or info */}
     </>
