@@ -1,15 +1,13 @@
-import React from 'react'
-import { colorGenerator } from '../../js/color.js'
+import React from 'react';
+import { colorGenerator } from '../../js/color.js';
+import { Link } from 'react-router';
 export default function SnippetCard({ snippet }) {
 
-  const handleClick = () => {
-    console.log("view full page");
-    
-    
-  }
+
   return (
+    <Link to={`/view/${snippet.id}`} style={{textDecoration:"none"}}>
+
     <div
-    onClick={handleClick}
       className='card'
       key={snippet.id}
       style={{
@@ -44,5 +42,6 @@ export default function SnippetCard({ snippet }) {
         </span>
       </div>
     </div>
+    </Link>
   )
 }

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import SnippetList from './Snippets/SnippetList.jsx'
-import { getData } from '../js/data'
-import searchIcon from '../assets/search.png'
+import { getData } from '../../js/data.js'
+import SnippetList from '../SnippetHelper/SnippetList.jsx'
 
 export default function App() {
 
   const [data, setData] = useState([])
   const [filteredData, setFilteredData] = useState([])
-  const [isCopied, setIsCopied] = useState(false)
   const [snippetId, setSnippetId] = useState(null)
   const [searchInput, setSearchInput] = useState('')
 
@@ -21,17 +19,6 @@ export default function App() {
     fetchData()
 
   }, []);
-
-  // if copied ||true reset after 3000 of text
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsCopied(false)
-      setSnippetId(null)
-      return () => clearTimeout(timer)
-    }, 3000)
-  }, [isCopied])
-
-
 
   if (!data || data.length === 0) {
     return (
@@ -59,7 +46,7 @@ export default function App() {
         <div>
 
           <input
-            className='search-input' 
+            className='search-input'
             type="text"
             placeholder='Search'
             value={searchInput}
