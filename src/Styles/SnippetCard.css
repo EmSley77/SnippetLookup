@@ -1,0 +1,48 @@
+.snippet-card-link {
+    text-decoration: none;
+}
+
+.snippet-card {
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #fff;
+    border: 2px solid #5a5e7a;
+    padding: 16px;
+    margin: 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.snippet-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.snippet-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.snippet-title {
+    height: 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.snippet-language {
+    height: 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.snippet-user {
+    flex: 1;
+    font-size: 1rem;
+    color: #666;
+}
