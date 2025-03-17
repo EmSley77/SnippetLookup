@@ -9,7 +9,7 @@ export default function App() {
   const [searchInput, setSearchInput] = useState("");
   const [category, setCategory] = useState("");
 
-  //fetch data
+  //fetch snippet data
   useEffect(() => {
     const fetchData = async () => {
       const newData = await getData();
