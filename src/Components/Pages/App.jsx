@@ -53,6 +53,7 @@ export default function App() {
 
           <input
             onChange={e => setSearchInput(e.target.value)}
+            value={searchInput}
             className='search-input'
             type="text"
             placeholder='Search'
@@ -60,6 +61,7 @@ export default function App() {
 
           <select
             onChange={e => setCategory(e.target.value)}
+            value={category}
             style={{
               padding: "10px",
               borderRadius: "10px",
