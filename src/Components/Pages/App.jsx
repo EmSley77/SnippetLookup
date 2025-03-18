@@ -22,29 +22,16 @@ export default function App() {
   useEffect(() => {
 
     let filtered = data
-    //TODO: search method not working
     if (searchInput) {
-      filtered = data.filter(item => item.title.toLowerCase().includes(searchInput.toLowerCase()));
+      filtered = filtered.filter(item => item.title?.toLowerCase().includes(searchInput.toLowerCase()));
     }
 
     if (category) {
-      filtered = data.filter(item => item.language.toLowerCase() === category.toLowerCase());
+      filtered = filtered.filter(item => item.language?.toLowerCase() === category.toLowerCase());
     }
 
     setFilteredData(filtered)
   }, [data, category, searchInput])
-
-  const handleSelect = (e) => {
-    const c = e.target.value
-    setCategory(c)
-  }
-
-  const handleSearch = (e) => {
-    const s = e.target.value
-    setSearchInput(s)
-  }
-
-
 
   if (!data || data.length === 0) {
     return (
@@ -65,14 +52,14 @@ export default function App() {
         <div>
 
           <input
-            onChange={handleSearch}
+            onChange={e => setSearchInput(e.target.value)}
             className='search-input'
             type="text"
             placeholder='Search'
           />
 
           <select
-            onChange={handleSelect}
+            onChange={e => setCategory(e.target.value)}
             style={{
               padding: "10px",
               borderRadius: "10px",
@@ -108,7 +95,7 @@ export default function App() {
 
         </div>
 
-        {filteredData.length === 0 || searchInput.length > 0 ? <h1 style={{ color: "#fff" }}>No results were found with: {searchInput || category}</h1> : <SnippetList
+        {filteredData.length === 0 && searchInput.length > 0 ? <h1 style={{ color: "#fff" }}>No results were found with: {searchInput || category}</h1> : <SnippetList
           data={filteredData}
 
         />}
