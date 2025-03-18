@@ -14,25 +14,36 @@ export default function App() {
     const fetchData = async () => {
       const newData = await getData();
       setData(newData)
-      setFilteredData(newData)
     }
     fetchData()
 
   }, []);
 
   useEffect(() => {
+
     let filtered = data
+    //TODO: search method not working
     if (searchInput) {
-      filtered = filtered.filter(item => item.title.toLowerCase().includes(searchInput.toLowerCase()));
+      filtered = data.filter(item => item.title.toLowerCase().includes(searchInput.toLowerCase()));
     }
 
     if (category) {
-      filtered = filtered.filter(item => item.language.toLowerCase() === category.toLowerCase());
+      filtered = data.filter(item => item.language.toLowerCase() === category.toLowerCase());
     }
-
 
     setFilteredData(filtered)
   }, [data, category, searchInput])
+
+  const handleSelect = (e) => {
+    const c = e.target.value
+    setCategory(c)
+  }
+
+  const handleSearch = (e) => {
+    const s = e.target.value
+    setSearchInput(s)
+  }
+
 
 
   if (!data || data.length === 0) {
@@ -54,13 +65,14 @@ export default function App() {
         <div>
 
           <input
+            onChange={handleSearch}
             className='search-input'
             type="text"
             placeholder='Search'
-            onChange={e => setSearchInput(e.target.value)} />
+          />
 
           <select
-            onChange={e => setCategory(e.target.value)}
+            onChange={handleSelect}
             style={{
               padding: "10px",
               borderRadius: "10px",
