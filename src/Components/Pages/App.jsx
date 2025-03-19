@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../../js/data.js'
 import SnippetList from '../SnippetHelper/SnippetList.jsx'
+import Header from '../Shared/Header.jsx';
 
 export default function App() {
 
@@ -41,7 +42,7 @@ export default function App() {
 
   return (
     <>
-      {/* Add a header here */}
+      <Header/>
       <div
         style={{
           display: "flex",
@@ -97,10 +98,9 @@ export default function App() {
 
         </div>
 
-        {filteredData.length === 0 && searchInput.length > 0 ? <h1 style={{ color: "#fff" }}>No results were found with: {searchInput || category}</h1> : <SnippetList
-          data={filteredData}
+        {filteredData.length === 0 && searchInput.length > 0 ? <h1 style={{ color: "#fff" }}>No results were found with: {searchInput || category}</h1> : <SnippetList 
+          data={filteredData} />}
 
-        />}
       </div>
       {/* Add a footer here add some map or info */}
     </>
