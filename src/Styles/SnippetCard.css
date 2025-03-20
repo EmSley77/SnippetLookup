@@ -44,12 +44,16 @@
     border-radius: 50em;
 }
 
-.card .footer {
+.card .card-footer {
     font-weight: 600;
     color: #717171;
     margin-right: 4px;
 }
 
 .card:hover {
-    transform: translate(-4px);
+    transform: translateY(-7px);
+}
+
+.snippet-card-link {
+    text-decoration: none;
 }

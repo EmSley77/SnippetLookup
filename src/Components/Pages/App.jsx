@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getData } from '../../js/data.js'
 import SnippetList from '../SnippetHelper/SnippetList.jsx'
 import Header from '../Shared/Header.jsx';
+import Footer from '../Shared/Footer.jsx';
 
 export default function App() {
 
@@ -16,7 +17,7 @@ export default function App() {
       const newData = await getData();
       setData(newData)
     }
-    fetchData()
+    fetchData();
 
   }, []);
 
@@ -36,7 +37,7 @@ export default function App() {
 
   if (!data || data.length === 0) {
     return (
-      <div><h2>No snippets available</h2></div>
+      <div><h2 style={{color:"#fff"}}>No snippets available</h2></div>
     )
   }
 
@@ -98,11 +99,14 @@ export default function App() {
 
         </div>
 
+            <div>
+              <h2 style={{color:"#fff"}}>found {filteredData.length} snippets</h2>
+            </div>
         {filteredData.length === 0 && searchInput.length > 0 ? <h1 style={{ color: "#fff" }}>No results were found with: {searchInput || category}</h1> : <SnippetList 
           data={filteredData} />}
 
       </div>
-      {/* Add a footer here add some map or info */}
+      <Footer />
     </>
   )
 }

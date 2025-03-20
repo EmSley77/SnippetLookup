@@ -1,0 +1,30 @@
+.header-link {
+    transition: 0.6s ease-out;
+    text-decoration: none;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    padding: 0 2rem;
+    border-radius: 1.5rem;
+    background: #3d3a4e;
+    background-size: 400%;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+
+}
+
+
+.header-link:active {
+    transform: translateY(4px);
+}
+
+.active {
+background-color: #fff;
+    color: #333;
+    
+}

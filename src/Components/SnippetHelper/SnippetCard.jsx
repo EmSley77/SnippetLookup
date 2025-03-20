@@ -13,10 +13,9 @@ export default function SnippetCard({ snippet }) {
           <p className="heading">{snippet.description}</p>
           <div className="categories">
             <span>{snippet.language}</span>
-       
           </div>
         </div>
-        <div className="footer">
+        <div className="card-footer">
           by {snippet.user}
         </div>
       </div>
