@@ -17,6 +17,7 @@ export default function SnippetList({ data }) {
         style={{
           marginTop: "3em",
           display: "grid",
+          gap:"2rem",
           gridTemplateColumns: "repeat(3, 1fr)",
         }}>
 
