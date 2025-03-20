@@ -1,48 +1,55 @@
-.snippet-card-link {
-    text-decoration: none;
-}
-
-.snippet-card {
-    width: 450px;
+.card {
+    width: 320px;
+    height: 350px;
+    padding: 1.3rem;
+    color: white;
+    background: linear-gradient(#212121, #212121) padding-box,
+        linear-gradient(145deg, transparent 35%, #e81cff, #40c9ff) border-box;
+    border: 2px solid transparent;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    background: #fff;
-    border: 2px solid #5a5e7a;
-    padding: 16px;
-    margin: 12px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    transform-origin: right bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
-.snippet-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+.card .main-content {
+    flex: 1;
 }
 
-.snippet-card-content {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.card .header span:first-child {
+    font-weight: 600;
+    color: #717171;
+    margin-right: 4px;
 }
 
-.snippet-title {
-    height: 2rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-}
-
-.snippet-language {
-    height: 2rem;
-    font-size: 1.2rem;
+.card .heading {
+    font-size: 24px;
+    margin: 24px 0 16px;
     font-weight: 600;
 }
 
-.snippet-user {
-    flex: 1;
-    font-size: 1rem;
-    color: #666;
+.card .categories {
+    display: flex;
+    gap: 8px;
+}
+
+.card .categories span {
+    background-color: #e81cff;
+    padding: 4px 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    border-radius: 50em;
+}
+
+.card .footer {
+    font-weight: 600;
+    color: #717171;
+    margin-right: 4px;
+}
+
+.card:hover {
+    transform: translate(-4px);
 }
