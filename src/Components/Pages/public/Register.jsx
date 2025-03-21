@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import React from 'react'
-import { supabaseClient } from '../../Helper/supabase-helper'
+import { supabaseClient } from '../../../Helper/supabase-helper'
 import { Link } from 'react-router'
 
 export default function Register() {
@@ -62,22 +62,24 @@ export default function Register() {
                     alignItems: "center",
                     height: "100vh"
                 }}>
+                <div>
+                    <h1 style={{ color: "#fff" }}>Register</h1>
+                </div>
                 <form className="form" onSubmit={handleRegisterSubmit}>
 
-                    <label htmlFor='email'>Email</label>
+
                     <input
                         required={true}
-                        id='email'
+
                         type="email"
                         placeholder='email'
                         autoComplete='off'
                         onChange={e => setEmail(e.target.value)}
                     />
 
-                    <label htmlFor='password'>Password</label>
+
                     <input
                         required={true}
-                        id='password'
                         type="password"
                         placeholder='password'
                         autoComplete='off'

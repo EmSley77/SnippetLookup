@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { supabaseClient } from '../../Helper/supabase-helper.js'
+import { supabaseClient } from '../../../Helper/supabase-helper.js'
 import { Navigate } from 'react-router'
 export default function Wrapper({ children }) {
     const [authenticated, setAuthenticated] = useState(false)

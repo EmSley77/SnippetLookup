@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router'
-import { supabaseClient } from '../../Helper/supabase-helper';
+import { supabaseClient } from '../../../Helper/supabase-helper';
 export default function ResetPassword() {
 
     const [email, setEmail] = useState('')

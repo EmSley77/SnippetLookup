@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
-import { supabaseClient } from '../../Helper/supabase-helper.js'
-import '../../Styles/login.css'
+import { supabaseClient } from '../../../Helper/supabase-helper.js'
+import '../../../Styles/login.css'
 
 export default function Login() {
 
@@ -59,22 +59,22 @@ export default function Login() {
                     alignItems: "center",
                     height: "100vh"
                 }}>
+                    <div>
+                        <h1 style={{color:"#fff"}}>Login</h1>
+                    </div>
                 <form className="form" onSubmit={handleLoginSubmit}>
 
-                    <label htmlFor='email'>Email</label>
+                   
                     <input
                         required={true}
-                        id='email'
                         type="email"
                         placeholder='email'
                         autoComplete='off'
                         onChange={e => setEmail(e.target.value)}
                     />
 
-                    <label htmlFor='password'>Password</label>
                     <input
                         required={true}
-                        id='password'
                         type="password"
                         placeholder='password'
                         autoComplete='off'
