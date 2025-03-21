@@ -10,7 +10,7 @@ export default function PasswordUpdate() {
     const handleResetPasswordSubmit = async (e) => {
         e.preventDefault();
 
-        if(rePassword === password) {
+        if (rePassword === password) {
             setMessage("Passwords dont match")
             return;
         }
@@ -23,6 +23,27 @@ export default function PasswordUpdate() {
         }
 
     }
+
+    useEffect(() => {
+        if (message) {
+            const timer = setTimeout(() => {
+                setMessage("")
+
+            }, 3000)
+            return () => clearTimeout(timer)
+        }
+    }, [message])
+
+    useEffect(() => {
+        if (message) {
+            const timer = setTimeout(() => {
+                setMessage("")
+
+            }, 3000)
+            return () => clearTimeout(timer)
+        }
+    }, [message])
+
     return (
         <>
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh" }}>
@@ -55,8 +76,8 @@ export default function PasswordUpdate() {
                     <button type="submit">Submit</button>
 
 
-                    <Link to={"/"} style={{ color: "var(--clr)", }}>
-                        Login
+                    <Link to={"/reset-password"} style={{ color: "var(--clr)", }}>
+                        Return
                     </Link>
                 </form>
             </div>

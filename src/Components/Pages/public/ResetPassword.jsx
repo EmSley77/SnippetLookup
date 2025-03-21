@@ -42,7 +42,7 @@ export default function ResetPassword() {
 
 
                     <Link to={"/"} style={{ color: "var(--clr)", }}>
-                        Login
+                        Return
                     </Link>
                 </form>
             </div>

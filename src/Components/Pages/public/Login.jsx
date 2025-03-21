@@ -59,12 +59,12 @@ export default function Login() {
                     alignItems: "center",
                     height: "100vh"
                 }}>
-                    <div>
-                        <h1 style={{color:"#fff"}}>Login</h1>
-                    </div>
+                <div>
+                    <h1 style={{ color: "#fff" }}>Login</h1>
+                </div>
                 <form className="form" onSubmit={handleLoginSubmit}>
 
-                   
+
                     <input
                         required={true}
                         type="email"
@@ -88,10 +88,10 @@ export default function Login() {
                     <button type="submit">Sign in</button>
 
 
-                    <Link to={"/register"} style={{ color: "#fff", textDecoration: "none" }}>
-                        Don't have an account? Sign up
+                    <Link to={"/register"} style={{ color: "var(--clr)", textDecoration: "none" }}>
+                        Don't have an account? 
                     </Link>
-                    <Link to={"/reset-password"} style={{ color: "#58bc82" }}>Forgot password?</Link>
+                    <Link to={"/reset-password"} style={{ color: "var(--clr)" }}>Forgot password?</Link>
                 </form>
 
             </div>

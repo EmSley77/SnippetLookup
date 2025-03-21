@@ -90,7 +90,7 @@ export default function Register() {
 
                     <button type="submit">Register</button>
 
-                    <Link to={"/"} style={{ color: "#fff", textDecoration: "none" }}>
+                    <Link to={"/"} style={{ color: "var(--clr)", textDecoration: "none" }}>
                         Already have an account? Sign in
                     </Link>
                 </form>
