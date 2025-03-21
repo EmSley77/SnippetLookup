@@ -66,6 +66,7 @@ export default function Register() {
 
                     <label htmlFor='email'>Email</label>
                     <input
+                        required={true}
                         id='email'
                         type="email"
                         placeholder='email'
@@ -75,6 +76,7 @@ export default function Register() {
 
                     <label htmlFor='password'>Password</label>
                     <input
+                        required={true}
                         id='password'
                         type="password"
                         placeholder='password'
@@ -84,7 +86,8 @@ export default function Register() {
 
                     {message && <span style={{ color: "#fff;", fontWeight: "700" }}>{message}</span>}
 
-                    <button type="submit"  >register</button>
+                    <button type="submit">Register</button>
+
                     <Link to={"/"} style={{ color: "#fff", textDecoration: "none" }}>
                         Already have an account? Sign in
                     </Link>

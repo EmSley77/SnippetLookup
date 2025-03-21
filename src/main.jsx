@@ -8,12 +8,14 @@ import Snippet from './Components/Pages/Snippet.jsx'
 import Error from './Components/Pages/Error.jsx'
 import Register from './Components/Pages/Register.jsx'
 import Wrapper from './Components/Pages/Wrapper.jsx'
+import ResetPassword from './Components/Pages/ResetPassword.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
 
       <Route path="/home"
         element={

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
-import { supabaseClient } from '../../Helper/supabase-helper'
+import { supabaseClient } from '../../Helper/supabase-helper.js'
 import '../../Styles/login.css'
 
 export default function Login() {
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
@@ -19,20 +20,25 @@ export default function Login() {
             password: password
         })
 
+
+
+
         if (data) {
             naviagte("/home")
             return null
         }
 
         if (error) {
-            setMessage(error.message)
+            setMessage("invalid login credentials")
             setEmail('')
             setPassword('')
             return
         }
 
-  
+
     }
+
+    //clear message
     useEffect(() => {
         if (message) {
             const timer = setTimeout(() => {
@@ -57,6 +63,7 @@ export default function Login() {
 
                     <label htmlFor='email'>Email</label>
                     <input
+                        required={true}
                         id='email'
                         type="email"
                         placeholder='email'
@@ -66,6 +73,7 @@ export default function Login() {
 
                     <label htmlFor='password'>Password</label>
                     <input
+                        required={true}
                         id='password'
                         type="password"
                         placeholder='password'
@@ -74,15 +82,16 @@ export default function Login() {
                     />
 
 
-                    <Link to={"/"} style={{ color: "#58bc82" }}>Forgot password?</Link>
 
                     {message && <span style={{ color: "#fff", fontWeight: "700" }}>{message}</span>}
 
-                    <button type="submit"  >Sign in</button>
+                    <button type="submit">Sign in</button>
+
 
                     <Link to={"/register"} style={{ color: "#fff", textDecoration: "none" }}>
                         Don't have an account? Sign up
                     </Link>
+                    <Link to={"/reset-password"} style={{ color: "#58bc82" }}>Forgot password?</Link>
                 </form>
 
             </div>
