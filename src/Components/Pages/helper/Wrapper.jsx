@@ -25,6 +25,6 @@ export default function Wrapper({ children }) {
         return <>{children}</>
     }
     return (
-        <Navigate to={"/"} />
+        <Navigate to={"/"}/>
     )
 }

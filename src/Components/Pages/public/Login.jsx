@@ -14,14 +14,10 @@ export default function Login() {
     const handleLoginSubmit = async (e) => {
         e.preventDefault()
 
-
         let { data, error } = await supabaseClient.auth.signInWithPassword({
             email: email,
             password: password
         })
-
-
-
 
         if (data) {
             naviagte("/home")
@@ -34,7 +30,6 @@ export default function Login() {
             setPassword('')
             return
         }
-
 
     }
 
@@ -89,7 +84,7 @@ export default function Login() {
 
 
                     <Link to={"/register"} style={{ color: "var(--clr)", textDecoration: "none" }}>
-                        Don't have an account? 
+                        Don't have an account?
                     </Link>
                     <Link to={"/reset-password"} style={{ color: "var(--clr)" }}>Forgot password?</Link>
                 </form>

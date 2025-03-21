@@ -31,7 +31,7 @@ createRoot(document.getElementById('root')).render(
           </Wrapper>}
       />
 
-      <Route path='/account/:id'
+      <Route path='/account'
         element={
           <Wrapper>
             <Account />
@@ -44,5 +44,5 @@ createRoot(document.getElementById('root')).render(
           </Wrapper>}
       />
     </Routes>
-  </BrowserRouter>,
+  </BrowserRouter>
 )

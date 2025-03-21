@@ -12,10 +12,6 @@ export default function Snippet() {
   const [snippet, setSnippet] = useState({})
   const [isCopied, setIsCopied] = useState(false)
 
-  //retrieve te snippetid from the url params
-  console.log(param.snippetid);
-  console.log(snippet);
-
   // if copied ||true reset after 3000 of text
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -51,7 +47,7 @@ export default function Snippet() {
             )}
           </button>
         </pre>
-        <Link className="return-link" to={"/"}>
+        <Link className="return-link" to={"/home"}>
           Return
         </Link>
       </div>

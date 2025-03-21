@@ -40,17 +40,19 @@ export default function App() {
       <div><h2 style={{color:"#fff"}}>No snippets available</h2></div>
     )
   }
-
+  
   return (
     <>
-      <Header/>
+    <Header />
       <div
         style={{
+      
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center"
         }}>
+
         <div>
 
           <input
@@ -64,11 +66,7 @@ export default function App() {
           <select
             onChange={e => setCategory(e.target.value)}
             value={category}
-            style={{
-              padding: "10px",
-              borderRadius: "10px",
-              border: "none"
-            }}>
+            >
             <option value="">All</option>
             <optgroup label="Frontend">
               <option value="javascript">JavaScript</option>
