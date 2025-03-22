@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import Home from './Components/Pages/Home.jsx'
+import Saved from './Components/Pages/Saved.jsx'
 import Login from './Components/Pages/public/Login.jsx'
 import Account from './Components/Pages/Account.jsx'
 import Snippet from './Components/Pages/Snippet.jsx'
@@ -35,6 +36,13 @@ createRoot(document.getElementById('root')).render(
         element={
           <Wrapper>
             <Account />
+          </Wrapper>}
+      />
+
+      <Route path='/saved'
+        element={
+          <Wrapper>
+            <Saved />
           </Wrapper>}
       />
       <Route path='*'

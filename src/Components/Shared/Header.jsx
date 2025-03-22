@@ -1,6 +1,6 @@
 import { supabaseClient } from '../../Helper/supabase-helper.js'
 import React from 'react'
-import { NavLink, useNavigate } from 'react-router'
+import { Link, NavLink, useNavigate } from 'react-router'
 import '../../Styles/header.css'
 
 
@@ -20,11 +20,10 @@ export default function Header() {
       justifyContent: "space-around",
       background: "linear-gradient(to right, #390057, #650399, #b803b8, #ff00ff)",
     }}>
-      <NavLink className='header-link' onClick={handleLogOut}>Logout</NavLink>
+      <Link className='header-link' onClick={handleLogOut}>Logout</Link>
       <NavLink className='header-link' to={"/home"}>Home</NavLink>
       <NavLink className='header-link' to={`/account`}>Account</NavLink>
-      {/*    <NavLink className='header-link'>Liked</NavLink>
-          <NavLink className='header-link'>Account</NavLink> */}
+      <NavLink className='header-link' to={"/saved"}>Saved</NavLink>
     </div>
   )
 }

@@ -25,7 +25,7 @@ export default function Login() {
         }
 
         if (error) {
-            setMessage("invalid login credentials")
+            setMessage(error.message)
             setEmail('')
             setPassword('')
             return

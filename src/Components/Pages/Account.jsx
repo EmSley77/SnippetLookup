@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { response } from '../../Helper/user-metadata.js';
+import { userDetails } from '../../Helper/user-metadata.js';
 import { createSnippet } from '../../Helper/snippet-helper.js';
 import Header from '../Shared/Header';
 import '../../Styles/account.css'
 
 export default function Account() {
+
 
   const [title, setTitle] = useState('')
   const [isPrivate, setIsPrivate] = useState(false)
@@ -13,7 +14,6 @@ export default function Account() {
   const [code, setCode] = useState('')
   const [message, setMessage] = useState('')
 
-  const user = response.data.user.user_metadata;
 
   const formatCreatedDate = (createdDate) => {
     return new Date(createdDate).toLocaleDateString()
@@ -52,8 +52,8 @@ export default function Account() {
       language: language,
       description: description,
       code: code,
-      username: user.display_username,
-      userId: response.data.user.id
+      username: userDetails.user_metadata.display_username,
+      userId: userDetails.id
 
     }
 
@@ -85,10 +85,10 @@ export default function Account() {
           <div className='account-info-container'>
             <h2>My Information</h2>
             <hr />
-            <h3><strong>Username:</strong> {user.display_username}</h3>
-            <h3><strong>Email:</strong> {user.email}</h3>
-            <h3><strong>Preferred language:</strong> {user.preferred_language}</h3>
-            <h3><strong>Created account:</strong> {formatCreatedDate(response.data.user.created_at)}</h3>
+            <h3><strong>Username:</strong> {userDetails.user_metadata.display_username}</h3>
+            <h3><strong>Email:</strong> {userDetails.email}</h3>
+            <h3><strong>Preferred language:</strong> {userDetails.user_metadata.preferred_language}</h3>
+            <h3><strong>Created account:</strong> {formatCreatedDate(userDetails.created_at)}</h3>
             <hr />
           </div>
 

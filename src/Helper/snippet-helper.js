@@ -5,6 +5,8 @@ export {
     getSnippets,
     getSnippetById,
     getSnippetsWithPagination,
+    saveSnippet,
+    getSaved,
 };
 
 //get all public snippets
@@ -46,19 +48,19 @@ async function getSnippetsWithPagination(setData) {
 }
 
 //get snippet by id
-async function getSnippetById(id, setSnippet) {
+async function getSnippetById(snippetId, setSnippet) {
     const { data, error } = await supabaseClient
         .from("snippets")
         .select("*")
-        .eq("id", id);
-
-    if (data) {
-        setSnippet(data[0]);
-        return;
-    }
+        .eq("id", snippetId);
 
     if (error) {
         setSnippet({});
+        return;
+    }
+
+    if (data) {
+        setSnippet(data[0]);
         return;
     }
 }
@@ -70,15 +72,70 @@ async function getUserSnippets(userId, setSnippets) {
         .select("*")
         .eq("user_id", userId);
 
-    if (data) {
-        setSnippets(data);
-        return;
-    }
-
     if (error) {
         setSnippets([]);
         return;
     }
+
+    setSnippets(data);
+}
+
+//get snippet by id saved
+//! get by id still little
+async function getSavedSnippetById(snippetId) {
+    const { data, error } = await supabaseClient
+        .from("snippets")
+        .select("*")
+        .eq("id", snippetId)
+        
+
+    if (error) {
+        console.error(error.message);
+        return;
+    }
+
+    if (data) {
+        console.log(data);
+        return data;
+    }
+}
+
+//get saved snippets by user-id
+//!works
+async function getSavedSnippets(userId) {
+    const { data, error } = await supabaseClient
+        .from("saved")
+        .select("*")
+        .eq("user_id", userId);
+
+    if (error) {
+        console.error(error.message);
+        return;
+    }
+
+    if (data && data.length > 0) {
+        return data;
+    }
+}
+
+//get snippet by id saved
+async function getSaved(params) {
+    const savedlist = await getSavedSnippets(params.userId);
+
+    console.log("savedlisr", savedlist);
+
+    if (savedlist.length > 0) {
+        const results = await Promise.all(
+            savedlist.map(async (item) => {                
+                return await getSavedSnippetById(item.snippet_id);
+            })
+        );
+
+        console.log(results.flat());
+        return results;
+    }
+
+    return [];
 }
 
 //fetch comments by snippet id
@@ -104,13 +161,60 @@ async function createSnippet(body, setMessage) {
         ])
         .select();
 
-    if (data) {
-        setMessage("Snippet has been created successfully");
+    if (error) {
+        setMessage(error.message);
         return;
     }
 
+    if (data && data.length > 0) {
+        setMessage("Snippet has been created successfully");
+    } else {
+        setMessage("Failed to create snippet");
+    }
+}
+
+//check snippet by snippet ID and user ID
+async function checkSaved(params) {
+    const { data, error } = await supabaseClient
+        .from("saved")
+        .select("*")
+        .eq("snippet_id", params.snippetId)
+        .eq("user_id", params.userId);
+
     if (error) {
-        setMessage(error.message);
+        params.setMessage("Something went wrong when checking saved snippets");
+        return false;
+    }
+
+    return data.length > 0; // Returns true if snippet is already saved
+}
+
+//save snippet to liked
+async function saveSnippet(params) {
+    const isSaved = await checkSaved(params);
+
+    if (isSaved) {
+        params.setMessage("Already saved This snippet");
+        return;
+    }
+
+    const { data, error } = await supabaseClient
+        .from("saved")
+        .insert([
+            {
+                user_id: params.userId,
+                snippet_id: params.snippetId,
+            },
+        ])
+        .select();
+
+    if (error) {
+        params.setMessage(error.message);
+        return;
+    }
+
+    if (data && data.length > 0) {
+        params.setMessage("Snippet has been saved");
         return;
     }
 }
