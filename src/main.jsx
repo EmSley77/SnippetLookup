@@ -45,6 +45,13 @@ createRoot(document.getElementById('root')).render(
             <Saved />
           </Wrapper>}
       />
+
+      <Route path='/saved'
+        element={
+          <Wrapper>
+            <Saved />
+          </Wrapper>}
+      />
       <Route path='*'
         element={
           <Wrapper>
