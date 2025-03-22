@@ -49,21 +49,21 @@ export default function SavedCard({ snippet }) {
                     {snippet.code}
                 </pre>
 
-                {message && <span>{message}</span>}
             </div>
             <div className="card-footer">
+                <button onClick={handleDelete}
+                    style={{
+                        padding: "10px",
+                        width: "fit-content",
+                        background: "var(--bg-dark)",
+                        marginTop: "10px",
+                        marginBottom: "10px"
+                    }}>
+                    delete
+                </button>
                 <span>@{snippet.username}</span>
             </div>
-            <button onClick={handleDelete}
-                style={{
-                    padding: "10px",
-                    width: "fit-content",
-                    background: "var(--bg-dark)",
-                    marginTop: "10px",
-                    marginBottom: "10px"
-                }}>
-                delete
-            </button>
+            {message && <span>{message}</span>}
         </div>
 
 
