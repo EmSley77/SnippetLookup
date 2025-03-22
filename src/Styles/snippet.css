@@ -10,7 +10,6 @@
     border-radius: 20px;
     padding: 5px;
     box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-    background-color: #333;
 
     /* Dark background */
     background-blend-mode: darken;
@@ -50,10 +49,10 @@
     flex-direction: column;
     color: var(--clr);
     justify-content: flex-start;
-
+    background-color: var(--bg-color);
     padding: 1.5rem;
     font-size: 1.3rem;
-    background-color: var(--bg);
+
     word-wrap: break-word;
     word-break: break-word;
     white-space: pre-wrap;

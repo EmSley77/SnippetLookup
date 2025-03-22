@@ -1,7 +1,7 @@
 import React from 'react'
-import SnippetCard from './SnippetCard.jsx'
+import HomeCard from './HomeCard.jsx'
 
-export default function SnippetList({ data }) {
+export default function HomeList({ data }) {
   return (
     <div
       style={{
@@ -22,7 +22,7 @@ export default function SnippetList({ data }) {
         }}>
 
         {data.map((snippet) => (
-          <SnippetCard
+          <HomeCard
             key={snippet.id}
             snippet={snippet}
           />

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { getData } from '../../js/data.js'
-import { getSnippets } from '../../Helper/snippet-helper.js'
-import SnippetList from '../SnippetHelper/SnippetList.jsx'
-import Header from '../Shared/Header.jsx';
+import React, { useEffect, useState } from 'react';
+import { getSnippets } from '../../service/snippet-helper.js';
 import Footer from '../Shared/Footer.jsx';
+import Header from '../Shared/Header.jsx';
+import HomeList from './HomeList.jsx';
 
 export default function App() {
 
@@ -102,7 +101,7 @@ export default function App() {
         <div>
           <h2 style={{ color: "#fff" }}>found {filteredData.length} snippets</h2>
         </div>
-        {filteredData.length === 0 && searchInput.length > 0 ? <h1 style={{ color: "#fff" }}>No results were found with: {searchInput || category}</h1> : <SnippetList
+        {filteredData.length === 0 && searchInput.length > 0 ? <h1 style={{ color: "#fff" }}>No results were found with: {searchInput || category}</h1> : <HomeList
           data={filteredData} />}
 
       </div>

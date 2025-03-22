@@ -1,7 +1,6 @@
-import { useState, useEffect, use } from 'react'
-import React from 'react'
-import { supabaseClient } from '../../../Helper/supabase-helper'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router'
+import { supabaseClient } from '../../service/supabase-helper.js'
 
 export default function Register() {
     const [firstname, setFirstname] = useState('')

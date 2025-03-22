@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
-import { supabaseClient } from '../../../Helper/supabase-helper.js'
-import '../../../Styles/login.css'
+import { supabaseClient } from '../../service/supabase-helper.js'
+import '../../styles/login.css'
 
 export default function Login() {
 
@@ -25,7 +25,7 @@ export default function Login() {
         }
 
         if (error) {
-            setMessage("invalid login credentials")
+            setMessage(error.message)
             setEmail('')
             setPassword('')
             return

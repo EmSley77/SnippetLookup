@@ -1,14 +1,15 @@
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router'
-import Home from './Components/Pages/Home.jsx'
-import Login from './Components/Pages/public/Login.jsx'
+import Home from './Components/home/Home.jsx'
+import Saved from './Components/saved//Saved.jsx'
+import Login from './Components/public/Login.jsx'
 import Account from './Components/Pages/Account.jsx'
 import Snippet from './Components/Pages/Snippet.jsx'
 import Error from './Components/Pages/Error.jsx'
-import Register from './Components/Pages/public/Register.jsx'
-import Wrapper from './Components/Pages/helper/Wrapper.jsx'
-import ResetPassword from './Components/Pages/public/ResetPassword.jsx'
-import './Styles/main.css'
+import Register from './Components/public/Register.jsx'
+import Wrapper from './Components/helper/Wrapper.jsx'
+import ResetPassword from './Components/public/ResetPassword.jsx'
+import './styles/main.css'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -35,6 +36,13 @@ createRoot(document.getElementById('root')).render(
         element={
           <Wrapper>
             <Account />
+          </Wrapper>}
+      />
+
+      <Route path='/saved'
+        element={
+          <Wrapper>
+            <Saved />
           </Wrapper>}
       />
       <Route path='*'
