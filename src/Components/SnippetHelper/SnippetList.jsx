@@ -21,9 +21,9 @@ export default function SnippetList({ data }) {
           gridTemplateColumns: "repeat(3, 1fr)",
         }}>
 
-        {data.map((snippet, index) => (
+        {data.map((snippet) => (
           <SnippetCard
-            key={index}
+            key={snippet.id}
             snippet={snippet}
           />
         ))}

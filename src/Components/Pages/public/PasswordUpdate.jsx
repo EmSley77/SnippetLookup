@@ -10,7 +10,7 @@ export default function PasswordUpdate() {
     const handleResetPasswordSubmit = async (e) => {
         e.preventDefault();
 
-        if (rePassword === password) {
+        if (rePassword !== password) {
             setMessage("Passwords dont match")
             return;
         }

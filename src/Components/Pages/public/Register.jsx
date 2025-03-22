@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, use } from 'react'
 import React from 'react'
 import { supabaseClient } from '../../../Helper/supabase-helper'
 import { Link } from 'react-router'
@@ -8,7 +8,7 @@ export default function Register() {
     const [lastname, setLastname] = useState('')
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
-    const [preferredLanguage, setPreferredLanguage] = useState('')
+    const [preferredLanguage, setPreferredLanguage] = useState('Javascript')
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
 
@@ -17,13 +17,18 @@ export default function Register() {
     const handleRegisterSubmit = async (e) => {
         e.preventDefault()
 
+
         let { data, error } = await supabaseClient.auth.signUp({
             email: email,
-            password: password, options: {
-                display_username: username,
-                name: firstname,
-                lastname: lastname,
-                preferred_language: preferredLanguage
+            password: password,
+
+            options: {
+                data: { // must be in options -> data to save  
+                    display_username: username,
+                    name: firstname,
+                    lastname: lastname,
+                    preferred_language: preferredLanguage
+                }
             }
         })
 
@@ -107,6 +112,14 @@ export default function Register() {
                         onChange={e => setEmail(e.target.value)}
                     />
 
+                    <input
+                        required={true}
+                        type="password"
+                        placeholder='password'
+                        autoComplete='off'
+                        onChange={e => setPassword(e.target.value)}
+                    />
+
                     <h3>Choose a preferred language</h3>
                     <select
                         onChange={e => setPreferredLanguage(e.target.value)}
@@ -136,13 +149,7 @@ export default function Register() {
                     </select>
 
 
-                    <input
-                        required={true}
-                        type="password"
-                        placeholder='password'
-                        autoComplete='off'
-                        onChange={e => setPassword(e.target.value)}
-                    />
+
 
                     {message && <span style={{ color: "#fff", fontWeight: "700" }}>{message}</span>}
 

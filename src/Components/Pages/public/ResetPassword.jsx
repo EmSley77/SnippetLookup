@@ -11,7 +11,7 @@ export default function ResetPassword() {
 
         //when depolying this in Netlify or vercel  
         const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-            redirectTo: 'http://example.com/account/update-password',
+            redirectTo: 'http://example.com/account/update-password', // must have a domain and be deployed
         })
 
         if (error) {
@@ -21,13 +21,20 @@ export default function ResetPassword() {
     }
     return (
         <>
-            <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", height:"100vh"}}>
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh"
+                }}>
 
                 <div>
-                    <h1 style={{color:"#fff"}}>Enter your email</h1>
+                    <h1 style={{ color: "#fff" }}>Enter your email</h1>
                 </div>
                 <form className="form" onSubmit={handleResetPasswordSubmit}>
-                    
+
                     <input
                         required={true}
                         type="email"

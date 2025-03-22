@@ -1,9 +1,7 @@
-import React from 'react'
-import { useNavigate } from 'react-router'
-import { NavLink } from 'react-router'
 import { SupabaseClient } from '@supabase/supabase-js'
+import React from 'react'
+import { NavLink, useNavigate } from 'react-router'
 import '../../Styles/header.css'
-import { response } from '../../Helper/user-metadata'
 
 
 export default function Header() {
@@ -11,12 +9,8 @@ export default function Header() {
   const navigate = useNavigate()
   const handleLogOut = async () => {
     let { error } = await SupabaseClient.auth.signOut()
-
     if (error) throw error
-
     navigate("/")
-
-
   }
   return (
     <div style={{

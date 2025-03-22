@@ -7,15 +7,31 @@
 }
 
 .snippet-box {
-    color: var(--text);
-    background: var(--bg-dark);
+    border-radius: 20px;
+    padding: 5px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    background-color: #333;
+
+    /* Dark background */
+    background-blend-mode: darken;
     display: flex;
     flex-direction: column;
-    box-shadow: 1px 2px 3px var(--clr);
-    width: 800px;
     margin: 2rem;
     padding: 2rem;
-    border-radius: 10px;
+
+    /* Linear Gradient Border */
+    border: 10px solid transparent;
+    border-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB) 1;
+    border-radius: 20px;
+}
+
+.copy-code-button {
+    margin: 0;
+    padding: 0;
+    width: fit-content;
+    background-color: transparent;
+    border: none;
+
 }
 
 .description {
@@ -27,20 +43,28 @@
 }
 
 .code-block {
+    border: 10px solid transparent;
+    border-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB) 1;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     color: var(--clr);
     justify-content: flex-start;
-    align-items: flex-start;
+
     padding: 1.5rem;
     font-size: 1.3rem;
-    background-color: #333;
-    border-radius: 10px;
-    box-shadow: 1px 4px 5px #777;
+    background-color: var(--bg);
     word-wrap: break-word;
     word-break: break-word;
     white-space: pre-wrap;
     line-height: 1.9rem;
+}
+
+.code-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .icon {
@@ -50,14 +74,30 @@
 .return-link {
     text-decoration: none;
     padding: 1rem;
-    border: 2px solid #333;
+    border: 2px solid #fff;
     border-radius: 10px;
     width: fit-content;
     transition: 0.6s ease-out;
-    color: #000;
+    color: #fff;
     font-size: 1.3rem;
 }
 
 .return-link:hover {
-    background: #99999989;
+    background: #c8c8c858;
+}
+
+.snippet-card-like-container {
+    align-items: center;
+    margin: 5px;
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+}
+
+.like-btn {
+    padding: 0;
+    margin: 0;
+    width: fit-content;
+    background: transparent;
+
 }

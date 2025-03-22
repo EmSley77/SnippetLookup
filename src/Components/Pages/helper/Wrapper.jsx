@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { supabaseClient } from '../../../Helper/supabase-helper.js'
 import { Navigate } from 'react-router'
+
+
 export default function Wrapper({ children }) {
+
     const [authenticated, setAuthenticated] = useState(false)
     const [loading, setLoading] = useState(true)
 
@@ -11,9 +14,8 @@ export default function Wrapper({ children }) {
             const {
                 data: { session },
             } = await supabaseClient.auth.getSession()
-            //!!null -> false
-            //!!{} -> true
-            setAuthenticated(!!session)
+
+            setAuthenticated(!!session) // force to either true or false
             setLoading(false)
         }
         getSession()
@@ -25,6 +27,6 @@ export default function Wrapper({ children }) {
         return <>{children}</>
     }
     return (
-        <Navigate to={"/"}/>
+        <Navigate to={"/"} />
     )
 }

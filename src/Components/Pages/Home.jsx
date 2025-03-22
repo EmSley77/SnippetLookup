@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../../js/data.js'
+import { getSnippets } from '../../Helper/snippet-helper.js'
 import SnippetList from '../SnippetHelper/SnippetList.jsx'
 import Header from '../Shared/Header.jsx';
 import Footer from '../Shared/Footer.jsx';
@@ -14,8 +15,7 @@ export default function App() {
   //fetch snippet data
   useEffect(() => {
     const fetchData = async () => {
-      const newData = await getData();
-      setData(newData)
+      await getSnippets(setData);
     }
     fetchData();
 
@@ -24,8 +24,10 @@ export default function App() {
   useEffect(() => {
 
     let filtered = data
+
     if (searchInput) {
-      filtered = filtered.filter(item => item.title?.toLowerCase().includes(searchInput.toLowerCase()));
+      filtered = filtered.filter(item => item.title?.toLowerCase().includes(searchInput.toLowerCase()) || item.username?.toLowerCase().includes(searchInput.toLowerCase()));
+
     }
 
     if (category) {
@@ -37,16 +39,16 @@ export default function App() {
 
   if (!data || data.length === 0) {
     return (
-      <div><h2 style={{color:"#fff"}}>No snippets available</h2></div>
+      <div><h2 style={{ color: "#fff" }}>No snippets available</h2></div>
     )
   }
-  
+
   return (
     <>
-    <Header />
+      <Header />
       <div
         style={{
-      
+
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -66,7 +68,7 @@ export default function App() {
           <select
             onChange={e => setCategory(e.target.value)}
             value={category}
-            >
+          >
             <option value="">All</option>
             <optgroup label="Frontend">
               <option value="javascript">JavaScript</option>
@@ -97,10 +99,10 @@ export default function App() {
 
         </div>
 
-            <div>
-              <h2 style={{color:"#fff"}}>found {filteredData.length} snippets</h2>
-            </div>
-        {filteredData.length === 0 && searchInput.length > 0 ? <h1 style={{ color: "#fff" }}>No results were found with: {searchInput || category}</h1> : <SnippetList 
+        <div>
+          <h2 style={{ color: "#fff" }}>found {filteredData.length} snippets</h2>
+        </div>
+        {filteredData.length === 0 && searchInput.length > 0 ? <h1 style={{ color: "#fff" }}>No results were found with: {searchInput || category}</h1> : <SnippetList
           data={filteredData} />}
 
       </div>

@@ -9,11 +9,13 @@
     --comment-color: #637777;
     --string-color: #ecc48d;
 }
-
+* {
+    font-family: "Fira Code", monospace;
+    font-weight: 700;
+}
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: "Fira Code", monospace;
     margin: 0;
     padding: 0;
 }
@@ -31,7 +33,6 @@ button {
 
 button:hover {
     cursor: pointer;
-    background-color: var(--comment-color);
 }
 
 button:active {
@@ -66,6 +67,16 @@ input {
     border-radius: 10px;
 }
 
+textarea {
+    color: #ffffff;
+    background-color: var(--bg-dark);
+    padding: 1rem;
+    width: 300px;
+    margin-bottom: 1.3rem;
+    font-size: 1.3rem;
+    border-radius: 10px;
+}
+
 input:focus {
     border: 2px solid var(--clr);
 }
@@ -79,6 +90,7 @@ select {
     font-weight: 700;
     font-size: 1rem;
     border: 3px solid var(--clr);
+    margin-bottom: 1rem;
 }
 
 select::-webkit-scrollbar {
