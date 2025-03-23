@@ -45,21 +45,15 @@ export default function Login() {
 
     return (
         <>
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100vh"
-                }}>
+            <div className='flex flex-col items-center justify-center h-screen'>
                 <div>
-                    <h1 style={{ color: "#fff" }}>Login</h1>
+                    <h1 >Login</h1>
                 </div>
-                <form className="form" onSubmit={handleLoginSubmit}>
+                <form className="flex flex-col items-center justify-between h-100 p-4 w-150 rounded-xl shadow-lg bg-gray-400" onSubmit={handleLoginSubmit}>
 
 
                     <input
+                    className='bg-gray-200 p-2 rounded-xl border-0 shadow-lg w-full h-15'
                         required={true}
                         type="email"
                         placeholder='email'
@@ -68,6 +62,8 @@ export default function Login() {
                     />
 
                     <input
+                        className='bg-gray-200 p-2 rounded-xl border-0 shadow-lg w-full h-15'
+
                         required={true}
                         type="password"
                         placeholder='password'
@@ -77,15 +73,15 @@ export default function Login() {
 
 
 
-                    {message && <span style={{ color: "#fff", fontWeight: "700" }}>{message}</span>}
+                    {message && <span>{message}</span>}
 
-                    <button type="submit">Sign in</button>
+                    <button className='bg-gray-200 p-2 rounded-xl cursor-pointer hover:bg-gray-300 transition-all shadow-lg' type="submit">Sign in</button>
 
 
-                    <Link to={"/register"} style={{ color: "var(--clr)", textDecoration: "none" }}>
+                    <Link to={"/register"} className='hover:underline'>
                         Don't have an account?
                     </Link>
-                    <Link to={"/reset-password"} style={{ color: "var(--clr)" }}>Forgot password?</Link>
+                    <Link to={"/reset-password"} className='hover:underline'>Forgot password?</Link>
                 </form>
 
             </div>
