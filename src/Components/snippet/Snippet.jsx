@@ -21,7 +21,8 @@ export default function Snippet() {
 
   useEffect(() => {
     const fetchById = async () => {
-      await getSnippetById(param.snippetid, setSnippet)
+      const data = await getSnippetById(param.snippetid)
+      setSnippet(data)
     }
     fetchById()
   }, [param.snippetid])

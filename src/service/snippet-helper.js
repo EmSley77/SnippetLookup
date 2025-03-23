@@ -17,71 +17,68 @@ async function getSnippets(setData) {
         .select("*")
         .eq("is_private", false);
 
-    if (data) {
-        setData(data);
-        return;
-    }
-
     if (error) {
         setData([]);
         return;
+    }
+
+    if (data && data.length > 0) {
+        return data;
     }
 }
 
 //get public paginated
-async function getSnippetsWithPagination(setData) {
+async function getSnippetsWithPagination(page) {
     const { data, error } = await supabaseClient
         .from("snippets")
         .select("*")
         .eq("is_private", false)
-        .range(0, 20);
+        .range(page, 20);
 
-    if (data) {
-        setData(data);
+    if (error) {
+        console.log("no more to get");
         return;
     }
 
-    if (error) {
-        setData([]);
-        return;
+    if (data && data.length > 0) {
+        return data;
     }
 }
 
 //get snippet by id
-async function getSnippetById(snippetId, setSnippet) {
+async function getSnippetById(snippetId) {
     const { data, error } = await supabaseClient
         .from("snippets")
         .select("*")
         .eq("id", snippetId);
 
     if (error) {
-        setSnippet({});
         return;
     }
 
-    if (data) {
-        setSnippet(data[0]);
-        return;
+    if (data && data.length > 0) {
+        console.log(data);
+        return data[0];
     }
 }
 
 //get snippets by user-id
-async function getUserSnippets(userId, setSnippets) {
+async function getUserSnippets(userId) {
     const { data, error } = await supabaseClient
-        .from("snippet")
+        .from("snippets")
         .select("*")
         .eq("user_id", userId);
 
     if (error) {
-        setSnippets([]);
         return;
     }
 
-    setSnippets(data);
+    if (data && data.length > 0) {
+        return data;
+    }
 }
 
 //get snippet by id saved
-//! get by id still little
 async function getSavedSnippetById(snippetId) {
     const { data, error } = await supabaseClient
         .from("snippets")
@@ -98,7 +95,6 @@ async function getSavedSnippetById(snippetId) {
 }
 
 //get saved snippets by user-id
-//!works
 async function getSavedSnippets(userId) {
     const { data, error } = await supabaseClient
         .from("saved")

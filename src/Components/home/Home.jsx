@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getSnippets } from '../../service/snippet-helper.js';
+import { getSnippets, getSnippetsWithPagination } from '../../service/snippet-helper.js';
 import Footer from '../Shared/Footer.jsx';
 import Header from '../Shared/Header.jsx';
 import HomeList from './HomeList.jsx';
@@ -11,17 +11,22 @@ export default function App() {
 
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [page, setPage] = useState(0);
   const [searchInput, setSearchInput] = useState("");
   const [category, setCategory] = useState("");
 
   //fetch snippet data
   useEffect(() => {
     const fetchData = async () => {
-      await getSnippets(setData);
-    }
-    fetchData();
+      const data = await getSnippetsWithPagination(page);
 
-  }, []);
+      if (data.length === 0) {   
+        return
+      } 
+      setData(data)
+    }
+     fetchData();
+  }, [page]);
 
   useEffect(() => {
 
@@ -49,7 +54,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <div className='h-screen' >
+      <div className='h-screen flex flex-col items-center' >
 
         <Search
           category={category}
@@ -58,7 +63,19 @@ export default function App() {
           setCategory={setCategory}
         />
 
-        <HomeList  data={filteredData} />
+        <HomeList data={filteredData} />
+
+        <div className='w-fit flex gap-3 p-4 bg-gray-200 rounded-xl '>
+          <button onClick={prev => setPage(prev - 1)}
+            className='p-2 bg-gray-300 rounded-xl hover:bg-gray-400 transition-all cursor-pointer'>
+            back
+          </button>
+          <button onClick={prev => setPage(prev + 1)}
+            className='p-2 bg-gray-300 rounded-xl hover:bg-gray-400 transition-all cursor-pointer'>
+            next
+          </button>
+        </div>
+
 
       </div>
       <Footer />
