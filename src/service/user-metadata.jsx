@@ -5,6 +5,9 @@ export function FetchUser() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    //fetch user 
+    //return an obejct if still loading the return loading screen otherwise just return user object data and use it as webhook
+    //use it by calling it like this const {user, laoding} = FetchUser();
     useEffect(() => {
         const getUser = async () => {
             const { data, error } = await supabaseClient.auth.getUser();
