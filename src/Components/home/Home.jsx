@@ -3,6 +3,9 @@ import { getSnippets } from '../../service/snippet-helper.js';
 import Footer from '../Shared/Footer.jsx';
 import Header from '../Shared/Header.jsx';
 import HomeList from './HomeList.jsx';
+import '../../styles/style.css'
+import Search from '../search/Search.jsx';
+
 
 export default function App() {
 
@@ -25,7 +28,8 @@ export default function App() {
     let filtered = data
 
     if (searchInput) {
-      filtered = filtered.filter(item => item.title?.toLowerCase().includes(searchInput.toLowerCase()) || item.username?.toLowerCase().includes(searchInput.toLowerCase()));
+      filtered = filtered.filter(item => item.title?.toLowerCase().includes(searchInput.toLowerCase()) ||
+        item.username?.toLowerCase().includes(searchInput.toLowerCase()));
 
     }
 
@@ -38,71 +42,23 @@ export default function App() {
 
   if (!data || data.length === 0) {
     return (
-      <div><h2 style={{ color: "#fff" }}>No snippets available</h2></div>
+      <div><h2 className='text-white'>No snippets available</h2></div>
     )
   }
 
   return (
     <>
       <Header />
-      <div
-        style={{
+      <div className='h-screen' >
 
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center"
-        }}>
+        <Search
+          category={category}
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+          setCategory={setCategory}
+        />
 
-        <div>
-
-          <input
-            onChange={e => setSearchInput(e.target.value)}
-            value={searchInput}
-            className='search-input'
-            type="text"
-            placeholder='Search'
-          />
-
-          <select
-            onChange={e => setCategory(e.target.value)}
-            value={category}
-          >
-            <option value="">All</option>
-            <optgroup label="Frontend">
-              <option value="javascript">JavaScript</option>
-              <option value="typescript">TypeScript</option>
-              <option value="html">HTML</option>
-              <option value="css">CSS</option>
-            </optgroup>
-            <optgroup label="Backend">
-              <option value="python">Python</option>
-              <option value="java">Java</option>
-              <option value="csharp">C#</option>
-              <option value="cpp">C++</option>
-              <option value="php">PHP</option>
-              <option value="go">Go</option>
-              <option value="rust">Rust</option>
-              <option value="ruby">Ruby</option>
-              <option value="kotlin">Kotlin</option>
-              <option value="swift">Swift</option>
-              <option value="dart">Dart</option>
-              <option value="perl">Perl</option>
-              <option value="lua">Lua</option>
-              <option value="haskell">Haskell</option>
-              <option value="elixir">Elixir</option>
-              <option value="clojure">Clojure</option>
-              <option value="fsharp">F#</option>
-            </optgroup>
-          </select>
-
-        </div>
-
-        <div>
-          <h2 style={{ color: "#fff" }}>found {filteredData.length} snippets</h2>
-        </div>
-        {filteredData.length === 0 && searchInput.length > 0 ? <h1 style={{ color: "#fff" }}>No results were found with: {searchInput || category}</h1> : <HomeList
-          data={filteredData} />}
+        <HomeList  data={filteredData} />
 
       </div>
       <Footer />

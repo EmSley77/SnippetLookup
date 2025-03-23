@@ -29,9 +29,8 @@ export default function Saved() {
     return (
         <>
             <Header />
-            <div>
-                {snippets && snippets.length > 0 ? <SavedList data={snippets} /> : <h2>No Snippets saved available</h2>}
-            </div>
+
+            <SavedList data={snippets} />
             <Footer />
         </>
     )

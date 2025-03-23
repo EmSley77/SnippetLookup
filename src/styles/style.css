@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+* {
+    font-family: 'Roboto','fira code', monospace;
+    font-weight: 700;
+
+}
+ 
+body {
+    /* background: linear-gradient(to top, #0d012d, #21066c, #361889b0, #5f3dbd8d); */
+    background-color: #dfdddd;
+} 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { supabaseClient } from '../../service/supabase-helper.js'
-import '../../styles/login.css'
 
 export default function Login() {
 

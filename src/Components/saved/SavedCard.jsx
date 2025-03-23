@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { copyCode } from '../../js/copy';
 import { removeSaved } from '../../service/snippet-helper.js'
 import { userDetails } from '../../service/user-metadata.js'
-import '../../styles/savedcard.css';
 
 export default function SavedCard({ snippet }) {
 
@@ -34,39 +33,51 @@ export default function SavedCard({ snippet }) {
 
 
     return (
+        <div className="block p-4 bg-gray-900 rounded-lg shadow-xl hover:shadow-xl transform hover:scale-102 transition-all">
 
-        <div className="card">
+            <div className="flex flex-col h-full justify-between">
 
-            <div className="main-content">
-                <div className="header">
-                    <span className="title">{snippet.title.toUpperCase()}</span>
+                {/* Title */}
+                <div className='h-full'>
+                    <span className="text-lg font-semibold uppercase tracking-wide text-gray-100">
+                        {snippet.title.toUpperCase()}
+                    </span>
                 </div>
-                <p className="description">{snippet.description.toUpperCase()}</p>
-                <div className="categories">
-                    <span className="category">{snippet.language}</span>
+
+                <hr className="border-teal-500 my-2" />
+
+                {/* Description */}
+                <p className="text-gray-100 text-m mb-5 mt-3">{snippet.description.toUpperCase()}</p>
+
+                {/* Language */}
+                <div className="text-sm font-medium mt-auto">
+                    <span className="px-2 py-2 bg-teal-400 text-white font-bold rounded-2xl">
+                        {snippet.language}
+                    </span>
                 </div>
-                <pre className="code" onClick={() => copyCode(snippet.code, setIsCopied, isCopied)}>
+
+                {/* Code block */}
+                <pre className="bg-gray-800 p-3 text-white rounded-xl mt-4 whitespace-pre-wrap break-words overflow-y-scroll h-full scroll-smooth "
+                    onClick={() => copyCode(snippet.code, setIsCopied, isCopied)}>
                     {snippet.code}
                 </pre>
 
-            </div>
-            <div className="card-footer">
-                <button onClick={handleDelete}
-                    style={{
-                        padding: "10px",
-                        width: "fit-content",
-                        background: "var(--bg-dark)",
-                        marginTop: "10px",
-                        marginBottom: "10px"
-                    }}>
-                    delete
+                {/* Username (always at the bottom) */}
+                <div className="text-gray-100 text-xs font-extrabold mt-3">@{snippet.username}</div>
+
+                {/* Message */}
+                {message && <span className="text-teal-400 mt-2">{message}</span>}
+
+                {/* Delete button */}
+                <button
+                    onClick={handleDelete}
+                    className="text-red-500 text-s mt-2 w-fit rounded-xl hover:text-red-700 hover:bg-gray-700 cursor-pointer p-2 bg-gray-800 transition-all"
+                >
+                    Delete
                 </button>
-                <span>@{snippet.username}</span>
+
             </div>
-            {message && <span>{message}</span>}
+
         </div>
-
-
-
     );
 }

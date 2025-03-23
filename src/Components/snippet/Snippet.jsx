@@ -9,7 +9,7 @@ import dislikeIcon from '../../assets/thumbs down.png'
 import copyIcon from '../../assets/copy white.png'
 import checkIcon from '../../assets/check white.png'
 
-import "../../Styles/snippet.css";
+import "../../styles/style.css";
 
 export default function Snippet() {
 
@@ -49,59 +49,57 @@ export default function Snippet() {
     }
     await saveSnippet(params)
   }
-
-
   return (
-    <div className="container">
-      <div className="snippet-box">
-        <h1>{snippet.title}</h1>
-        <p className="description">Description: {snippet.description}</p>
-        <p className="creator">Creator: {snippet.username}</p>
-        <h2 >{snippet.language}</h2>
+    <div className="flex justify-center items-center min-h-screen p-4">
+      <div className="bg-white shadow-lg rounded-lg p-6 w-4xl ">
+        <h1 className="text-2xl font-bold text-gray-900">{snippet.title}</h1>
+        <p className="text-gray-700 "><strong>Description:</strong> {snippet.description}</p>
+        <p className="text-gray-600"><strong>Creator:</strong> @{snippet.username}</p>
+        <h2 className="text-lg font-semibold text-gray-800 mt-2">{snippet.language}</h2>
 
-        <hr style={{ width: "100%" }} />
-        <div className='code-container'>
-          <h2>Code</h2>
-          <pre className="code-block">
-            <h4>{snippet.code}</h4>
-            <button className='copy-code-button' onClick={() => copyCode(snippet.code, setIsCopied, isCopied)}>
-              {isCopied ? (
-                <img src={checkIcon} alt="check icon" height={"24px"} />
+        <hr className="my-4 border-gray-300" />
 
-              ) : (
-                <img src={copyIcon} alt="copy icon" height={"24px"} />
-              )}
-            </button>
-          </pre>
-          <hr style={{ width: "50%" }} />
-
-          <div className='snippet-card-like-container'>
-            {/* handle like */}
-            <button className='like-btn'>
-
-              <img src={likeIcon} alt="like icon" height={"24px"} />
-            </button>
-            {/* handle saved */}
-            <button className='like-btn' onClick={handleSaveSnippet}>
-
-              <img src={heartIcon} alt="heart icon" height={"24px"} />
-            </button>
-            {/* handle dislike */}
-            <button className='like-btn'>
-              <img src={dislikeIcon} alt="dislike icon" height={"24px"} />
-            </button>
-
-          </div>
-          <hr style={{ width: "50%", margin: "10px" }} />
-
-          {message && <span><h2>{message}</h2></span>}
-
+        {/* Code Block */}
+        <div className="bg-gray-900 text-white p-4 rounded-lg overflow-x-auto relative ">
+          <h4 className="mb-2 font-semibold text-gray-200">Code</h4>
+          <hr className='mb-3 mt-4' />
+          <pre className="whitespace-pre-wrap h-100">{snippet.code}</pre>
+          <button
+            className="absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 p-2 rounded-lg"
+            onClick={() => copyCode(snippet.code, setIsCopied, isCopied)}
+          >
+            <img src={isCopied ? checkIcon : copyIcon} alt="copy icon" className='h-6 cursor-pointer' />
+          </button>
         </div>
-        <Link className="return-link" to={"/home"}>
-          Return
-        </Link>
+
+        <hr className="my-4 border-gray-300 w-1/2 mx-auto" />
+
+        {/* Like/Save/Dislike Buttons */}
+        <div className="flex justify-center gap-4 bg-gray-400 rounded-xl p-2 ">
+          <button className="p-2 hover:bg-gray-300 rounded-lg transition-all cursor-pointer">
+            <img src={likeIcon} alt="like icon" className='h-6' />
+          </button>
+          <button className="p-2 hover:bg-gray-300 rounded-lg transition-all cursor-pointer" onClick={handleSaveSnippet}>
+            <img src={heartIcon} alt="save icon" className='h-6' />
+          </button>
+          <button className="p-2 hover:bg-gray-300 rounded-lg transition-all cursor-pointer">
+            <img src={dislikeIcon} alt="dislike icon" className='h-6' />
+          </button>
+        </div>
+
+        <hr className="my-4 border-gray-300 w-1/2 mx-auto" />
+
+        {/* Message */}
+        {message && <h2 className="text-center text-green-600 font-semibold">{message}</h2>}
+
+        {/* Return Link */}
+        <div className="text-center mt-4">
+          <Link to="/home" className="text-white p-2 bg-gray-900 rounded-xl shadow-lg hover:bg-gray-700 transition-all ">
+            Return
+          </Link>
+        </div>
       </div>
     </div>
-  );
-};
 
+  );
+}

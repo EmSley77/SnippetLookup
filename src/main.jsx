@@ -9,7 +9,6 @@ import Error from './Components/Pages/Error.jsx'
 import Register from './Components/public/Register.jsx'
 import Wrapper from './Components/helper/Wrapper.jsx'
 import ResetPassword from './Components/public/ResetPassword.jsx'
-import './styles/main.css'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>

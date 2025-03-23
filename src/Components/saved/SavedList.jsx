@@ -1,25 +1,20 @@
 import React from 'react'
 import SavedCard from './SavedCard.jsx'
+import '../../styles/style.css'
 
 export default function SavedList({data}) {
-return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        maxWidth: "1000px",
-        width: "100%",
-        margin: "0 auto"
-      }}>
 
-      <div
-        style={{
-          marginTop: "3em",
-          display: "grid",
-          gap:"2rem",
-          gridTemplateColumns: "repeat(3, 1fr)",
-        }}>
+  if(data.length === 0) {
+    return (
+      <div>
+        <h1>No Saved snippets</h1>
+      </div>
+    )
+  }
+return (
+    <div className='h-screen p-4'>
+
+      <div className='grid grid-cols-3 gap-2 p-3 bg-gray-100 rounded-xl shadow-lg'>
 
         {data.map((snippet) => (
           <SavedCard
