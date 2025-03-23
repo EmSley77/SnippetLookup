@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
-import { getSnippetById, saveSnippet } from '../../service/snippet-helper.js';
+import checkIcon from '../../assets/check white.png';
+import copyIcon from '../../assets/copy white.png';
+import heartIcon from '../../assets/heart.png';
+import likeIcon from '../../assets/thumb up.png';
+import dislikeIcon from '../../assets/thumbs down.png';
 import { copyCode } from '../../js/copy';
-import { userDetails } from '../../service/user-metadata.js'
-import heartIcon from '../../assets/heart.png'
-import likeIcon from '../../assets/thumb up.png'
-import dislikeIcon from '../../assets/thumbs down.png'
-import copyIcon from '../../assets/copy white.png'
-import checkIcon from '../../assets/check white.png'
+import { getSnippetById, saveSnippet } from '../../service/snippet-helper.js';
+import { FetchUser } from '../../service/user-metadata.jsx';
 
 import "../../styles/style.css";
 
@@ -17,6 +17,9 @@ export default function Snippet() {
   const [snippet, setSnippet] = useState({})
   const [message, setMessage] = useState('')
   const [isCopied, setIsCopied] = useState(false)
+
+  const { user, loading } = FetchUser()
+
 
 
   useEffect(() => {
@@ -46,10 +49,11 @@ export default function Snippet() {
     const params = {
       setMessage: setMessage,
       snippetId: snippet.id,
-      userId: userDetails.id
+      userId: user.id
     }
     await saveSnippet(params)
   }
+  if(loading) return<><h1>Loading...</h1></>
   return (
     <div className="flex justify-center items-center min-h-screen p-4">
       <div className="bg-white shadow-lg rounded-lg p-6 w-4xl ">

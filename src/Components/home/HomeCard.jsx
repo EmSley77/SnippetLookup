@@ -3,35 +3,45 @@ import { Link } from 'react-router';
 import '../../styles/style.css'
 export default function HomeCard({ snippet }) {
   return (
-    <Link
-      to={`/view/${snippet.id}`}
-      className="block p-4 bg-gray-900 rounded-lg shadow-xl hover:shadow-xl transform hover:scale-102 transition-all"
-    >
-      <div className="flex flex-col h-full justify-between">
 
-        {/* Title */}
-        <div className='h-full'>
-          <span className="text-lg font-semibold uppercase tracking-wide text-gray-100">
-            {snippet.title}
-          </span>
-        </div>
+    <article className="rounded-xl border border-gray-200 bg-white px-6 pt-8 pb-6 dark:border-gray-700 dark:bg-gray-800 w-full flex flex-col justify-between hover:translate-y-2.5 transition-all cursor-pointer">
+      {/* Title */}
 
-        <hr className="border-teal-500 my-2" />
+      {/* Date */}
+      <time  className="block text-gray-500 dark:text-gray-400 mb-4 text-xl">
+        uploaded {new Date(snippet.created_at).toLocaleString()}
+      </time>
+      <h1 className="text-white mb-4 text-xl font-semibold">{snippet.title}</h1>
 
-        {/* Description */}
-        <p className="text-gray-100 text-m mb-5 mt-3">{snippet.description}</p>
+      {/* Description with Link */}
+      <Link to={`/view/${snippet.id}`}>
+        <h3 className="mt-2 text-lg font-medium text-gray-900 dark:text-white hover:text-purple-600 transition duration-200">
+          {snippet.description}
+        </h3>
+      </Link>
 
-        {/* Language */}
-        <div className="text-sm font-medium mt-auto">
-          <span className="px-2 py-2 bg-teal-400 text-white font-bold rounded-2xl ">
-            {snippet.language}
-          </span>
-        </div>
-
-        {/* Username (always at the bottom) */}
-        <div className="text-gray-100 text-xs font-extrabold mt-3">@{snippet.username}</div>
+      {/* Language Tag */}
+      <div className="mt-4">
+        <span className="rounded-full bg-purple-100 px-3 py-1 text-xs text-purple-600 dark:bg-purple-600 dark:text-purple-100">
+          {snippet.language}
+        </span>
       </div>
-    </Link>
+
+      {/* Username */}
+      <div className="mt-4">
+        <span className="rounded-full bg-gray-700 text-white py-1 px-3 text-sm">
+          @{snippet.username}
+        </span>
+      </div>
+    </article>
+
 
   );
 }
+
+
+/* 
+
+
+
+*/

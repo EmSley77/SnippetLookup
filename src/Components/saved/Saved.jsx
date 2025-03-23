@@ -4,27 +4,34 @@ import Footer from '../Shared/Footer.jsx'
 import SavedList from './SavedList.jsx'
 import { useState, useEffect } from 'react'
 import { getSaved } from '../../service/snippet-helper.js'
-import { userDetails } from '../../service/user-metadata.js'
+import { FetchUser } from '../../service/user-metadata.jsx'
 
 export default function Saved() {
 
 
     const [snippets, setSnippets] = useState([])
+    const { user, loading } = FetchUser()
+
 
     // get user snippets
     useEffect(() => {
-        const fetchSnippets = async () => {
+        if (!loading && user) {
 
-            const params = { userId: userDetails.id }
-            const data = await getSaved(params)
+            const fetchSnippets = async () => {
 
-            if (data && data.length > 0) {
-                setSnippets(data.flat())
+                const params = { userId: user.id }
+                const data = await getSaved(params)
+
+                if (data && data.length > 0) {
+                    setSnippets(data.flat())
+                }
             }
+            fetchSnippets()
         }
 
-        fetchSnippets()
-    }, [snippets])
+    }, [user, loading])
+
+    if (loading) return <><h1>Loading...</h1></>
 
     return (
         <>

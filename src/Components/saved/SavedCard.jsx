@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { copyCode } from '../../js/copy';
 import { removeSaved } from '../../service/snippet-helper.js'
-import { userDetails } from '../../service/user-metadata.js'
+import { FetchUser } from '../../service/user-metadata.jsx'
 
 export default function SavedCard({ snippet }) {
 
     const [isCopied, setIsCopied] = useState(false)
     const [message, setMessage] = useState('')
+
+    const { user, loading } = FetchUser()
+
+    
 
 
     useEffect(() => {
@@ -24,13 +28,15 @@ export default function SavedCard({ snippet }) {
     const handleDelete = async () => {
 
         const params = {
-            userId: userDetails.id,
+            userId: user.id,
             snippetId: snippet.id,
         }
 
         await removeSaved(params)
     }
 
+
+    if (loading) return <><h1>Loading...</h1></>
 
     return (
         <div className="block p-4 bg-gray-900 rounded-lg shadow-xl hover:shadow-xl transform hover:scale-102 transition-all">

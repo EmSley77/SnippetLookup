@@ -54,7 +54,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <div className='h-screen flex flex-col items-center' >
+        <div className='h-screen flex flex-col items-center  text-white' >
 
         <Search
           category={category}
@@ -65,13 +65,13 @@ export default function App() {
 
         <HomeList data={filteredData} />
 
-        <div className='w-fit flex gap-3 p-4 bg-gray-200 rounded-xl '>
+        <div className='w-fit flex gap-3 p-4 bg-gray-900 rounded-xl '>
           <button onClick={prev => setPage(prev - 1)}
-            className='p-2 bg-gray-300 rounded-xl hover:bg-gray-400 transition-all cursor-pointer'>
+            className='p-2 bg-gray-600 rounded-xl hover:bg-gray-400 transition-all cursor-pointer'>
             back
           </button>
           <button onClick={prev => setPage(prev + 1)}
-            className='p-2 bg-gray-300 rounded-xl hover:bg-gray-400 transition-all cursor-pointer'>
+            className='p-2 bg-gray-600 rounded-xl hover:bg-gray-400 transition-all cursor-pointer'>
             next
           </button>
         </div>
