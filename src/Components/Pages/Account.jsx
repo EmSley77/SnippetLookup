@@ -94,6 +94,10 @@ export default function Account() {
               <h2><strong>Created account:</strong> {formatCreatedDate(userDetails.created_at)}</h2>
               <hr />
             </div>
+          {/* users won snippets  */}
+          <div className='flex flex-col bg-gray-100 h-full p-2 rounded-xl '>
+            <h1>Get snippets here that belong and uploaded by user and maybe impl note taking funcitonality</h1>
+          </div>
           </div>
 
           {/* New Snippet Form */}
