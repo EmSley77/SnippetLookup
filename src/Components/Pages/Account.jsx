@@ -91,11 +91,11 @@ export default function Account() {
   return (
     <>
       <Header />
-      <div className="h-screen grid grid-cols-2 gap-6 p-4">
-        <div className="flex flex-col gap-2 lg:grid-cols-2 p-4 bg-gray-900 shadow-2xl rounded-xl w-full ">
+      <div className="grid grid-cols-2 p-3 gap-5">
+        <div className="flex flex-col gap-2 lg:grid-cols-2 p-4 bg-gray-900 shadow-2xl rounded-xl w-full h-[800px]Gg">
 
           {/* User Info Section */}
-          <div className="flex flex-col justify-between p-4 text-gray-300 bg-gray-700 rounded-xl shadow-md">
+          <div className="flex flex-col justify-between p-4 text-gray-300 bg-gray-700 rounded-xl shadow-md ">
             <div className="space-y-3">
               <hr className="border-gray-300" />
               <h3 className="text-lg font-bold ">@{user.user_metadata.display_username}</h3>
