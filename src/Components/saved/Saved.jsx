@@ -38,7 +38,6 @@ export default function Saved() {
             <Header />
 
             <SavedList data={snippets} />
-            <Footer />
         </>
     )
 }

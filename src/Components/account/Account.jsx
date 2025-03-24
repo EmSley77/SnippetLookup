@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { createSnippet, getSnippetsByUserId } from '../../service/snippet-helper.js';
 import { FetchUser } from '../../service/user-metadata.js';
 import '../../styles/style.css';
-import Footer from '../Shared/Footer.jsx';
 import Header from '../Shared/Header.jsx';
 import SnippetForm from './SnippetForm.jsx';
 import UserInfo from './UserInfo.jsx';
@@ -98,16 +97,17 @@ export default function Account() {
 
 
   return (
-    <>
+    <div className='h-screen'>
       <Header />
-      <div className="grid grid-cols-2 p-3 gap-5">
+
+      <div className="grid grid-cols-2 p-3 gap-5 ">
 
         <UserInfo
           user={user}
           formatCreatedDate={formatCreatedDate}
           snippets={snippets} />
+      
         <SnippetForm
-        
           message={message}
           setTitle={setTitle}
           setCode={setCode}
@@ -121,7 +121,6 @@ export default function Account() {
 
       </div>
 
-      <Footer />
-    </>
+    </div>
   );
 }

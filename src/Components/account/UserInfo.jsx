@@ -18,12 +18,12 @@ export default function UserInfo({ user, formatCreatedDate, snippets }) {
 
             {/* User's Snippets Section */}
             <div className="text-center bg-gray-900 p-4 rounded-xl shadow-md  text-white">
-                <h1 className="text-lg font-medium">User Snippets</h1>
+                <h1 className="text-lg font-medium">My Snippets</h1>
                 <hr />
             </div>
 
             {/* List of Snippets */}
-            <div className="flex flex-col gap-4 overflow-y-auto ">
+            <div className="flex flex-col gap-4 overflow-y-auto bg-white p-3">
                 {snippets && snippets.length > 0 ? snippets.map((snippet) => (
                     <div key={snippet.id} className="p-4 bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all">
                         <div className="flex flex-col mb-3">

@@ -176,7 +176,7 @@ export default function Register() {
                             </div>
 
                             <div className='mb-3 mt-3 w-full text-center'>
-                                <Link className='text-blue-600 hover:underline' to={"/"}>Already have an account?</Link>
+                                <Link className='text-blue-600 hover:underline' to={"/login"}>Already have an account?</Link>
 
                             </div>
                         </form>

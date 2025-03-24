@@ -10,7 +10,7 @@ export default function SavedCard({ snippet }) {
 
     const { user, loading } = FetchUser()
 
-    
+
 
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export default function SavedCard({ snippet }) {
     if (loading) return <><h1>Loading...</h1></>
 
     return (
-        <div className="block p-4 bg-gray-900 rounded-lg shadow-xl hover:shadow-xl transform hover:scale-102 transition-all">
+        <div className="block p-4 bg-gray-800 rounded-lg shadow-xl hover:shadow-xl transform hover:scale-102 transition-all">
 
             <div className="flex flex-col h-full justify-between">
 
@@ -63,13 +63,15 @@ export default function SavedCard({ snippet }) {
                 </div>
 
                 {/* Code block */}
-                <pre className="bg-gray-800 p-3 text-white rounded-xl mt-4 whitespace-pre-wrap break-words overflow-y-scroll h-full scroll-smooth cursor-pointer "
+                <div className="bg-gray-800 p-3 text-white rounded-xl mt-4 whitespace-pre-wrap break-words  "
                     onClick={() => copyCode(snippet.code, setIsCopied, isCopied)}>
-                    {snippet.code}
-                </pre>
+                    <pre className='bg-gray-700 p-3 text-white rounded-xl mt-4 whitespace-pre-wrap break-words overflow-y-scroll h-full scroll-smooth cursor-pointer'>
+                        {snippet.code}
+                    </pre>
+                </div>
 
                 {/* Username (always at the bottom) */}
-                <div className="text-gray-100 text-xs font-extrabold mt-3">@{snippet.username}</div>
+                <div className="text-gray-100 text-xs font-extrabold mt-3">Creator @{snippet.username}</div>
 
                 {/* Message */}
                 {message && <span className="text-teal-400 mt-2">{message}</span>}
@@ -77,7 +79,7 @@ export default function SavedCard({ snippet }) {
                 {/* Delete button */}
                 <button
                     onClick={handleDelete}
-                    className="text-red-500 text-s mt-2 w-fit rounded-xl hover:text-red-700 hover:bg-gray-700 cursor-pointer p-2 bg-gray-800 transition-all"
+                    className="text-red-500 text-s mt-2 w-fit rounded-xl hover:text-red-700 hover:bg-gray-600 cursor-pointer p-2 bg-gray-700 transition-all"
                 >
                     Delete
                 </button>
