@@ -10,6 +10,7 @@ import { getSnippetById, saveSnippet } from '../../service/snippet-helper.js';
 import { FetchUser } from '../../service/user-metadata.js';
 
 import "../../styles/style.css";
+import CommentForm from './CommentForm.jsx';
 
 export default function Snippet() {
 
@@ -53,10 +54,10 @@ export default function Snippet() {
     }
     await saveSnippet(params)
   }
-  if(loading) return<><h1>Loading...</h1></>
+  if (loading) return <><h1>Loading...</h1></>
   return (
-    <div className="flex justify-center items-center min-h-screen p-4">
-      <div className="bg-white shadow-lg rounded-lg p-6 w-4xl ">
+    <div className="grid grid-cols-2 min-h-screen p-4">
+      <div className="bg-white shadow-lg rounded-lg p-6  ">
         <h1 className="text-2xl font-bold text-gray-900">{snippet.title}</h1>
         <p className="text-gray-700 "><strong>Description:</strong> {snippet.description}</p>
         <p className="text-gray-600"><strong>Creator:</strong> @{snippet.username}</p>
@@ -104,6 +105,8 @@ export default function Snippet() {
           </Link>
         </div>
       </div>
+
+      <CommentForm  userId={user.id} snippetId={snippet.id}/>
     </div>
 
   );

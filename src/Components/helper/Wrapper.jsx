@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { supabaseClient } from '../../service/supabase-helper.js'
 import { Navigate } from 'react-router'
+import Snippet from '../snippet/Snippet.jsx'
 
 
 export default function Wrapper({ children }) {
