@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getCommentsBySnippetId, makeComment } from '../../service/snippet-helper.js';
 import '../../styles/style.css';
+import CommentCard from './CommentCard.jsx';
 
 //get props from Snippet page
 export default function CommentForm({ snippetId, userId }) {
@@ -9,6 +10,10 @@ export default function CommentForm({ snippetId, userId }) {
     const [message, setMessage] = useState('')
     const [comments, setComments] = useState([])
 
+    const fetchComments = async () => {
+        const data = await getCommentsBySnippetId(snippetId)
+        setComments(data)
+    }
     const handleCommentSubmit = async (e) => {
         e.preventDefault()
         //add post method here
@@ -18,6 +23,7 @@ export default function CommentForm({ snippetId, userId }) {
         setMessage(msg)
         setComment('')
 
+        await fetchComments()
 
     }
 
@@ -49,15 +55,8 @@ export default function CommentForm({ snippetId, userId }) {
 
                     {                    //TODO: fix problems with data types and more
                     }
-                    {comments && comments.map(item => (
-                        <div key={item.id} className='border rounded-md p-3 ml-3 my-3 bg-gray-800 '>
-                            
-                            {item.username ? <p><strong className='text-cyan-200'>@{item.username}</strong> - {new Date(item.created_at).toLocaleDateString()}</p> : <p>@Anonymous</p> }
-                            {item.username ? <p><strong className='text-cyan-200'>@{item.username}</strong> - {new Date(item.created_at).toLocaleDateString()}</p> : <p>@Anonymous {new Date(item.created_at).toLocaleDateString()}</p> }
-                            <hr />
-                            <p className="mt-2">{item.comment}</p>
-
-                        </div>
+                    {comments && comments.map((item) => (
+                        <CommentCard item={item} id={item.id} key={item.id} />
 
                     ))}
                 </div>
