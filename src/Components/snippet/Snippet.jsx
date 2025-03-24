@@ -67,12 +67,12 @@ export default function Snippet() {
         <hr className="my-4 border-gray-700" />
 
         {/* Code Block */}
-        <div className="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto relative">
+        <div className="bg-gray-700 text-white p-4 rounded-lg overflow-x-auto relative">
           <h4 className="mb-2 font-semibold text-gray-200">Code</h4>
-          <hr className="mb-3 mt-4 border-gray-600" />
+          <hr className="mb-3 mt-4 border-gray-400" />
           <pre className="whitespace-pre-wrap">{snippet.code}</pre>
           <button
-            className="absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 p-2 rounded-lg transition-all "
+            className="absolute top-2 right-2 bg-gray-600 hover:bg-gray-500 p-2 rounded-lg transition-all "
             onClick={() => copyCode(snippet.code, setIsCopied, isCopied)}
           >
             <img src={isCopied ? checkIcon : copyIcon} alt="copy icon" className="h-6 cursor-pointer" />

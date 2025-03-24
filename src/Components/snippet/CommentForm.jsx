@@ -51,15 +51,11 @@ export default function CommentForm({ snippetId, userId }) {
                     }
                     {comments && comments.map(item => (
                         <div key={item.id} className='border rounded-md p-3 ml-3 my-3 bg-gray-800 '>
-
-                            {item.username && <p>@{item.username}</p>}
+                            
+                            {item.username ? <p><strong className='text-cyan-200'>@{item.username}</strong> - {new Date(item.created_at).toLocaleDateString()}</p> : <p>@Anonymous</p> }
+                            {item.username ? <p><strong className='text-cyan-200'>@{item.username}</strong> - {new Date(item.created_at).toLocaleDateString()}</p> : <p>@Anonymous {new Date(item.created_at).toLocaleDateString()}</p> }
                             <hr />
                             <p className="mt-2">{item.comment}</p>
-
-
-
-                            <p>uploaded at {new Date(item.created_at).toLocaleDateString()}</p>
-
 
                         </div>
 
