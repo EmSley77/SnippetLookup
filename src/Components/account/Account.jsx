@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { createSnippet } from '../../service/snippet-helper.js';
+import { createSnippet, getSnippetsByUserId } from '../../service/snippet-helper.js';
 import { FetchUser } from '../../service/user-metadata.js';
 import '../../styles/style.css';
 import Footer from '../Shared/Footer.jsx';
@@ -16,12 +16,19 @@ export default function Account() {
   const [description, setDescription] = useState('')
   const [code, setCode] = useState('')
   const [message, setMessage] = useState('')
+  const [snippets, setSnippets] = useState([])
 
   const { user, loading } = FetchUser()
 
-
-  console.log(user);
-
+  useEffect(() => {
+    const fetchSnippets = async () => {
+      const data = await getSnippetsByUserId(user.id)
+      if (data) {
+        setSnippets(data)
+      }
+    }
+    fetchSnippets()
+  })
 
   const formatCreatedDate = (createdDate) => {
     return new Date(createdDate).toLocaleDateString()
@@ -94,9 +101,13 @@ export default function Account() {
     <>
       <Header />
       <div className="grid grid-cols-2 p-3 gap-5">
-        <UserInfo user={user} formatCreatedDate={formatCreatedDate} />
 
+        <UserInfo
+          user={user}
+          formatCreatedDate={formatCreatedDate}
+          snippets={snippets} />
         <SnippetForm
+        
           message={message}
           setTitle={setTitle}
           setCode={setCode}
@@ -106,6 +117,7 @@ export default function Account() {
           setIsPrivate={setIsPrivate}
           setDescription={setDescription}
         />
+
 
       </div>
 

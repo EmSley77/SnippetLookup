@@ -11,6 +11,7 @@ export default function HomeCard({ snippet }) {
       <time  className="block text-gray-500 dark:text-gray-400 mb-4 text-xl">
         uploaded {new Date(snippet.created_at).toLocaleString()}
       </time>
+      <hr className='mb-3 text-teal-200'/>
       <h1 className="text-white mb-4 text-xl font-semibold">{snippet.title}</h1>
 
       {/* Description with Link */}
@@ -26,6 +27,9 @@ export default function HomeCard({ snippet }) {
           {snippet.language}
         </span>
       </div>
+
+      <hr className='mt-3 text-teal-200'/>
+  
 
       {/* Username */}
       <div className="mt-4">

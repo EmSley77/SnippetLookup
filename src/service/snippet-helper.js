@@ -1,7 +1,7 @@
 import { supabaseClient } from "../service/supabase-helper.js";
 export {
     createSnippet,
-    getUserSnippets,
+    getSnippetsByUserId,
     getSnippets,
     getSnippetById,
     getSnippetsWithPagination,
@@ -65,14 +65,14 @@ async function getSnippetById(snippetId) {
 }
 
 //get snippets by user-id
-async function getUserSnippets(userId) {
+async function getSnippetsByUserId(userId) {
     const { data, error } = await supabaseClient
         .from("snippets")
         .select("*")
         .eq("user_id", userId);
 
     if (error) {
-        return;
+        return [];
     }
 
     if (data && data.length > 0) {

@@ -63,7 +63,7 @@ export default function SavedCard({ snippet }) {
                 </div>
 
                 {/* Code block */}
-                <pre className="bg-gray-800 p-3 text-white rounded-xl mt-4 whitespace-pre-wrap break-words overflow-y-scroll h-full scroll-smooth "
+                <pre className="bg-gray-800 p-3 text-white rounded-xl mt-4 whitespace-pre-wrap break-words overflow-y-scroll h-full scroll-smooth cursor-pointer "
                     onClick={() => copyCode(snippet.code, setIsCopied, isCopied)}>
                     {snippet.code}
                 </pre>
