@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createSnippet } from '../../service/snippet-helper.js';
-import { FetchUser } from '../../service/user-metadata.jsx';
+import { FetchUser } from '../../service/user-metadata.js';
 import '../../styles/style.css';
 import Footer from '../Shared/Footer';
 import Header from '../Shared/Header';

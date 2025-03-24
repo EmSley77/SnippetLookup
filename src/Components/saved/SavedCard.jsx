@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { copyCode } from '../../js/copy';
 import { removeSaved } from '../../service/snippet-helper.js'
-import { FetchUser } from '../../service/user-metadata.jsx'
+import { FetchUser } from '../../service/user-metadata.js'
 
 export default function SavedCard({ snippet }) {
 

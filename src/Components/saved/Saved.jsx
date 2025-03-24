@@ -4,7 +4,7 @@ import Footer from '../Shared/Footer.jsx'
 import SavedList from './SavedList.jsx'
 import { useState, useEffect } from 'react'
 import { getSaved } from '../../service/snippet-helper.js'
-import { FetchUser } from '../../service/user-metadata.jsx'
+import { FetchUser } from '../../service/user-metadata.js'
 
 export default function Saved() {
 

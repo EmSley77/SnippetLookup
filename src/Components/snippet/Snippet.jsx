@@ -7,7 +7,7 @@ import likeIcon from '../../assets/thumb up.png';
 import dislikeIcon from '../../assets/thumbs down.png';
 import { copyCode } from '../../js/copy';
 import { getSnippetById, saveSnippet } from '../../service/snippet-helper.js';
-import { FetchUser } from '../../service/user-metadata.jsx';
+import { FetchUser } from '../../service/user-metadata.js';
 
 import "../../styles/style.css";
 

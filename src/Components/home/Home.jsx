@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getSnippets, getSnippetsWithPagination } from '../../service/snippet-helper.js';
+import { getSnippetsWithPagination } from '../../service/snippet-helper.js';
+import '../../styles/style.css';
+import Search from '../search/Search.jsx';
 import Footer from '../Shared/Footer.jsx';
 import Header from '../Shared/Header.jsx';
 import HomeList from './HomeList.jsx';
-import '../../styles/style.css'
-import Search from '../search/Search.jsx';
 
 
 export default function App() {
