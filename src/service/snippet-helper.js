@@ -8,6 +8,8 @@ export {
     saveSnippet,
     getSaved,
     removeSaved,
+    makeComment,
+    getCommentsBySnippetId,
 };
 
 //get all public snippets
@@ -205,6 +207,48 @@ async function saveSnippet(params) {
     if (data && data.length > 0) {
         params.setMessage("Snippet has been saved");
         return;
+    }
+}
+
+//make a commetn
+//TODO check if user already has commented in this snippet
+async function makeComment(userId, snippetId, comment, username) {
+    const { data, error } = await supabaseClient
+        .from("comments")
+        .insert([
+            {
+                snippet_id: snippetId,
+                user_id: userId,
+                comment: comment,
+                username: username,
+            },
+        ])
+        .select();
+
+    if (error) {
+        console.error(error.message);
+        return error.message;
+    }
+
+    if (data) {
+        return "your comment has been submitted thank you";
+    }
+}
+
+//make a commetn
+async function getCommentsBySnippetId(snippetId) {
+    const { data, error } = await supabaseClient
+        .from("comments")
+        .select("*")
+        .eq("snippet_id", snippetId);
+
+    if (error) {
+        console.error(error.message);
+        return [];
+    }
+
+    if (data && data.length > 0) {
+        return data;
     }
 }
 

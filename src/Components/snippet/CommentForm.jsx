@@ -1,22 +1,34 @@
-import React from 'react'
-import '../../styles/style.css'
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getCommentsBySnippetId, makeComment } from '../../service/snippet-helper.js';
+import '../../styles/style.css';
 
 //get props from Snippet page
 export default function CommentForm({ snippetId, userId }) {
 
     const [comment, setComment] = useState('')
     const [message, setMessage] = useState('')
+    const [comments, setComments] = useState([])
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault()
         //add post method here
         //snippet id and userId needed in the post function
         //aswell message if commetn has been sent and comment to which to use in post
-
+        const msg = await makeComment(userId, snippetId, comment);
+        setMessage(msg)
 
 
     }
+
+    useEffect(() => {
+        const fetchComments = async () => {
+            const data = await getCommentsBySnippetId(snippetId)
+            if (data) {
+                setComments(data)
+            }
+        }
+        fetchComments()
+    }, [snippetId])
 
     return (
         <div className="flex flex-col w-full items-center justify-center shadow-lg m-2  text-white bg-gray-900 rounded-xl ">
@@ -55,6 +67,22 @@ export default function CommentForm({ snippetId, userId }) {
                     <h1 className='text-xl'>Comments</h1>
                     <hr />
                 </div>
+
+//TODO: fix problems with data types and more
+                {comments && comments.map(item => (
+                    <div key={item.id} className='p-2 rounded-xl bg-gray-700'>
+                        {item.username && <p>author @{item.username}</p>}
+                        <p>{item.comment}</p>
+
+
+                        <p>uploaded at {new Date(item.created_at).toLocaleDateString()}</p>
+
+
+                    </div>
+
+                ))}
+
+                {comments.length === 0 ? <span><h1>No comments yet be the first</h1></span> : ''}
 
 
             </div>
