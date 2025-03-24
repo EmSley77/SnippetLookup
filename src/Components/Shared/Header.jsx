@@ -10,7 +10,7 @@ export default function Header() {
   const handleLogOut = async () => {
     let { error } = await supabaseClient.auth.signOut()
     if (error) throw error
-    navigate("/")
+    navigate("/login")
   }
 
   return (
@@ -28,6 +28,12 @@ export default function Header() {
         {/* Navigation Links */}
         <nav className="flex gap-x-6">
 
+      {/*     <NavLink
+            className="text-xl px-4 py-2 rounded-lg shadow-md bg-indigo-700 hover:bg-blue-500 text-white transition-all duration-300"
+            to="/about"
+          >
+            About
+          </NavLink> */}
           <NavLink
             className="text-xl px-4 py-2 rounded-lg shadow-md bg-indigo-700 hover:bg-blue-500 text-white transition-all duration-300"
             to="/home"

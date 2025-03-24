@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import Home from './Components/home/Home.jsx'
+import Landing from './Components/home/Landing.jsx'
 import Saved from './Components/saved//Saved.jsx'
 import Login from './Components/public/Login.jsx'
 import Account from './Components/account/Account.jsx'
@@ -13,7 +14,8 @@ import ResetPassword from './Components/public/ResetPassword.jsx'
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/"element={<Landing />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/reset-password" element={<ResetPassword />} />
 
