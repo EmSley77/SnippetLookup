@@ -227,11 +227,11 @@ async function makeComment(userId, snippetId, comment, username) {
 
     if (error) {
         console.error(error.message);
-        return error.message;
+        return "Could not post message, try again later";
     }
 
     if (data) {
-        return "your comment has been submitted thank you";
+        return "Your comment has been submitted thank you";
     }
 }
 
