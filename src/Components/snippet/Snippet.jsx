@@ -10,10 +10,9 @@ import { getSnippetById, saveSnippet } from '../../service/snippet-helper.js';
 import { FetchUser } from '../../service/user-metadata.js';
 
 import "../../styles/style.css";
+import Header from '../Shared/Header.jsx';
 import CommentForm from './CommentForm.jsx';
 import ViewSnippet from './ViewSnippet.jsx';
-import Header from '../Shared/Header.jsx'
-import Footer from '../Shared/Footer.jsx'
 
 export default function Snippet() {
 
@@ -22,9 +21,8 @@ export default function Snippet() {
   const [message, setMessage] = useState('')
   const [isCopied, setIsCopied] = useState(false)
 
+
   const { user, loading } = FetchUser()
-
-
 
   useEffect(() => {
     const fetchById = async () => {
@@ -50,6 +48,9 @@ export default function Snippet() {
   }, [message])
 
   const handleSaveSnippet = async () => {
+    if (!user) {
+      setMessage("You must be signed in to save code snippets")
+    }
     const params = {
       setMessage: setMessage,
       snippetId: snippet.id,
@@ -79,7 +80,8 @@ export default function Snippet() {
           copyCode={copyCode}
         />
 
-        <CommentForm userId={user.id} snippetId={snippet.id} username={user.user_metadata.display_username} />
+        {user && <CommentForm userId={user.id} snippetId={snippet.id} username={user.user_metadata.display_username} />}
+
       </div>
     </>
   );

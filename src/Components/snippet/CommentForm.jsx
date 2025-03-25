@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getCommentsBySnippetId, makeComment } from '../../service/snippet-helper.js';
+import { getSession } from '../../service/user-session.js';
 import '../../styles/style.css';
 import CommentCard from './CommentCard.jsx';
+import DangerAlert from '../util/DangerAlert.jsx';
 
 //get props from Snippet page
 export default function CommentForm({ snippetId, userId, username }) {
@@ -19,6 +21,10 @@ export default function CommentForm({ snippetId, userId, username }) {
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
 
+        const isSignedIn = await getSession()
+        if (!isSignedIn) {
+            return (<DangerAlert message={"you are not signed in to make a comment"} />)
+        }
         try {
             const msg = await makeComment(userId, snippetId, comment, username);
             setMessage(msg);
@@ -56,7 +62,7 @@ export default function CommentForm({ snippetId, userId, username }) {
 
 
     return (
-        <div className="w-1/2 flex flex-col bg-gray-900 rounded-lg p-4 text-white ">
+        <div className="w-full flex flex-col bg-gray-900 rounded-lg p-4 text-white ">
             {/* Header */}
             <div className='w-full text-center'>
                 <h1 className="text-2xl font-bold text-white">Discussion</h1>
@@ -69,7 +75,7 @@ export default function CommentForm({ snippetId, userId, username }) {
                 ))}
             </div>
 
-     
+
             {/* Comment Form (Always Stays at Bottom) */}
             <form onSubmit={handleCommentSubmit} className="w-full">
                 <div className="w-full px-3 my-2">

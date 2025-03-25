@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { getSnippetsWithPagination } from '../../service/snippet-helper.js';
 import '../../styles/style.css';
 import Search from '../search/Search.jsx';
-import Footer from '../Shared/Footer.jsx';
 import Header from '../Shared/Header.jsx';
 import HomeList from './HomeList.jsx';
 
@@ -20,12 +19,12 @@ export default function App() {
     const fetchData = async () => {
       const data = await getSnippetsWithPagination(page);
 
-      if (data.length === 0) {   
+      if (data.length === 0) {
         return
-      } 
+      }
       setData(data)
     }
-     fetchData();
+    fetchData();
   }, [page]);
 
   useEffect(() => {
@@ -54,7 +53,7 @@ export default function App() {
   return (
     <>
       <Header />
-        <div className='h-screen flex flex-col items-center  text-white' >
+      <div className='h-screen flex flex-col items-center  text-white' >
 
         <Search
           category={category}
@@ -78,7 +77,7 @@ export default function App() {
 
 
       </div>
-      
+
     </>
   )
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { supabaseClient } from '../../service/supabase-helper.js'
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import FontAwesome icons
-
+import Header from '../Shared/Header.jsx'
 
 export default function Login() {
 
@@ -54,6 +54,7 @@ export default function Login() {
     return (
 
             <>
+            <Header />
                 <div className="bg-gray-900 text-white min-h-screen  flex justify-center items-center">
                     <div>
                         <form onSubmit={handleLoginSubmit}>
