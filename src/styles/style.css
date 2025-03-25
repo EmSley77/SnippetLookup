@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 * {
-    font-family: 'Roboto', 'fira code', monospace;
+    letter-spacing: 0.8px;
+    font-family: 'Inter', 'fira code', monospace;
     font-weight: 700;
     
 }
