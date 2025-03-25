@@ -4,16 +4,17 @@ import '../../styles/style.css'
 
 export default function HomeList({ data }) {
   return (
-    <div className="p-6 ">
 
-      <div className="w-full items-center justify-center p-3 text-center">
-        <h2 className="text-4xl font-semibold text-gray-100 mb-5 tracking-wide">Found {data.length} snippets</h2>
+    <div className="p-6 flex flex-col items-center">
+      <div className="w-full text-center">
+        <h2 className="text-4xl font-bold text-gray-800 mb-6 tracking-wide">
+          Found {data.length} results
+        </h2>
       </div>
 
-      {data.length === 0 ? (
-        <p className="text-center text-white text-lg mt-8">No snippets found</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 justify-center p-8 rounded-xl bg-black shadow-xl">
+      {/* if theres data print it */}
+      {data && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 bg-gray-900 rounded-xl shadow-lg w-full">
           {data.map((snippet) => (
             <HomeCard key={snippet.id} snippet={snippet} />
           ))}

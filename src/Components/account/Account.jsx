@@ -100,13 +100,13 @@ export default function Account() {
     <div className='h-screen'>
       <Header />
 
-      <div className="flex bg-black p-3 gap-5 h-[800px]">
+      <div className="flex bg-white p-3 gap-5 h-[800px]">
 
         <UserInfo
           user={user}
           formatCreatedDate={formatCreatedDate}
           snippets={snippets} />
-      
+
         <SnippetForm
           message={message}
           setTitle={setTitle}

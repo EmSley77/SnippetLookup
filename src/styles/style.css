@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 * {
-    letter-spacing: 0.8px;
+  
     font-family: 'Inter', 'fira code', monospace;
     font-weight: 700;
 
 }
 
 body {
-    background-color: var(--color-gray-900);
-        /* oklch(0.21 0.034 264.665) */
+    background-color: var(--color-white);
+    /* oklch(0.21 0.034 264.665) */
 }

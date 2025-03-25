@@ -11,6 +11,7 @@ import { FetchUser } from '../../service/user-metadata.js';
 
 import "../../styles/style.css";
 import Header from '../Shared/Header.jsx';
+import LoaderTeal from '../util/LoaderTeal.jsx'
 import CommentForm from './CommentForm.jsx';
 import ViewSnippet from './ViewSnippet.jsx';
 
@@ -50,6 +51,7 @@ export default function Snippet() {
   const handleSaveSnippet = async () => {
     if (!user) {
       setMessage("You must be signed in to save code snippets")
+      return
     }
     const params = {
       setMessage: setMessage,
@@ -60,7 +62,7 @@ export default function Snippet() {
   }
 
 
-  if (loading) return <><h1>Loading...</h1></>
+
   return (
     <>
       <Header />
@@ -80,7 +82,11 @@ export default function Snippet() {
           copyCode={copyCode}
         />
 
-        {user && <CommentForm userId={user.id} snippetId={snippet.id} username={user.user_metadata.display_username} />}
+        {user && <CommentForm
+          userId={user.id}
+          snippetId={snippet.id}
+          username={user.user_metadata.display_username}
+        />}
 
       </div>
     </>
