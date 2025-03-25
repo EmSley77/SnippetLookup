@@ -28,7 +28,7 @@ export default function Wrapper({ children }) {
     }
     return (
         <>
-            <Navigate to={"/home"} />
+            <Navigate to={"/"} />
         </>
     )
 }

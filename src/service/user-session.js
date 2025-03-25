@@ -1,9 +1,19 @@
 import { supabaseClient } from "./supabase-helper";
 
 async function getSession() {
-    const { data } = await supabaseClient.auth.getSession();
+    try {
+        const { data, error } = await supabaseClient.auth.getSession();
 
-    return data?.session || false;
+        if (error) {
+            console.error("Error fetching session:", error);
+            return false;
+        }
+
+        return data?.session || false;
+    } catch (err) {
+        console.error("An error occurred while fetching the session:", err);
+        return false;
+    }
 }
 
-export {getSession}
+export { getSession };

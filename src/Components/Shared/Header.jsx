@@ -1,16 +1,30 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router';
 import { supabaseClient } from '../../service/supabase-helper.js';
+import { getSession } from '../../service/user-session.js';
 import '../../styles/style.css';
+import DangerAlert from '../util/DangerAlert.jsx'
 
 export default function Header() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
-    let { error } = await supabaseClient.auth.signOut();
-    if (error) throw error;
-    navigate('/home');
+    const data = await getSession()
+    if (!data) {
+      return alert("You are already signed out please sign in again")
+    }
+
+    try {
+      const { error } = await supabaseClient.auth.signOut();
+      if (error) {
+        throw error;
+      }
+      navigate('/'); // Redirect to home page after sign out
+    } catch (error) {
+      alert("An error occurred while signing out. Please try again.");
+      console.error(error);
+    }
   };
 
   return (
@@ -26,7 +40,8 @@ export default function Header() {
 
         {/* Navigation Links */}
         <nav className="hidden md:flex gap-6 text-gray-700">
-          <NavLink className="text-lg font-medium hover:text-teal-600 transition" to="/home">Browse</NavLink>
+          <NavLink className="text-lg font-medium hover:text-teal-600 transition" to="/about">About</NavLink>
+          <NavLink className="text-lg font-medium hover:text-teal-600 transition" to="/">Browse</NavLink>
           <NavLink className="text-lg font-medium hover:text-teal-600 transition" to="/account">Account</NavLink>
           <NavLink className="text-lg font-medium hover:text-teal-600 transition" to="/saved">Saved</NavLink>
         </nav>
@@ -55,7 +70,8 @@ export default function Header() {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden bg-white border-t shadow-md p-4 flex flex-col gap-4">
-          <NavLink className="text-lg font-medium hover:text-teal-600 transition" to="/home">Home</NavLink>
+          <NavLink className="text-lg font-medium hover:text-teal-600 transition" to="/">Home</NavLink>
+          <NavLink className="text-lg font-medium hover:text-teal-600 transition" to="/about">About</NavLink>
           <NavLink className="text-lg font-medium hover:text-teal-600 transition" to="/account">Account</NavLink>
           <NavLink className="text-lg font-medium hover:text-teal-600 transition" to="/saved">Saved</NavLink>
           <button

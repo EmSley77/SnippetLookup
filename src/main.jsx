@@ -14,12 +14,12 @@ import Snippet from './Components/snippet/Snippet.jsx'
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Landing />} />
+      <Route path="/about" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/reset-password" element={<ResetPassword />} />
 
-      <Route path="/home"
+      <Route path="/"
         element={<Home />}
       />
 

@@ -16,7 +16,7 @@ export default function Landing() {
                             CodeBlock is a stylish tool for developers to display code snippets, making it easier to share and understand programming concepts. You can use CodeBlock to showcase specific code samples, explain logic, or even highlight potential issues with the code.
                         </p>
                         <div className="bg-transparent hover:bg-yellow-300 text-yellow-300 hover:text-black rounded shadow hover:shadow-lg py-2 px-4 border border-yellow-300 hover:border-transparent">
-                            <Link to={"/login"} className="text-sm">Explore now!</Link>
+                            <Link to={"/"} className="text-sm">Explore now!</Link>
                         </div>
                     </div>
                     <div className="p-8 mt-12 mb-6 md:mb-0 md:mt-0 ml-0 md:ml-12 lg:w-2/3 justify-center">
@@ -44,7 +44,7 @@ export default ExampleComponent;`}
                 </div>
             </section>
 
-    
+
         </>
     )
 }

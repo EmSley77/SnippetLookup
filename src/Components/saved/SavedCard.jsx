@@ -41,8 +41,8 @@ export default function SavedCard({ snippet }) {
     if (loading) return <><h1>Loading...</h1></>
 
     return (
-        <div className="block p-4 bg-white rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-102 transition-all">
-            < div className="flex flex-col h-full justify-between">
+        <div className=" p-4 bg-white rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-102 transition-all">
+            < div className="flex flex-col justify-between">
 
                 {/* Title */}
                 <div className="h-full">
