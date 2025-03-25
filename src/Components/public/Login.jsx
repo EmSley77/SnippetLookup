@@ -71,7 +71,7 @@ export default function Login() {
                                 onChange={e => setEmail(e.target.value)}
                                 type="email"
                                 id="email"
-                                className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-lg"
                                 placeholder="you@example.com"
                                 required
                             />
@@ -80,25 +80,25 @@ export default function Login() {
                             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                                 Password
                             </label>
-                            <div className='flex space-x-2 py-2 items-center justify-between'>
+                            <div className='flex space-x-2 items-center justify-between border border-gray-300  rounded-lg shadow-lg p-2 '>
 
                                 <input
                                     onChange={e => setPassword(e.target.value)}
 
                                     type={show ? "text" : "password"}
                                     id="password"
-                                    className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                    // placeholder="••••••••"
+                                    className="w-full px-3 py-2 focus:outline-none  "
+                                   
                                     placeholder="password"
                                     required
                                 />
-
                                 <button className='cursor-pointer' onClick={e => {
                                     e.preventDefault()
                                     setShow(!show)
                                 }}>
                                     {show ? <FaEye /> : <FaEyeSlash />}
                                 </button>
+
                             </div>
                         </div>
                         <div className='text-center'>

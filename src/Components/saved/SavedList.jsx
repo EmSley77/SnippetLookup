@@ -14,7 +14,7 @@ export default function SavedList({ data }) {
   return (
     <div className='h-screen p-4'>
 
-      <div className='grid grid-cols-3 gap-2 p-3 bg-gray-300 rounded-xl shadow-lg'>
+      <div className="flex flex-col gap-6 p-6 bg-gray-900 rounded-xl shadow-lg w-full">
 
         {data.map((snippet) => (
           <SavedCard

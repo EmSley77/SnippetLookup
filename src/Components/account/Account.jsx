@@ -17,17 +17,21 @@ export default function Account() {
   const [message, setMessage] = useState('')
   const [snippets, setSnippets] = useState([])
 
+
+
   const { user, loading } = FetchUser()
 
   useEffect(() => {
-    const fetchSnippets = async () => {
-      const data = await getSnippetsByUserId(user.id)
-      if (data) {
-        setSnippets(data)
+    if (!loading && user) {
+      const fetchSnippets = async () => {
+        const data = await getSnippetsByUserId(user.id)
+        if (data) {
+          setSnippets(data)
+        }
       }
+      fetchSnippets()
     }
-    fetchSnippets()
-  })
+  }, [loading, user])
 
   const formatCreatedDate = (createdDate) => {
     return new Date(createdDate).toLocaleDateString()

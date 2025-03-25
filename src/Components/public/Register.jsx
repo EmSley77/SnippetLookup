@@ -70,13 +70,12 @@ export default function Register() {
         <>
             <Header />
 
-            <div className='h-screen bg-white flex justify-center w-full'>
+            <div className=' bg-white flex justify-center w-full'>
                 <div className="flex flex-col justify-center">
-                    <div className='text-center mb-4 '>
+                    <div className='text-center mt-3'>
                         <h2 className="text-2xl font-bold text-gray-700 mb-4">Sign Up</h2>
-                        <hr />
                     </div>
-                    <form className="flex flex-col justify-between h-150" onSubmit={handleRegisterSubmit}>
+                    <form className="flex flex-col justify-between h-150 p-4 rounded-xl bg-white shadow-2xl" onSubmit={handleRegisterSubmit}>
                         <div className="flex space-x-4 mb-4">
                             <input onChange={e => setFirstname(e.target.value)} placeholder="First Name" className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 w-1/2 focus:bg-gray-200 shadow-lg focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="text" required />
                             <input onChange={e => setLastname(e.target.value)} placeholder="Last Name" className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 w-1/2 focus:bg-gray-200 shadow-lg focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="text" required />
@@ -87,7 +86,7 @@ export default function Register() {
                         <input onChange={e => setPassword(e.target.value)} placeholder="Password" className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 shadow-lg focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="password" required />
 
                         <input onChange={e => setRePassword(e.target.value)} placeholder="Confirm Password" className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 shadow-lg focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="password" required />
-                        <label className=" shadow-lg text-sm mb-2 text-gray-900 cursor-pointer" htmlFor="language" required>
+                        <label className=" text-sm  text-gray-900 cursor-pointer" htmlFor="language" required>
                             Preferred language
                         </label>
                         <select

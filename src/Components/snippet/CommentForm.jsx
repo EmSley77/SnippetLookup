@@ -12,54 +12,57 @@ export default function CommentForm({ snippetId, userId, username }) {
     const [message, setMessage] = useState('')
     const [comments, setComments] = useState([])
 
-    //fetch comments and set state
-    const fetchComments = async () => {
-        const data = await getCommentsBySnippetId(snippetId)
-        setComments(data)
-    }
+    // Fetch comments when snippetId changes
+    useEffect(() => {
+        if (snippetId) {
+            const fetchComments = async () => {
+                try {
+                    const data = await getCommentsBySnippetId(snippetId);
+                    setComments(data);
+                } catch (error) {
+                    console.error("Error fetching comments:", error);
+                }
+            };
 
+            fetchComments();
+        }
+    }, [snippetId]); // Re-fetch comments if snippetId changes
+
+    // Handle comment submission
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
 
-        const isSignedIn = await getSession()
-        if (!isSignedIn) {
-            return (<DangerAlert message={"you are not signed in to make a comment"} />)
+        if (!snippetId || !userId || !username || !comment) {
+            setMessage("Please make sure all fields are filled.");
+            return; // Prevent submission if required data is missing
         }
-        try {
-            const msg = await makeComment(userId, snippetId, comment, username);
-            setMessage(msg);
-            setComment(''); // Clear input
 
-            await fetchComments(); // Refresh comments
+        try {
+            // Submit the comment
+            const msg = await makeComment(userId, snippetId, comment, username);
+            setMessage(msg);  // Show the message returned from the API
+            setComment(''); // Clear the comment input
+
+            // Optimistically add the new comment to the state (no need to re-fetch)
+            setComments((prevComments) => [
+                ...prevComments,
+                { username, content: comment, snippet_id: snippetId, user_id: userId },
+            ]);
         } catch (error) {
             console.error("Error submitting comment:", error);
+            setMessage("There was an error submitting your comment.");
         }
     };
 
+    // Message timeout to hide success/error message after 3 seconds
     useEffect(() => {
         if (message) {
-
             const timer = setTimeout(() => {
-                setMessage('')
-            }, 3000)
-            return () => clearTimeout(timer)
+                setMessage('');
+            }, 3000);
+            return () => clearTimeout(timer);
         }
-    }, [message])
-
-
-    useEffect(() => {
-        const fetchComments = async () => {
-            try {
-                const data = await getCommentsBySnippetId(snippetId);
-                setComments(data);
-            } catch (error) {
-                console.error("Error fetching comments:", error);
-            }
-        };
-
-        fetchComments();
-    }, [snippetId]);
-
+    }, [message]);
 
     return (
         <div className="w-full flex flex-col bg-gray-900 rounded-lg p-4 text-white ">

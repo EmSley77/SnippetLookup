@@ -59,7 +59,6 @@ async function getSnippetById(snippetId) {
     }
 
     if (data && data.length > 0) {
-        console.log(data);
         return data[0];
     }
 }
@@ -211,7 +210,6 @@ async function saveSnippet(params) {
 }
 
 //make a commetn
-//TODO check if user already has commented in this snippet
 async function makeComment(userId, snippetId, comment, username) {
     const { data, error } = await supabaseClient
         .from("comments")
@@ -226,7 +224,6 @@ async function makeComment(userId, snippetId, comment, username) {
         .select();
 
     if (error) {
-        console.error(error.message);
         return "Could not post message, try again later";
     }
 
@@ -235,21 +232,22 @@ async function makeComment(userId, snippetId, comment, username) {
     }
 }
 
-//make a commetn
+//get comments by snippet id
 async function getCommentsBySnippetId(snippetId) {
+    
     const { data, error } = await supabaseClient
         .from("comments")
         .select("*")
         .eq("snippet_id", snippetId);
 
     if (error) {
-        console.error(error.message);
         return [];
     }
 
     if (data && data.length > 0) {
         return data;
     }
+    return [];
 }
 
 //remove from favorites
@@ -261,7 +259,6 @@ async function removeSaved(params) {
         .eq("user_id", params.userId);
 
     if (error) {
-        console.error(error.message);
         return;
     }
 }
