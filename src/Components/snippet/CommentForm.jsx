@@ -56,11 +56,10 @@ export default function CommentForm({ snippetId, userId, username }) {
 
 
     return (
-        <div className="w-full  flex flex-col bg-gray-900 rounded-lg p-4 text-white h-[800px]">
+        <div className="w-1/2 flex flex-col bg-gray-900 rounded-lg p-4 text-white ">
             {/* Header */}
             <div className='w-full text-center'>
                 <h1 className="text-2xl font-bold text-white">Discussion</h1>
-                <hr className='mb-2 mt-2' />
             </div>
 
             {/* Messages Container (Starts from Top) */}
@@ -70,9 +69,7 @@ export default function CommentForm({ snippetId, userId, username }) {
                 ))}
             </div>
 
-            {/* Divider */}
-            <hr className='mb-4 mt-2' />
-
+     
             {/* Comment Form (Always Stays at Bottom) */}
             <form onSubmit={handleCommentSubmit} className="w-full">
                 <div className="w-full px-3 my-2">

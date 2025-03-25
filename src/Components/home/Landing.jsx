@@ -44,7 +44,7 @@ export default ExampleComponent;`}
                 </div>
             </section>
 
-            <Footer />
+    
         </>
     )
 }

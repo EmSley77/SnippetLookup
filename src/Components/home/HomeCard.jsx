@@ -4,48 +4,46 @@ import '../../styles/style.css'
 export default function HomeCard({ snippet }) {
   return (
 
-    <article className="rounded-xl border border-gray-200 bg-white px-6 pt-8 pb-6 dark:border-gray-700 dark:bg-gray-800 w-full flex flex-col justify-between hover:translate-y-2.5 transition-all cursor-pointer">
-      {/* Title */}
+    <div key={snippet.id} className="p-6 bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all hover:translate-y-1.5 ">
+      <Link Link to={`/view/${snippet.id}`
+      }>
+        <p className="text-gray-300 text-sm mb-2">
+          {new Date(snippet.created_at).toLocaleDateString()}
+        </p>
+        <hr className="border-gray-600 mb-6" />
 
-      {/* Date */}
-      <time  className="block text-gray-500 dark:text-gray-400 mb-4 text-xl">
-        uploaded {new Date(snippet.created_at).toLocaleString()}
-      </time>
-      <hr className='mb-3 text-teal-200'/>
-      <h1 className="text-white mb-4 text-xl font-semibold">{snippet.title}</h1>
+        <div className="flex flex-col mb-6">
+          {/* Title */}
+          <div className="mb-3 h-10">
+            <span className="text-2xl font-semibold uppercase  tracking-wide text-gray-100">
+              {snippet.title.toUpperCase()}
+            </span>
+          </div>
 
-      {/* Description with Link */}
-      <Link to={`/view/${snippet.id}`}>
-        <h3 className="mt-2 text-lg font-medium text-gray-900 dark:text-white hover:text-purple-600 transition duration-200">
-          {snippet.description}
-        </h3>
-      </Link>
+          <hr className="border-teal-500 my-4" />
 
-      {/* Language Tag */}
-      <div className="mt-4">
-        <span className="rounded-full bg-purple-100 px-3 py-1 text-xs text-purple-600 dark:bg-purple-600 dark:text-purple-100">
-          {snippet.language}
-        </span>
-      </div>
+          {/* Description */}
+          <p className="text-gray-100 text-md mb-5 mt-3">
+            {snippet.description.toUpperCase()}
+          </p>
 
-      <hr className='mt-3 text-teal-200'/>
-  
+          {/* Language */}
+          <div className="text-sm font-medium mt-3">
+            <span className="px-4 py-2 bg-teal-500 text-white font-bold rounded-3xl">
+              {snippet.language}
+            </span>
+          </div>
 
-      {/* Username */}
-      <div className="mt-4">
-        <span className="rounded-full bg-gray-700 text-white py-1 px-3 text-sm">
-          @{snippet.username}
-        </span>
-      </div>
-    </article>
+          {/* Username */}
+          <div className="text-gray-100 text-sm font-extrabold  mt-4">
+            @{snippet.username}
+          </div>
+        </div>
+      </Link >
+    </div>
+
 
 
   );
 }
 
-
-/* 
-
-
-
-*/

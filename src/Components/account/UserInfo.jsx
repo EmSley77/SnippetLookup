@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function UserInfo({ user, formatCreatedDate, snippets }) {
     return (
-        <div className="flex flex-col gap-4 lg:grid-cols-2 p-4 bg-gray-900 shadow-2xl rounded-xl w-full h-[800px]">
+        <div className="flex flex-col gap-4 lg:grid-cols-2 p-4 bg-gray-900 shadow-2xl rounded-xl w-1/2">
 
             {/* User Info Section */}
             <div className="flex flex-col justify-between p-4 text-gray-300 bg-gray-800 rounded-xl shadow-lg">

@@ -63,7 +63,7 @@ export default function Snippet() {
   return (
     <>
       <Header />
-      <div className="grid grid-cols-2 p-3 gap-5">
+      <div className="flex p-3 gap-5 bg-black h-[800px]">
 
         <ViewSnippet
           snippet={snippet}
@@ -81,7 +81,6 @@ export default function Snippet() {
 
         <CommentForm userId={user.id} snippetId={snippet.id} username={user.user_metadata.display_username} />
       </div>
-      <Footer />
     </>
   );
 };

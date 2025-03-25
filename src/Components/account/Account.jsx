@@ -100,7 +100,7 @@ export default function Account() {
     <div className='h-screen'>
       <Header />
 
-      <div className="grid grid-cols-2 p-3 gap-5 ">
+      <div className="flex bg-black p-3 gap-5 h-[800px]">
 
         <UserInfo
           user={user}

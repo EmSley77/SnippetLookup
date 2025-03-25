@@ -10,7 +10,7 @@ export default function Search({ searchInput, category, setCategory, setSearchIn
                 <input
                     onChange={e => setSearchInput(e.target.value)}
                     value={searchInput}
-                    className='bg-gray-900 shadow-xl w-64 p-3 focus:border-0 rounded-xl transistion-all duration-200'
+                    className='bg-gray-700 shadow-xl w-64 p-3 focus:border-0 rounded-xl transistion-all duration-200'
                     type="text"
                     placeholder='@user or title'
                 />
@@ -24,7 +24,7 @@ export default function Search({ searchInput, category, setCategory, setSearchIn
                             value={category}
                             name="Headline"
                             id="Headline"
-                            className="p-2 mt-0.5 w-full rounded-xl border-gray-300 py-3 bg-gray-900 shadow-sm sm:text-sm"
+                            className="p-2 mt-0.5 w-full rounded-xl border-gray-300 py-3 bg-gray-700 shadow-sm sm:text-sm"
                         >
 
 

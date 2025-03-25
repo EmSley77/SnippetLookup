@@ -15,7 +15,7 @@ export default function ViewSnippet({
 }) {
     return (
         <>
-            <div className="bg-gray-900 text-white shadow-lg rounded-lg p-4 flex flex-col justify-between h-[800px]">
+            <div className="bg-gray-900 text-white shadow-lg rounded-lg p-4 flex flex-col justify-between w-1/2">
                 <h1 className="text-2xl font-bold text-white">{snippet.title}</h1>
                 <hr className="mb-2 mt-2" />
                 <p className="text-gray-300"><strong>Description:</strong> {snippet.description}</p>

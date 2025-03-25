@@ -4,9 +4,10 @@
     letter-spacing: 0.8px;
     font-family: 'Inter', 'fira code', monospace;
     font-weight: 700;
-    
+
 }
 
 body {
-    background: linear-gradient(to bottom right, #6a0dad, #3f51b5, #1e3a8a);
+    background-color: var(--color-gray-900);
+        /* oklch(0.21 0.034 264.665) */
 }

@@ -5,8 +5,8 @@ export default function SnippetForm({ handleSnippetCreateSubmit, setTitle, setDe
     return (
         <>
             {/* New Snippet Form */}
-            <div className="flex flex-col justify-between p-6 bg-gray-900 text-white rounded-xl ">
-                <div className='flex w-full justify-center items-center'>
+            <div className="flex flex-col  p-6 bg-gray-900 text-white rounded-xl w-1/2 ">
+                <div className='text-center'>
 
                     <h1 className="text-2xl font-semibold ">Create New Snippet</h1>
                 </div>

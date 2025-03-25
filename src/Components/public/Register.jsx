@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { supabaseClient } from '../../service/supabase-helper.js'
-import registerImage from '../../assets/register.png'
 export default function Register() {
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
@@ -9,12 +8,18 @@ export default function Register() {
     const [username, setUsername] = useState('')
     const [preferredLanguage, setPreferredLanguage] = useState('Javascript')
     const [password, setPassword] = useState('')
+    const [rePassword, setRePassword] = useState('')
     const [message, setMessage] = useState('')
 
 
 
     const handleRegisterSubmit = async (e) => {
         e.preventDefault()
+
+        if (password !== rePassword) {
+            setMessage("Password don't match")
+            return
+        }
 
 
         let { data, error } = await supabaseClient.auth.signUp({
@@ -60,130 +65,79 @@ export default function Register() {
         }
     }, [message])
     return (
-        <div className="min-w-screen min-h-screen bg-gray-900 flex items-center justify-center px-5 py-5">
-            <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{ maxWidth: '1200px' }}>
-                <div className="md:flex w-full">
-                    <div className="hidden md:block w-1/2 bg-indigo-500 py-10 px-10">
-                        <img src={registerImage} alt="code image" />
+
+        /* From Uiverse.io by themrsami */
+
+        <div className='h-screen bg-gray-900 flex justify-center w-full'>
+
+            <div className="  flex flex-col justify-center" >
+                <div className='text-center'>
+
+                    <h2 className="text-2xl font-bold text-gray-200 mb-4">Sign Up</h2>
+                </div>
+                <form className="flex flex-col justify-between h-150" onSubmit={handleRegisterSubmit}>
+                    <div className="flex space-x-4 mb-4">
+                        <input onChange={e => setFirstname(e.target.value)} placeholder="First Name" className="bg-gray-700 text-gray-200 border-0 rounded-md p-2 w-1/2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="text" required />
+                        <input onChange={e => setLastname(e.target.value)} placeholder="Last Name" className="bg-gray-700 text-gray-200 border-0 rounded-md p-2 w-1/2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="text" required />
                     </div>
-                    <div className="w-full md:w-1/2 py-10 px-5 md:px-10">
-                        <div className="text-center mb-10">
-                            <h1 className="font-bold text-3xl text-gray-900">Sign Up</h1>
-                            <p>Enter your information to register</p>
-                        </div>
-                        <form onSubmit={handleRegisterSubmit}>
-                            <div className="flex -mx-3">
-                                <div className="w-1/2 px-3">
-                                    <label className="text-xs font-semibold px-1">First name</label>
-                                    <input
-                                        onChange={e => setFirstname(e.target.value)}
-                                        type="text"
-                                        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 shadow-lg"
-                                        placeholder="John"
-                                    />
-                                </div>
-                                <div className="w-1/2 px-3">
-                                    <label className="text-xs font-semibold px-1">Last name</label>
-                                    <input
-                                        onChange={e => setLastname(e.target.value)}
+                    <input onChange={e => setUsername(e.target.value)} placeholder="Username" className="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="text" required />
+                    <input onChange={e => setEmail(e.target.value)} placeholder="Email" className="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="email" required />
 
-                                        type="text"
-                                        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 shadow-lg"
-                                        placeholder="Doe"
-                                    />
-                                </div>
-                            </div>
+                    <input onChange={e => setPassword(e.target.value)} placeholder="Password" className="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="password" required />
 
-                            <div className="flex -mx-3 mt-5">
-                                <div className="w-full px-3">
-                                    <label className="text-xs font-semibold px-1">Username</label>
-                                    <input
-                                        onChange={e => setUsername(e.target.value)}
+                    <input onChange={e => setRePassword(e.target.value)} placeholder="Confirm Password" className="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="password" required />
+                    <label className="text-sm mb-2 text-gray-200 cursor-pointer" htmlFor="language" required>
+                        Preferred language
+                    </label>
+                    <select
+                        id='language'
+                        className='bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150'
+                        onChange={e => setPreferredLanguage(e.target.value)}
+                        value={preferredLanguage}
+                    >
+                        <option value="javascript">JavaScript</option>
+                        <option value="typescript">TypeScript</option>
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                        <option value="csharp">C#</option>
+                        <option value="cpp">C++</option>
+                        <option value="php">PHP</option>
+                        <option value="go">Go</option>
+                        <option value="rust">Rust</option>
+                        <option value="ruby">Ruby</option>
+                        <option value="kotlin">Kotlin</option>
+                        <option value="swift">Swift</option>
+                        <option value="dart">Dart</option>
+                        <option value="perl">Perl</option>
+                        <option value="lua">Lua</option>
+                        <option value="haskell">Haskell</option>
+                        <option value="elixir">Elixir</option>
+                        <option value="clojure">Clojure</option>
+                        <option value="fsharp">F#</option>
+                    </select>
 
-                                        type="text"
-                                        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 shadow-lg"
-                                        placeholder="username"
-                                    />
-                                </div>
-                            </div>
-                            <div className="flex -mx-3 mt-5">
-                                <div className="w-full px-3">
-                                    <label className="text-xs font-semibold px-1">Email</label>
-                                    <input
-                                        onChange={e => setEmail(e.target.value)}
+                    <div className='w-full mt-4 mb-4 text-center'>
+                        {message && <span><h1 className='text-white text-xl'>{message}</h1></span>}
 
-                                        type="email"
-                                        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 shadow-lg"
-                                        placeholder="johndoe@example.com"
-                                    />
-                                </div>
-                            </div>
-                            <div className="flex -mx-3 mt-5">
-                                <div className="w-full px-3">
-                                    <label className="text-xs font-semibold px-1">Password</label>
-                                    <input
-                                        onChange={e => setPassword(e.target.value)}
-
-                                        type="password"
-                                        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 shadow-lg"
-                                        placeholder="********"
-                                    />
-                                </div>
-                            </div>
-                            <div className="flex -mx-3 mt-5">
-                                <div className="w-full px-3">
-                                    <label className="flex flex-col text-s font-semibold px-1">Preferred Coding Langauge</label>
-                                    <select
-                                        className='font-bold text-xl'
-                                        onChange={e => setPreferredLanguage(e.target.value)}
-                                        value={preferredLanguage}
-                                    >
-                                        <option value="javascript">JavaScript</option>
-                                        <option value="typescript">TypeScript</option>
-                                        <option value="html">HTML</option>
-                                        <option value="css">CSS</option>
-                                        <option value="python">Python</option>
-                                        <option value="java">Java</option>
-                                        <option value="csharp">C#</option>
-                                        <option value="cpp">C++</option>
-                                        <option value="php">PHP</option>
-                                        <option value="go">Go</option>
-                                        <option value="rust">Rust</option>
-                                        <option value="ruby">Ruby</option>
-                                        <option value="kotlin">Kotlin</option>
-                                        <option value="swift">Swift</option>
-                                        <option value="dart">Dart</option>
-                                        <option value="perl">Perl</option>
-                                        <option value="lua">Lua</option>
-                                        <option value="haskell">Haskell</option>
-                                        <option value="elixir">Elixir</option>
-                                        <option value="clojure">Clojure</option>
-                                        <option value="fsharp">F#</option>
-                                    </select>
-
-
-
-                                </div>
-                            </div>
-                            <div className="flex -mx-3 mt-5">
-                                <div className="w-full px-3">
-                                    <button type='submit' className="block w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 shadow-lg">
-                                        Register
-                                    </button>
-
-                                    {message && <span><h1>h{message}</h1></span>}
-                                </div>
-                            </div>
-
-                            <div className='mb-3 mt-3 w-full text-center'>
-                                <Link className='text-blue-600 hover:underline' to={"/login"}>Already have an account?</Link>
-
-                            </div>
-                        </form>
                     </div>
+
+                    <div className='w-full flex justify-center'>
+
+                        <button className=" w-100 transition-all cursor-pointer bg-transparent hover:bg-yellow-300 text-yellow-300 hover:text-black rounded  hover:shadow-lg py-3 px-4 border border-yellow-300 hover:border-transparent ">
+                            Login
+                        </button>
+                    </div>
+                </form>
+                <div className='w-full mt-5 text-center'>
+                    <Link className='text-blue-500 hover:underline transition-all' to={"/login"}>Already have an account? {""} sign in</Link>
+
                 </div>
             </div>
         </div>
+
+
     );
 };
 
