@@ -1,15 +1,15 @@
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router'
+import Account from './Components/account/Account.jsx'
+import Wrapper from './Components/helper/Wrapper.jsx'
 import Home from './Components/home/Home.jsx'
 import Landing from './Components/home/Landing.jsx'
-import Saved from './Components/saved//Saved.jsx'
-import Login from './Components/public/Login.jsx'
-import Account from './Components/account/Account.jsx'
-import Snippet from './Components/snippet/Snippet.jsx'
 import Error from './Components/Pages/Error.jsx'
+import Login from './Components/public/Login.jsx'
 import Register from './Components/public/Register.jsx'
-import Wrapper from './Components/helper/Wrapper.jsx'
 import ResetPassword from './Components/public/ResetPassword.jsx'
+import Saved from './Components/saved//Saved.jsx'
+import Snippet from './Components/snippet/Snippet.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>

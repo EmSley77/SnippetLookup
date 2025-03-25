@@ -25,7 +25,7 @@ export default function Error() {
                         background: "#fff",
                         borderRadius: "10px"
                     }}
-                    to={"/"}>Back to login</Link>
+                    to={"/"}>Back to Landing page</Link>
             </div>
         </>
     )

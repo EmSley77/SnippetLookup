@@ -1,11 +1,10 @@
-import React from 'react'
-import github from '../../assets/github-mark.png'
-import '../../styles/style.css'
+import React from 'react';
 import { Link } from 'react-router';
+import '../../styles/style.css';
 
 export default function Footer() {
     return (
-        <div className="w-full min-h-screen flex items-center justify-center bg-black">
+        <div className="w-full min-h-screen flex items-center justify-center bg-gray-900">
             <div className="md:w-2/3 w-full px-4 text-white flex flex-col">
                 <div className="w-full text-7xl font-bold">
                     <h1 className="w-full md:w-2/3">How can we help?</h1>

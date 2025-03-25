@@ -49,7 +49,7 @@ export default function ResetPassword() {
                     <button type="submit">Submit</button>
 
 
-                    <Link to={"/"} style={{ color: "var(--clr)", }}>
+                    <Link to={"/login"} style={{ color: "var(--clr)", }}>
                         Return
                     </Link>
                 </form>
