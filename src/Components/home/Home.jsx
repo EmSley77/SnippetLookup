@@ -63,6 +63,7 @@ export default function App() {
         />
 
         <HomeList data={filteredData} />
+      
 
         <div className='w-fit flex gap-3 p-4 bg-gray-900 rounded-xl '>
           <button onClick={prev => setPage(prev - 1)}

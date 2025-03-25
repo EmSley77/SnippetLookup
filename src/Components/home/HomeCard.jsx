@@ -6,18 +6,17 @@ export default function HomeCard({ snippet }) {
   return (
     <div
       key={snippet.id}
-      className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-1 border border-gray-200 flex flex-col items-start"
+      className="p-6 bg-gray-900 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-1 border border-gray-700 flex flex-col items-start"
     >
       <Link to={`/view/${snippet.id}`} className="block w-full">
-
         <div className="flex flex-col w-full">
           {/* Title */}
-          <h3 className="text-xl font-semibold tracking-wide text-gray-900 mb-2 overflow-hidden text-ellipsis whitespace-nowrap">
+          <h3 className="text-xl font-semibold tracking-wide text-teal-400 mb-2 overflow-hidden text-ellipsis whitespace-nowrap">
             {snippet.title}
           </h3>
 
           {/* Description */}
-          <p className="text-gray-700 text-md mb-4">
+          <p className="text-gray-300 text-md mb-4">
             {snippet.description}
           </p>
 
@@ -29,7 +28,7 @@ export default function HomeCard({ snippet }) {
           </div>
 
           {/* Username */}
-          <p className="text-gray-600 text-sm font-bold mt-4">
+          <p className="text-gray-400 text-sm font-bold mt-4">
             @{snippet.username}
           </p>
         </div>

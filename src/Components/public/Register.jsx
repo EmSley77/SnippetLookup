@@ -2,15 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import Header from '../Shared/Header.jsx'
 import { supabaseClient } from '../../service/supabase-helper.js'
+import { SiTrueup } from 'react-icons/si';
+
+
 export default function Register() {
-    const [firstname, setFirstname] = useState('')
-    const [lastname, setLastname] = useState('')
-    const [email, setEmail] = useState('')
-    const [username, setUsername] = useState('')
-    const [preferredLanguage, setPreferredLanguage] = useState('Javascript')
-    const [password, setPassword] = useState('')
-    const [rePassword, setRePassword] = useState('')
-    const [message, setMessage] = useState('')
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [rePassword, setRePassword] = useState('');
+    const [preferredLanguage, setPreferredLanguage] = useState('javascript');
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
 
 
@@ -22,6 +26,7 @@ export default function Register() {
             return
         }
 
+        setLoading(true)
 
         let { data, error } = await supabaseClient.auth.signUp({
             email: email,
@@ -35,13 +40,18 @@ export default function Register() {
                     preferred_language: preferredLanguage
                 }
             }
+
         })
 
         if (data) {
-            console.log(data);
             setMessage("account created")
             setEmail('')
             setPassword('')
+            setUsername('')
+            setPreferredLanguage('javascript')
+            setFirstname('')
+            setLastname('')
+            setLoading(false)
             return
         }
 
@@ -49,11 +59,10 @@ export default function Register() {
             setMessage(error.message)
             setEmail('')
             setPassword('')
+            setLoading(false)
             return
         }
 
-        setEmail('')
-        setPassword('')
     }
 
     useEffect(() => {
@@ -66,77 +75,115 @@ export default function Register() {
         }
     }, [message])
 
+
     return (
         <>
             <Header />
-
-            <div className=' bg-white flex justify-center w-full'>
-                <div className="flex flex-col justify-center">
-                    <div className='text-center mt-3'>
-                        <h2 className="text-2xl font-bold text-gray-700 mb-4">Sign Up</h2>
-                    </div>
-                    <form className="flex flex-col justify-between h-150 p-4 rounded-xl bg-white shadow-2xl" onSubmit={handleRegisterSubmit}>
-                        <div className="flex space-x-4 mb-4">
-                            <input onChange={e => setFirstname(e.target.value)} placeholder="First Name" className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 w-1/2 focus:bg-gray-200 shadow-lg focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="text" required />
-                            <input onChange={e => setLastname(e.target.value)} placeholder="Last Name" className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 w-1/2 focus:bg-gray-200 shadow-lg focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="text" required />
+            <div className="flex justify-center items-center w-full h-screen bg-gray-900">
+                <div className="flex flex-col p-6 rounded-xl bg-gray-800 shadow-lg w-96">
+                    <h2 className="text-2xl font-bold text-center text-gray-100 mb-4">Sign Up</h2>
+                    <form onSubmit={handleRegisterSubmit} autoComplete="off" className="flex flex-col space-y-4">
+                        <div className="flex space-x-4">
+                            <div className="w-full">
+                                <label className="text-sm text-gray-400" htmlFor="firstname">First Name</label>
+                                <input
+                                    id="firstname"
+                                    onChange={e => setFirstname(e.target.value)}
+                                    placeholder="First Name"
+                                    className={inputClass}
+                                    type="text"
+                                    required
+                                />
+                            </div>
+                            <div className="w-full">
+                                <label className="text-sm text-gray-400" htmlFor="lastname">Last Name</label>
+                                <input
+                                    id="lastname"
+                                    onChange={e => setLastname(e.target.value)}
+                                    placeholder="Last Name"
+                                    className={inputClass}
+                                    type="text"
+                                    required
+                                />
+                            </div>
                         </div>
-                        <input onChange={e => setUsername(e.target.value)} placeholder="Username" className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 shadow-lg focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="text" required />
-                        <input onChange={e => setEmail(e.target.value)} placeholder="Email" className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 shadow-lg focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="email" required />
-
-                        <input onChange={e => setPassword(e.target.value)} placeholder="Password" className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 shadow-lg focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="password" required />
-
-                        <input onChange={e => setRePassword(e.target.value)} placeholder="Confirm Password" className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 shadow-lg focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150" type="password" required />
-                        <label className=" text-sm  text-gray-900 cursor-pointer" htmlFor="language" required>
-                            Preferred language
-                        </label>
-                        <select
-                            id='language'
-                            className='shadow-lg bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150'
-                            onChange={e => setPreferredLanguage(e.target.value)}
-                            value={preferredLanguage}
-                        >
-                            <option value="javascript">JavaScript</option>
-                            <option value="typescript">TypeScript</option>
-                            <option value="html">HTML</option>
-                            <option value="css">CSS</option>
-                            <option value="python">Python</option>
-                            <option value="java">Java</option>
-                            <option value="csharp">C#</option>
-                            <option value="cpp">C++</option>
-                            <option value="php">PHP</option>
-                            <option value="go">Go</option>
-                            <option value="rust">Rust</option>
-                            <option value="ruby">Ruby</option>
-                            <option value="kotlin">Kotlin</option>
-                            <option value="swift">Swift</option>
-                            <option value="dart">Dart</option>
-                            <option value="perl">Perl</option>
-                            <option value="lua">Lua</option>
-                            <option value="haskell">Haskell</option>
-                            <option value="elixir">Elixir</option>
-                            <option value="clojure">Clojure</option>
-                            <option value="fsharp">F#</option>
-                        </select>
-
-                        <div className='w-full mt-4 mb-4 text-center'>
-                            {message && <span><h1 className='text-black text-xl'>{message}</h1></span>}
+                        <div>
+                            <label className="text-sm text-gray-400" htmlFor="username">Username</label>
+                            <input
+                                id="username"
+                                onChange={e => setUsername(e.target.value)}
+                                placeholder="Username"
+                                className={inputClass}
+                                type="text"
+                                required
+                            />
                         </div>
-
-                        <div className='w-full flex justify-center'>
-                            <button
-
-                                type="submit"
-                                className="cursor-pointer w-full px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        <div>
+                            <label className="text-sm text-gray-400" htmlFor="email">Email</label>
+                            <input
+                                id="email"
+                                onChange={e => setEmail(e.target.value)}
+                                placeholder="Email"
+                                className={inputClass}
+                                type="email"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="text-sm text-gray-400" htmlFor="password">Password</label>
+                            <input
+                                id="password"
+                                onChange={e => setPassword(e.target.value)}
+                                placeholder="Password"
+                                className={inputClass}
+                                type="password"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="text-sm text-gray-400" htmlFor="repassword">Confirm Password</label>
+                            <input
+                                id="repassword"
+                                onChange={e => setRePassword(e.target.value)}
+                                placeholder="Confirm Password"
+                                className={inputClass}
+                                type="password"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="text-sm text-gray-400" htmlFor="language">Preferred Language</label>
+                            <select
+                                id="language"
+                                className={inputClass}
+                                onChange={e => setPreferredLanguage(e.target.value)}
+                                value={preferredLanguage}
                             >
-                                Sign in
-                            </button>
+                                {["JavaScript", "TypeScript", "HTML", "CSS", "Python", "Java", "C#", "C++", "PHP", "Go", "Rust", "Ruby", "Kotlin", "Swift", "Dart", "Perl", "Lua", "Haskell", "Elixir", "Clojure", "F#"].map(lang => (
+                                    <option key={lang} value={lang.toLowerCase()}>{lang}</option>
+                                ))}
+                            </select>
                         </div>
+                        {message && <h1 className="text-green-400 text-center text-lg">{message}</h1>}
+                        <button
+                            type="submit"
+                            className={`w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={loading}
+                        >
+                            {loading ? 'Signing up...' : 'Sign Up'}
+                        </button>
                     </form>
-                    <div className='w-full mt-5 text-center'>
-                        <p to={"/login"}>Already have an account? <Link to={"/login"} className='text-blue-500 hover:underline transition-all'><strong>sign in</strong></Link></p>
-                    </div>
+                    <p className="text-gray-400 text-center mt-4">
+                        Already have an account?{" "}
+                        <Link to="/login" className="text-blue-500 hover:underline">
+                            <strong>Sign in</strong>
+                        </Link>
+                    </p>
                 </div>
             </div>
         </>
     );
 };
+
+const inputClass = "w-full px-3 py-2 mt-1 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white";
+//                                 className="w-full px-3 py-2 mt-1 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"

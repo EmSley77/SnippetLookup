@@ -41,12 +41,12 @@ export default function SavedCard({ snippet }) {
     if (loading) return <><h1>Loading...</h1></>
 
     return (
-        <div className=" p-4 bg-white rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-102 transition-all">
-            < div className="flex flex-col justify-between">
+        <div className="p-4 bg-gray-700 rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-102 transition-all">
+            <div className="flex flex-col overflow-y-auto justify-between">
 
                 {/* Title */}
                 <div className="h-full">
-                    <span className="text-lg font-semibold uppercase tracking-wide text-gray-900">
+                    <span className="text-lg font-semibold uppercase tracking-wide text-white">
                         {snippet.title.toUpperCase()}
                     </span>
                 </div>
@@ -54,7 +54,7 @@ export default function SavedCard({ snippet }) {
                 <hr className="border-teal-500 my-2" />
 
                 {/* Description */}
-                <p className="text-gray-900 text-sm mb-5 mt-3">{snippet.description.toUpperCase()}</p>
+                <p className="text-gray-300 text-sm mb-5 mt-3">{snippet.description.toUpperCase()}</p>
 
                 {/* Language */}
                 <div className="text-sm font-medium mt-auto">
@@ -64,17 +64,15 @@ export default function SavedCard({ snippet }) {
                 </div>
 
                 {/* Code block */}
-
-
-                <pre onClick={() => copyCode(snippet.code, setIsCopied, isCopied)}
-                    className='drop-shadow-lg bg-gray-400 p-3  rounded-xl mt-4 whitespace-pre-wrap break-words overflow-y-scroll h-full scroll-smooth cursor-pointer'>
-
+                <pre
+                    onClick={() => copyCode(snippet.code, setIsCopied, isCopied)}
+                    className='drop-shadow-lg bg-gray-800 p-3 rounded-xl mt-4 whitespace-pre-wrap break-words overflow-y-scroll h-full scroll-smooth cursor-pointer text-teal-300'
+                >
                     {snippet.code}
                 </pre>
 
-
                 {/* Username (always at the bottom) */}
-                <div className="text-gray-900 text-xs font-extrabold mt-3">Creator @{snippet.username}</div>
+                <div className="text-gray-400 text-xs font-extrabold mt-3">Creator @{snippet.username}</div>
 
                 {/* Message */}
                 {message && <span className="text-teal-400 mt-2">{message}</span>}
@@ -82,12 +80,12 @@ export default function SavedCard({ snippet }) {
                 {/* Delete button */}
                 <button
                     onClick={handleDelete}
-                    className="text-red-500 text-sm mt-2 w-fit rounded-xl hover:text-red-700 hover:bg-gray-200 cursor-pointer p-2 bg-gray-100 transition-all"
+                    className="text-red-500 text-sm mt-2 w-fit rounded-xl hover:text-red-700 hover:bg-gray-600 cursor-pointer p-2 bg-gray-800 transition-all"
                 >
                     Delete
                 </button>
 
             </div>
-        </div >
+        </div>
     );
-};
+}

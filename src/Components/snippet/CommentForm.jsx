@@ -65,9 +65,9 @@ export default function CommentForm({ snippetId, userId, username }) {
     }, [message]);
 
     return (
-        <div className="w-full flex flex-col bg-gray-900 rounded-lg p-4 text-white ">
+        <div className="w-full flex flex-col bg-gray-900 rounded-lg p-4 text-white">
             {/* Header */}
-            <div className='w-full text-center'>
+            <div className="w-full text-center">
                 <h1 className="text-2xl font-bold text-white">Discussion</h1>
             </div>
 
@@ -77,7 +77,6 @@ export default function CommentForm({ snippetId, userId, username }) {
                     <CommentCard item={item} id={item.id} key={item.id} />
                 ))}
             </div>
-
 
             {/* Comment Form (Always Stays at Bottom) */}
             <form onSubmit={handleCommentSubmit} className="w-full">
@@ -97,12 +96,11 @@ export default function CommentForm({ snippetId, userId, username }) {
                         className="px-2.5 py-1.5 rounded-xl w-fit text-m bg-indigo-500 cursor-pointer hover:bg-indigo-700 transition-all"
                         value="Post Comment"
                     />
-                    <div className='w-full flex text-center justify-center my-3'>
+                    <div className="w-full flex text-center justify-center my-3">
                         {message && <span><h1>{message}</h1></span>}
                     </div>
                 </div>
             </form>
         </div>
-
     );
 };

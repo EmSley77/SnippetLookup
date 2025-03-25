@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router';
 export default function ViewSnippet({
     snippet,
@@ -7,8 +7,7 @@ export default function ViewSnippet({
     isCopied,
     message,
     heartIcon,
-    likeIcon,
-    dislikeIcon,
+ 
     checkIcon,
     copyIcon,
     copyCode
@@ -25,41 +24,27 @@ export default function ViewSnippet({
                 <hr className="my-4 border-gray-700" />
 
                 {/* Code Block */}
-                <div className="bg-gray-700 text-white p-4 rounded-lg overflow-x-auto flex flex-col">
-                    <div className='flex justify-between '>
+                <div className="bg-gray-700 text-white p-4 rounded-lg overflow-x-auto flex flex-col mb-5">
+                    <div className="flex justify-between">
                         <h4 className="mb-2 font-semibold text-gray-200">Code</h4>
                         <button
-                            className=" top-2 right-2 bg-gray-600 hover:bg-gray-500 p-2 rounded-lg transition-all"
+                            className="top-2 right-2 bg-gray-600 hover:bg-gray-500 p-2 rounded-lg transition-all"
                             onClick={() => copyCode(snippet.code, setIsCopied, isCopied)}
                         >
                             <img src={isCopied ? checkIcon : copyIcon} alt="copy icon" className="h-6 cursor-pointer" />
                         </button>
+
+                        <button className="p-2 hover:bg-gray-600 rounded-lg transition-all cursor-pointer" onClick={handleSaveSnippet}>
+                            <img src={heartIcon} alt="save icon" className="h-6" />
+                        </button>
                     </div>
-                        <hr className="mb-3 mt-4 border-gray-400" />
-                    <pre className="whitespace-pre-wrap h-100 overflow-y-auto text-teal-300 drop-shadow-xl bg-gray-800 p-2 rounded-xl">{snippet.code}</pre>
-
+                    <hr className="mb-3 mt-4 border-gray-400" />
+                    <pre className="whitespace-pre-wrap h-100 overflow-y-auto text-teal-300 drop-shadow-xl bg-gray-800 p-2 rounded-xl">
+                        {snippet.code}
+                    </pre>
                 </div>
 
-                <div className='mt-2 text-center'>
 
-                    <h1 className='text-xl'>Rating</h1>
-                </div>
-                <hr className="my-4 border-gray-700 w-1/2 mx-auto" />
-
-                {/* Like/Save/Dislike Buttons */}
-                <div className="flex justify-center gap-4 bg-gray-700 rounded-xl p-3">
-                    <button className="p-2 hover:bg-gray-600 rounded-lg transition-all cursor-pointer">
-                        <img src={likeIcon} alt="like icon" className="h-6" />
-                    </button>
-                    <button className="p-2 hover:bg-gray-600 rounded-lg transition-all cursor-pointer" onClick={handleSaveSnippet}>
-                        <img src={heartIcon} alt="save icon" className="h-6" />
-                    </button>
-                    <button className="p-2 hover:bg-gray-600 rounded-lg transition-all cursor-pointer">
-                        <img src={dislikeIcon} alt="dislike icon" className="h-6" />
-                    </button>
-                </div>
-
-                <hr className="my-4 border-gray-700 w-1/2 mx-auto" />
 
                 {/* Message */}
                 {message && <h2 className="text-center text-green-400 font-semibold">{message}</h2>}
@@ -73,4 +58,5 @@ export default function ViewSnippet({
             </div>
         </>
     );
+
 }

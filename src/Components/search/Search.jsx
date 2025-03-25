@@ -3,11 +3,11 @@ import '../../styles/style.css'
 
 export default function Search({ searchInput, category, setCategory, setSearchInput }) {
     return (
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 p-5 text-black">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 p-5 text-white">
             <input
                 onChange={(e) => setSearchInput(e.target.value)}
                 value={searchInput}
-                className="bg-gray-300 shadow-lg w-72 p-3 rounded-xl transition-all duration-200 focus:ring-2 focus:ring-teal-400 focus:outline-none"
+                className="bg-gray-800 text-gray-300 shadow-lg w-72 p-3 rounded-xl transition-all duration-200  focus:outline-none border border-teal-500"
                 type="text"
                 placeholder="@user or title"
             />
@@ -15,7 +15,7 @@ export default function Search({ searchInput, category, setCategory, setSearchIn
             <select
                 onChange={(e) => setCategory(e.target.value)}
                 value={category}
-                className="p-3 w-72 rounded-xl transition-all  bg-gray-300 shadow-lg  focus:ring-2 focus:ring-teal-400 focus:outline-none"
+                className="p-3 w-72 rounded-xl transition-all bg-gray-800 text-gray-300 shadow-lg border border-teal-500  focus:outline-none"
             >
                 <option value="">All</option>
                 <optgroup label="Frontend">

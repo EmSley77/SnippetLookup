@@ -25,7 +25,7 @@ export default function Login() {
         })
 
         if (data) {
-            navigate("/home")
+            navigate("/")
             return null
         }
 
@@ -34,7 +34,7 @@ export default function Login() {
             setEmail('')
             setPassword('')
             navigate("/login")
-            
+
         }
     }
 
@@ -52,87 +52,84 @@ export default function Login() {
             return () => clearTimeout(timer)
         }
     }, [message])
-
-
     return (
-
         <>
             <Header />
-            <div className="flex items-center justify-center min-h-screen bg-gray-100">
-                <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-                    <h2 className="text-2xl font-bold text-gray-900 text-center">Sign in</h2>
-                    <form className="mt-4 space-y-4" onSubmit={handleLoginSubmit}>
+            <div className="flex items-center justify-center h-screen bg-gray-900">
+                <div className="w-full max-w-md p-8 space-y-6 rounded-lg bg-gray-800">
+                    <h2 className="text-2xl font-bold text-white text-center">Sign in</h2>
+                    <form className="space-y-4" onSubmit={handleLoginSubmit}>
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-300">
                                 Email address
                             </label>
                             <input
-                                autoComplete='off'
+                                autoComplete="off"
                                 onChange={e => setEmail(e.target.value)}
                                 type="email"
                                 id="email"
-                                className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-lg"
+                                className="w-full px-3 py-2 mt-1 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                                 placeholder="you@example.com"
                                 required
                             />
                         </div>
                         <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-300">
                                 Password
                             </label>
-                            <div className='flex space-x-2 items-center justify-between border border-gray-300  rounded-lg shadow-lg p-2 '>
-
+                            <div className="flex items-center justify-between bg-gray-700 border border-gray-600 rounded-lg p-2">
                                 <input
                                     onChange={e => setPassword(e.target.value)}
-
                                     type={show ? "text" : "password"}
                                     id="password"
-                                    className="w-full px-3 py-2 focus:outline-none  "
-                                   
+                                    className="w-full px-3 py-2 bg-transparent focus:outline-none text-white"
                                     placeholder="password"
                                     required
                                 />
-                                <button className='cursor-pointer' onClick={e => {
-                                    e.preventDefault()
-                                    setShow(!show)
-                                }}>
+                                <button
+                                    className="cursor-pointer text-gray-400 hover:text-gray-200"
+                                    onClick={e => {
+                                        e.preventDefault();
+                                        setShow(!show);
+                                    }}
+                                >
                                     {show ? <FaEye /> : <FaEyeSlash />}
                                 </button>
-
                             </div>
                         </div>
-                        <div className='text-center'>
-
-                            {message && <span className='text-xl text-red-600'>{message}</span>}
-                        </div>
+                        {message && <div className="text-center text-red-500">{message}</div>}
                         <button
                             type="submit"
-                            className="cursor-pointer w-full px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition"
                         >
                             Sign in
                         </button>
                     </form>
                     <div className="relative flex items-center justify-center my-4">
-                        <span className="absolute px-2 text-gray-500 bg-white">or</span>
-                        <div className="w-full border-t border-gray-300"></div>
+                        <span className="absolute px-2 text-gray-400 ">or</span>
+                        <div className="w-full border-t border-gray-700"></div>
                     </div>
-                    <button onClick={handleGoogleLogin}
-                        className="cursor-pointer flex items-center justify-center w-full px-4 py-2 text-gray-900 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                    <button
+                        onClick={handleGoogleLogin}
+                        className="w-full flex items-center justify-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition"
                     >
                         <FcGoogle className="w-5 h-5 mr-2" /> Sign in with Google
                     </button>
                     <button
-                        className="cursor-pointer flex items-center justify-center w-full px-4 py-2 text-gray-900 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                        className="w-full flex items-center justify-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition"
                     >
                         <BsApple className="w-5 h-5 mr-2" /> Sign in with Apple
                     </button>
-                    <div className='text-center'>
-                        <p>Dont have an account?{''} <Link to={"/register"} className='hover:underline'><strong className='text-blue-500'>Sign up</strong></Link> </p>
+                    <div className="text-center">
+                        <p className="text-gray-400">
+                            Don't have an account?{" "}
+                            <Link to="/register" className="hover:underline text-blue-500">
+                                Sign up
+                            </Link>
+                        </p>
                     </div>
                 </div>
-
             </div>
         </>
     );
-};
-
+}

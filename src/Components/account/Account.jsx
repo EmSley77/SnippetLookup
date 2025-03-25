@@ -101,16 +101,21 @@ export default function Account() {
 
 
   return (
-    <div className='h-screen'>
+    <div className="h-screen bg-gray-900 text-white">
+
+      {/* Header Section */}
       <Header />
 
-      <div className="flex bg-white p-3 gap-5 h-[800px]">
+      <div className="flex p-3 gap-5 h-full">
 
+        {/* User Info Section */}
         <UserInfo
           user={user}
           formatCreatedDate={formatCreatedDate}
-          snippets={snippets} />
+          snippets={snippets}
+        />
 
+        {/* Snippet Form Section */}
         <SnippetForm
           message={message}
           setTitle={setTitle}
@@ -122,9 +127,8 @@ export default function Account() {
           setDescription={setDescription}
         />
 
-
       </div>
 
     </div>
   );
-}
+};

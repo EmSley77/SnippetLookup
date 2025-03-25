@@ -3,15 +3,12 @@ import { useParams } from 'react-router';
 import checkIcon from '../../assets/check white.png';
 import copyIcon from '../../assets/copy white.png';
 import heartIcon from '../../assets/heart.png';
-import likeIcon from '../../assets/thumb up.png';
-import dislikeIcon from '../../assets/thumbs down.png';
 import { copyCode } from '../../js/copy';
 import { getSnippetById, saveSnippet } from '../../service/snippet-helper.js';
 import { FetchUser } from '../../service/user-metadata.js';
 
 import "../../styles/style.css";
 import Header from '../Shared/Header.jsx';
-import LoaderTeal from '../util/LoaderTeal.jsx'
 import CommentForm from './CommentForm.jsx';
 import ViewSnippet from './ViewSnippet.jsx';
 
@@ -75,8 +72,6 @@ export default function Snippet() {
           isCopied={isCopied}
           message={message}
           heartIcon={heartIcon}
-          likeIcon={likeIcon}
-          dislikeIcon={dislikeIcon}
           checkIcon={checkIcon}
           copyIcon={copyIcon}
           copyCode={copyCode}
