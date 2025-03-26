@@ -147,6 +147,7 @@ async function createSnippet(body, setMessage) {
                 description: body.description,
                 username: body.username,
                 code: body.code,
+                user_text: body.userText,
             },
         ])
         .select();
@@ -234,7 +235,6 @@ async function makeComment(userId, snippetId, comment, username) {
 
 //get comments by snippet id
 async function getCommentsBySnippetId(snippetId) {
-    
     const { data, error } = await supabaseClient
         .from("comments")
         .select("*")

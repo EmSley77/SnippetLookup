@@ -80,7 +80,7 @@ export default function Register() {
         <>
             <Header />
             <div className="flex justify-center items-center w-full h-screen bg-gray-900">
-                <div className="flex flex-col p-6 rounded-xl bg-gray-800 shadow-lg w-96">
+                <div className="flex flex-col p-6 w-150">
                     <h2 className="text-2xl font-bold text-center text-gray-100 mb-4">Sign Up</h2>
                     <form onSubmit={handleRegisterSubmit} autoComplete="off" className="flex flex-col space-y-4">
                         <div className="flex space-x-4">

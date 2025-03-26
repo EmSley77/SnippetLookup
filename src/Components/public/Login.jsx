@@ -55,13 +55,13 @@ export default function Login() {
     return (
         <>
             <Header />
-            <div className="flex items-center justify-center h-screen bg-gray-900">
-                <div className="w-full max-w-md p-8 space-y-6 rounded-lg bg-gray-800">
+            <div className="flex items-center justify-center h-screen ">
+                <div className="w-full max-w-md p-8 space-y-6 ">
                     <h2 className="text-2xl font-bold text-white text-center">Sign in</h2>
                     <form className="space-y-4" onSubmit={handleLoginSubmit}>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                                Email address
+                                Email
                             </label>
                             <input
                                 autoComplete="off"
@@ -70,7 +70,7 @@ export default function Login() {
                                 id="email"
                                 className="w-full px-3 py-2 mt-1 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                                 placeholder="you@example.com"
-                                required
+                                requiredGg
                             />
                         </div>
                         <div>

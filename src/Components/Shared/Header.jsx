@@ -48,6 +48,9 @@ export default function Header() {
 
           {/* User Actions (Desktop) */}
           <div className="hidden md:flex items-center gap-4">
+            <Link
+              className="px-5 py-2.5 bg-teal-300  rounded-md text-lg font-medium hover:bg-teal-500 transition-all cursor-pointer"
+              to="/create">Create Post</Link>
             <button
               onClick={handleSignOut}
               className="px-5 py-2.5 text-gray-300 border-2 rounded-md text-lg font-medium hover:bg-gray-800 transition-all cursor-pointer"
@@ -59,7 +62,7 @@ export default function Header() {
               to="/login">Login</Link>
             <Link
               className="px-5 py-2.5 text-gray-300 border-2 rounded-md text-lg font-medium hover:bg-gray-800 transition-all cursor-pointer"
-              to="/register">Register</Link>
+              to="/register">Create account</Link>
           </div>
 
           {/* Mobile Menu Button */}

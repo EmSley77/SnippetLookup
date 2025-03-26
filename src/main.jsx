@@ -10,6 +10,7 @@ import Register from './Components/public/Register.jsx'
 import ResetPassword from './Components/public/ResetPassword.jsx'
 import Saved from './Components/saved//Saved.jsx'
 import Snippet from './Components/snippet/Snippet.jsx'
+import SnippetForm from './Components/account/SnippetForm.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -31,6 +32,12 @@ createRoot(document.getElementById('root')).render(
         element={
           <Wrapper>
             <Account />
+          </Wrapper>}
+      />
+      <Route path='/create'
+        element={
+          <Wrapper>
+            <SnippetForm />
           </Wrapper>}
       />
 

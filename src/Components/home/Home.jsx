@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { getSnippetsWithPagination } from '../../service/snippet-helper.js';
 import '../../styles/style.css';
 import Search from '../search/Search.jsx';
@@ -9,7 +9,6 @@ import HomeList from './HomeList.jsx';
 export default function App() {
 
   const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
   const [page, setPage] = useState(0);
   const [searchInput, setSearchInput] = useState("");
   const [category, setCategory] = useState("");
@@ -27,22 +26,25 @@ export default function App() {
     fetchData();
   }, [page]);
 
-  useEffect(() => {
-
-    let filtered = data
-
-    if (searchInput) {
-      filtered = filtered.filter(item => item.title?.toLowerCase().includes(searchInput.toLowerCase()) ||
-        item.username?.toLowerCase().includes(searchInput.toLowerCase()));
-
-    }
+  // Memoized filtered data
+  const filteredData = useMemo(() => {
+    let filtered = data;
 
     if (category) {
-      filtered = filtered.filter(item => item.language?.toLowerCase() === category.toLowerCase());
+      filtered = filtered.filter((item) =>
+        item.language?.toLowerCase() === category.toLowerCase()
+      );
     }
 
-    setFilteredData(filtered)
-  }, [data, category, searchInput])
+    if (searchInput) {
+      filtered = filtered.filter((item) =>
+        item.title?.toLowerCase().includes(searchInput.toLowerCase()) ||
+        item.username?.toLowerCase().includes(searchInput.toLowerCase())
+      );
+    }
+
+    return filtered;
+  }, [data, category, searchInput]);
 
   if (!data || data.length === 0) {
     return (
