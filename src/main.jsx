@@ -4,14 +4,13 @@ import Account from './Components/account/Account.jsx'
 import Error from './Components/error/Error.jsx'
 import Wrapper from './Components/helper/Wrapper.jsx'
 import Home from './Components/home/Home.jsx'
-import Landing from './Components/home/Landing.jsx'
 import Login from './Components/public/Login.jsx'
 import Register from './Components/public/Register.jsx'
 import ResetPassword from './Components/public/ResetPassword.jsx'
 import Saved from './Components/saved//Saved.jsx'
 import Snippet from './Components/snippet/Snippet.jsx'
 import SnippetForm from './Components/account/SnippetForm.jsx'
-import About from './Components/Pages/About.jsx'
+import About from './Components/about/About.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>

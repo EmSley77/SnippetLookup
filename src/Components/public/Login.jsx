@@ -68,7 +68,7 @@ export default function Login() {
                                 onChange={e => setEmail(e.target.value)}
                                 type="email"
                                 id="email"
-                                className="w-full px-3 py-2 mt-1 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+                                className="w-full px-3 py-2 mt-1 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-300 text-white"
                                 placeholder="you@example.com"
                                 requiredGg
                             />
@@ -77,7 +77,7 @@ export default function Login() {
                             <label htmlFor="password" className="block text-sm font-medium text-gray-300">
                                 Password
                             </label>
-                            <div className="flex items-center justify-between bg-gray-700 border border-gray-600 rounded-lg p-2">
+                            <div className="flex items-center justify-between bg-gray-700 border  rounded-lg p-2">
                                 <input
                                     onChange={e => setPassword(e.target.value)}
                                     type={show ? "text" : "password"}
