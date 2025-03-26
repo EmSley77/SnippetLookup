@@ -3,7 +3,9 @@ import { getSnippetsWithPagination } from '../../service/snippet-helper.js';
 import '../../styles/style.css';
 import Search from '../search/Search.jsx';
 import Header from '../Shared/Header.jsx';
+import LoaderTeal from '../util/LoaderTeal.jsx';
 import HomeList from './HomeList.jsx';
+import {Link} from 'react-router'
 
 
 export default function App() {
@@ -48,7 +50,17 @@ export default function App() {
 
   if (!data || data.length === 0) {
     return (
-      <div><h2 className='text-white'>No snippets available</h2></div>
+      <>
+        <Header />
+      <div className='flex flex-col h-screen justify-center items-center'>
+
+        <h2 className='text-white text-center'>No snippets available</h2>
+        <h1 className='text-white text-center text-2xl'>CodeBox</h1>
+        < LoaderTeal />
+
+        <Link to={"/about"} className='text-white p-6 py-2 bg-gray-800 mt-6 rounded-xl transition-all hover:bg-gray-700'>Go to About us</Link>
+      </div>
+      </>
     )
   }
 
@@ -65,7 +77,7 @@ export default function App() {
         />
 
         <HomeList data={filteredData} />
-      
+
 
         <div className='w-fit flex gap-3 p-4 bg-gray-900 rounded-xl '>
           <button onClick={prev => setPage(prev - 1)}

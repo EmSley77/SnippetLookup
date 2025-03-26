@@ -1,10 +1,10 @@
-import React from 'react'
-import Header from '../Shared/Header.jsx'
-import Footer from '../Shared/Footer.jsx'
-import SavedList from './SavedList.jsx'
-import { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getSaved } from '../../service/snippet-helper.js'
 import { FetchUser } from '../../service/user-metadata.js'
+import { Link } from 'react-router'
+import Header from '../Shared/Header.jsx'
+import LoaderTeal from '../util/LoaderTeal.jsx'
+import SavedList from './SavedList.jsx'
 
 export default function Saved() {
 
@@ -15,32 +15,36 @@ export default function Saved() {
 
     // get user snippets
     useEffect(() => {
+
         if (!loading && user) {
 
             const fetchSnippets = async () => {
 
                 const params = { userId: user.id }
                 const data = await getSaved(params)
+                if (!data) return
 
-                if (data && data.length > 0) {
-                    setSnippets(data.flat())
-                }
+                setSnippets(data.flat())
             }
             fetchSnippets()
         }
 
     }, [user, loading])
 
+    if (loading) {
+        return (
+            <>
+                <div className='flex flex-col h-screen justify-center items-center'>
+                    <h1 className='text-white text-center text-2xl'>Loading in user data</h1>
+                </div>
+            </>
+        )
 
-
-    
-
-    if (loading) return <><h1>Loading...</h1></>
+    }
 
     return (
         <>
             <Header />
-
             <SavedList data={snippets} />
         </>
     )

@@ -1,30 +1,31 @@
 import React from 'react'
-import '../../styles/style.css'
 
-export default function Hero() {
+//TODO_ add images, comment page and more
+export default function SaveSection() {
     return (
         <section>
             <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:items-center md:gap-8">
                     <div className="md:col-span-3">
+                        {/* Add your image here */}
                         <img
                             src="https://raw.githubusercontent.com/kufii/CodeSnap/master/examples/material_operator-mono.png"
                             className="rounded"
-                            alt="Code snippet example"
+                            alt="Save and Go Back"
                         />
                     </div>
 
                     <div className="md:col-span-1">
                         <div className="max-w-lg md:max-w-none">
                             <h2 className="text-2xl font-semibold text-teal-300 sm:text-3xl">
-                                Share Your Code, Get Feedback, and Improve Together
+                                Save Your Work, Add Comments, and Go Back to Continue
                             </h2>
 
                             <p className="mt-4 text-yellow-300">
-                                By sharing your code with others, you open the door to valuable feedback that can help you grow as a developer. Code sharing isn't just about sharing your work; it's about engaging with a community of like-minded developers who can offer suggestions, improvements, and insights that can make you a better coder. Join a supportive community, learn from others, and elevate your skills.
+                                Saving your work ensures that your progress is not lost. With just a click, you can preserve your code snippets and come back to them later for further edits or review. Take a moment to add useful comments so others can understand your work or provide feedback. This way, you can keep improving with every iteration.
                             </p>
                             <p className="mt-4 text-indigo-300">
-                                Collaborating with others not only enhances your projects but helps you become part of a network where developers uplift each other. Whether you’re just starting or have years of experience, contributing and learning from the community can accelerate your growth. So, why not share your code and become part of a community of passionate coders?
+                                Going back to your saved snippets gives you the freedom to pick up right where you left off. Add comments to your code for better collaboration, review, or personal notes. Keep your projects organized, and share them with others to get helpful insights and grow together as a community.
                             </p>
                         </div>
                     </div>
@@ -33,3 +34,4 @@ export default function Hero() {
         </section>
     );
 }
+

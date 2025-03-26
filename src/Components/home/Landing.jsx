@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 export default function Landing() {
     return (
         <>
-            <section className="bg-gray-900 text-white py-20 h-screen">
+            <section className="text-white py-20 h-full">
                 <div className="container mx-auto flex flex-col md:flex-row items-center my-12 md:my-24">
                     <div className="flex flex-col w-full lg:w-1/3 justify-center items-start p-8">
                         <h1 className="text-5xl md:text-5xl  text-teal-300 tracking-loose">CodeBlock</h1>
@@ -33,7 +33,7 @@ const ExampleComponent = () => {
       <p>This is a simple React component.</p>
     </div>
   );
-};
+  };
 
 export default ExampleComponent;`}
                                     </code>
@@ -42,6 +42,11 @@ export default ExampleComponent;`}
                         </div>
                     </div>
                 </div>
+
+  <div className='flex flex-col justify-center items-center'>
+      <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#fff"><path d="M446.67-800v513l-240-240L160-480l320 320 320-320-46.67-47-240 240v-513h-66.66Z" /></svg>
+      <p>Scroll down</p>
+  </div>
             </section>
 
 

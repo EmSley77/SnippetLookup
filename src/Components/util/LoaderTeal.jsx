@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function LoaderTeal() {
     return (
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center ">
             <div className="relative">
                 <div className="relative w-32 h-32">
                     <div

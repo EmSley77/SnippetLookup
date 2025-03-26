@@ -11,11 +11,12 @@ import ResetPassword from './Components/public/ResetPassword.jsx'
 import Saved from './Components/saved//Saved.jsx'
 import Snippet from './Components/snippet/Snippet.jsx'
 import SnippetForm from './Components/account/SnippetForm.jsx'
+import About from './Components/Pages/About.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
-      <Route path="/about" element={<Landing />} />
+      <Route path="/about" element={<About />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/reset-password" element={<ResetPassword />} />
