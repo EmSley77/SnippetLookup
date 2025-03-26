@@ -20,7 +20,7 @@ export default function App() {
     const fetchData = async () => {
       const data = await getSnippetsWithPagination(page);
 
-      if (data.length === 0) {
+      if (!data || data.length === 0) {
         return
       }
       setData(data)

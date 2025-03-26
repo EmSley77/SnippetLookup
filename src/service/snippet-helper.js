@@ -37,7 +37,7 @@ async function getSnippetsWithPagination(page) {
         .eq("is_private", false)
         .range(page, 20);
 
-    if (error) {
+    if (error || data.length === 0) {
         console.log("no more to get");
         return;
     }
@@ -114,7 +114,7 @@ async function getSavedSnippets(userId) {
 //get snippet by id saved
 async function getSaved(params) {
     const savedlist = await getSavedSnippets(params.userId);
-
+    if (!savedlist || savedlist.length === 0) return;
     if (savedlist.length > 0) {
         const results = await Promise.all(
             savedlist.map(async (item) => {
