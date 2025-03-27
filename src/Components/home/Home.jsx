@@ -41,7 +41,8 @@ export default function App() {
     if (searchInput) {
       filtered = filtered.filter((item) =>
         item.title?.toLowerCase().includes(searchInput.toLowerCase()) ||
-        item.username?.toLowerCase().includes(searchInput.toLowerCase())
+        item.username?.toLowerCase().includes(searchInput.toLowerCase()) ||
+        item.language?.toLowerCase().includes(searchInput.toLowerCase()) 
       );
     }
 

@@ -6,7 +6,7 @@ export default function HomeCard({ snippet }) {
   return (
     <div
       key={snippet.id}
-      className="p-6 bg-gray-900 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-1 border border-gray-700 flex flex-col items-start"
+      className="p-6 bg-gray-950 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-1 border border-gray-700 flex flex-col items-start"
     >
       <Link to={`/view/${snippet.id}`} className="block w-full">
         <div className="flex flex-col w-full">

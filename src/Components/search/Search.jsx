@@ -9,7 +9,7 @@ export default function Search({ searchInput, category, setCategory, setSearchIn
                 value={searchInput}
                 className="bg-gray-800 text-gray-300 shadow-lg w-72 p-3 rounded-xl transition-all duration-200  focus:outline-none border border-teal-500"
                 type="text"
-                placeholder="@user or title"
+                placeholder="@user or title or language"
             />
 
             <select

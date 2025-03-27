@@ -58,19 +58,18 @@ export default function Login() {
             <div className="flex items-center justify-center h-screen ">
                 <div className="w-full max-w-md p-8 space-y-6 ">
                     <h2 className="text-2xl font-bold text-white text-center">Sign in</h2>
-                    <form className="space-y-4" onSubmit={handleLoginSubmit}>
+                    <form className="space-y-4" onSubmit={handleLoginSubmit} autoComplete='off'>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-300">
                                 Email
                             </label>
                             <input
-                                autoComplete="off"
                                 onChange={e => setEmail(e.target.value)}
                                 type="email"
                                 id="email"
                                 className="w-full px-3 py-2 mt-1 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-300 text-white"
                                 placeholder="you@example.com"
-                                requiredGg
+                                required
                             />
                         </div>
                         <div>

@@ -41,7 +41,7 @@ export default function SavedCard({ snippet }) {
     if (loading) return <><h1>Loading...</h1></>
 
     return (
-        <div className="p-4 bg-gray-700 rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-102 transition-all">
+        <div className="p-4 bg-gray-700 rounded-lg shadow-xl hover:shadow-2xl  transition-all">
             <div className="flex flex-col overflow-y-auto justify-between">
 
                 {/* Title */}
@@ -54,7 +54,7 @@ export default function SavedCard({ snippet }) {
                 <hr className="border-teal-500 my-2" />
 
                 {/* Description */}
-                <p className="text-gray-300 text-sm mb-5 mt-3">{snippet.description.toUpperCase()}</p>
+                    <p className="text-gray-300 text-sm mb-5 mt-3">{snippet.description.toUpperCase()}</p>
 
                 {/* Language */}
                 <div className="text-sm font-medium mt-auto">
