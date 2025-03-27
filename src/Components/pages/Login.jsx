@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { BsApple } from 'react-icons/bs';
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import FontAwesome icons
 import { FcGoogle } from 'react-icons/fc';
-import { Link, useNavigate } from 'react-router';
-import { supabaseClient } from '../../service/supabase.js';
+import { Link } from 'react-router';
+import useAuth from '../../hooks/useAuth.jsx';
 import Header from './Header.jsx';
 
 export default function Login() {
@@ -12,31 +12,8 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
     const [show, setShow] = useState(false);
+    const { signIn } = useAuth()
 
-
-    const navigate = useNavigate()
-
-    const handleLoginSubmit = async (e) => {
-        e.preventDefault()
-
-        let { data, error } = await supabaseClient.auth.signInWithPassword({
-            email: email,
-            password: password
-        })
-
-        if (data) {
-            navigate("/")
-            return null
-        }
-
-        if (error) {
-            setMessage(error.message)
-            setEmail('')
-            setPassword('')
-            navigate("/login")
-
-        }
-    }
 
     const handleGoogleLogin = async (e) => {
         e.preventDefault()
@@ -58,7 +35,10 @@ export default function Login() {
             <div className="flex items-center justify-center h-screen ">
                 <div className="w-full max-w-md p-8 space-y-6 ">
                     <h2 className="text-2xl font-bold text-white text-center">Sign in</h2>
-                    <form className="space-y-4" onSubmit={handleLoginSubmit} autoComplete='off'>
+                    <form className="space-y-4" onSubmit={(e) => {
+                        e.preventDefault()
+                        signIn(email, password)
+                    }} autoComplete='off'>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-300">
                                 Email

@@ -73,8 +73,8 @@ export default function CommentForm({ snippetId, userId, username }) {
 
             {/* Messages Container (Starts from Top) */}
             <div className="flex flex-col overflow-y-auto p-2 flex-grow">
-                {comments ? comments.map((item) => (
-                    <CommentCard item={item} id={item.id} key={item.id} />
+                {comments ? comments.map((item, index) => (
+                    <CommentCard item={item} index={index} key={item.id} />
                 )) : <p>No disscussion yet</p>}
                 {/* Comment Form (Always Stays at Bottom) */}
                 <form onSubmit={handleCommentSubmit} className="w-full">

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { copyCode } from '../../utils/helpers.js';
+import useAuth from '../../hooks/useAuth.jsx';
 import { getSnippetById, saveSnippet } from '../../service/snippets.js';
-import { FetchUser } from '../../service/current-user.js';
 import "../../styles/style.css";
-import Footer from './Footer.jsx';
-import Header from './Header.jsx';
+import { copyCode } from '../../utils/helpers.js';
 import CommentForm from '../snippet/CommentForm.jsx';
 import ViewSnippet from '../snippet/ViewSnippet.jsx';
+import Footer from './Footer.jsx';
+import Header from './Header.jsx';
 
 export default function Snippet() {
 
@@ -19,7 +19,7 @@ export default function Snippet() {
 
 
 
-  const { user, loading } = FetchUser()
+  const { user } = useAuth()
 
   useEffect(() => {
     const fetchById = async () => {
@@ -57,9 +57,7 @@ export default function Snippet() {
     setIsSaved(hasSaved)
   }
 
-  if (loading) {
-    return <><h1 className='text-white'>Loading in user details...</h1></>
-  }
+
 
   return (
     <>

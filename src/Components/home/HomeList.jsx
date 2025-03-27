@@ -13,7 +13,7 @@ export default function HomeList({ data }) {
 
       {/* If there's data, display it */}
       {data && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-6 p-6 rounded-lg w-full max-w-5xl ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-6 p-6 rounded-lg w-full max-w-7xl ">
           {data.map((snippet) => (
             <HomeCard
               key={snippet.id}

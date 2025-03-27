@@ -1,29 +1,12 @@
 import React from 'react';
-import { Link, NavLink, useNavigate } from 'react-router';
-import { supabaseClient } from '../../service/supabase.js';
-import { getSession } from '../../service/user.js';
+import { Link, NavLink } from 'react-router';
 import '../../styles/style.css';
+import useAuth from '../../hooks/useAuth.jsx'
 
 export default function Header() {
-  const navigate = useNavigate();
 
-  const handleSignOut = async () => {
-    const data = await getSession()
-    if (!data) {
-      return alert("You are already signed out please sign in again")
-    }
 
-    try {
-      const { error } = await supabaseClient.auth.signOut();
-      if (error) {
-        throw error;
-      }
-      navigate('/'); // Redirect to home page after sign out
-    } catch (error) {
-      alert("An error occurred while signing out. Please try again.");
-      console.error(error);
-    }
-  };
+  const { signOut } = useAuth()
 
   return (
     <header className="bg-gray-950 shadow-lg sticky top-0 z-50">
@@ -51,7 +34,7 @@ export default function Header() {
             className="px-5 py-2.5 bg-teal-300  rounded-md text-lg font-medium hover:bg-teal-500 transition-all cursor-pointer"
             to="/create">Create Post</Link>
           <button
-            onClick={handleSignOut}
+            onClick={signOut}
             className="px-5 py-2.5 text-gray-300 border-2 rounded-md text-lg font-medium hover:bg-gray-800 transition-all cursor-pointer"
           >
             Sign out

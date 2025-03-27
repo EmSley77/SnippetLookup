@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { copyCode } from '../../utils/helpers.js';
 import { removeSaved } from '../../service/snippets.js';
-import { FetchUser } from '../../service/current-user.js';
-
+import useAuth from '../../hooks/useAuth.jsx'
 export default function SavedCard({ snippet }) {
 
     const [isCopied, setIsCopied] = useState(false)
     const [message, setMessage] = useState('')
-    const { user, loading } = FetchUser()
+    const { user, loading } = useAuth()
 
     useEffect(() => {
         if (isCopied) {
@@ -45,7 +44,7 @@ export default function SavedCard({ snippet }) {
                 <hr className="border-teal-500 my-2" />
 
                 {/* Description */}
-                    <p className="text-gray-300 text-sm mb-5 mt-3">{snippet.description.toUpperCase()}</p>
+                <p className="text-gray-300 text-sm mb-5 mt-3">{snippet.description.toUpperCase()}</p>
 
                 {/* Language */}
                 <div className="text-sm font-medium mt-auto">

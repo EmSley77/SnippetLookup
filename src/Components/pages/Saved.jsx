@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getSaved } from '../../service/snippets.js'
-import { FetchUser } from '../../service/current-user.js'
+import useAuth  from '../../hooks/useAuth.jsx'
 import SavedList from '../saved/SavedList.jsx'
 import Header from './Header.jsx'
 
@@ -8,7 +8,7 @@ export default function Saved() {
 
 
     const [snippets, setSnippets] = useState([])
-    const { user, loading } = FetchUser()
+    const { user, loading } = useAuth()
 
 
     // get user snippets

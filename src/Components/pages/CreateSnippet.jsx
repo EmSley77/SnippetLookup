@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { handleInputChange } from '../../utils/helpers.js'
 import { createSnippet } from '../../service/snippets.js'
-import { FetchUser } from '../../service/current-user.js'
+import useAuth from '../../hooks/useAuth.jsx'
 import '../../styles/style.css'
+//TODO fix header
 import Header from './Header.jsx'
 import LoaderTeal from '../helper/loaders/LoaderTeal.jsx'
 import { Link } from 'react-router'
 
 
-export default function SnippetForm() {
+export default function CreateSnippet() {
 
     const [title, setTitle] = useState('')
     const [isPrivate, setIsPrivate] = useState(false)
@@ -18,7 +19,7 @@ export default function SnippetForm() {
     const [code, setCode] = useState('')
     const [message, setMessage] = useState('')
 
-    const { user, loading } = FetchUser()
+    const { user, loading } = useAuth()
 
 
     const languages = [

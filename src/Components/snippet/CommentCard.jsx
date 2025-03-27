@@ -1,9 +1,9 @@
 import React from 'react';
 import '../../styles/style.css';
 
-export default function CommentCard({ item, id }) {
+export default function CommentCard({ item, index }) {
     return (
-        <div key={id} className="border border-gray-700 rounded-lg p-4 ml-3 my-3 bg-gray-800 shadow-md">
+        <div key={index} className="border border-gray-700 rounded-lg p-4 ml-3 my-3 bg-gray-800 shadow-md">
 
             <div className="flex justify-between items-center mb-2">
                 <p className="text-cyan-200 font-semibold">
