@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import '../../styles/style.css'
-import { FetchUser } from '../../service/user-metadata'
-import { createSnippet } from '../../service/snippet-helper'
-import Loading from '../util/Loader.jsx'
 import { handleInputChange } from '../../js/input.js'
+import { createSnippet } from '../../service/snippet-helper'
+import { FetchUser } from '../../service/user-metadata'
+import '../../styles/style.css'
 import Header from '../Shared/Header.jsx'
+import LoaderTeal from '../util/LoaderTeal.jsx'
+import { Link } from 'react-router'
 
 
 export default function SnippetForm() {
@@ -79,7 +80,18 @@ export default function SnippetForm() {
     }, [message])
 
     if (loading) {
-        return <><Loading /></>
+
+        return (
+            <>
+                <Header />
+                <div className='flex flex-col h-screen justify-center items-center'>
+                    <h1 className='text-white text-center text-2xl'>CodeBox</h1>
+                    < LoaderTeal />
+
+                    <Link to={"/"} className='text-white p-6 py-2 bg-gray-800 mt-6 rounded-xl transition-all hover:bg-gray-700'>Read more about us</Link>
+                </div>
+            </>
+        )
     }
     return (
         <>

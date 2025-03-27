@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 import { supabaseClient } from '../../service/supabase-helper.js';
 import '../../styles/style.css';
+import Footer from '../Shared/Footer.jsx'
 import Search from '../search/Search.jsx';
 import Header from '../Shared/Header.jsx';
 import LoaderTeal from '../util/LoaderTeal.jsx';
@@ -130,7 +131,7 @@ export default function App() {
 
 
       </div>
-
+      <Footer />
     </>
   )
 }

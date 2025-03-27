@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { createSnippet, getSnippetsByUserId } from '../../service/snippet-helper.js';
+import { getSnippetsByUserId } from '../../service/snippet-helper.js';
 import { FetchUser } from '../../service/user-metadata.js';
 import '../../styles/style.css';
 import Header from '../Shared/Header.jsx';
-import SnippetForm from './SnippetForm.jsx';
 import UserInfo from './UserInfo.jsx';
 
 export default function Account() {
@@ -57,7 +56,7 @@ export default function Account() {
           snippets={snippets}
         />
 
-     
+
 
       </div>
 

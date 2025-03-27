@@ -16,18 +16,19 @@ export default function Footer() {
                     </p>
 
                     <div className="w-44 pt-6 md:pt-0">
-                        <Link to={"/contact"} className="bg-red-500 justify-center text-center rounded-lg shadow px-10 py-3 flex items-center">
+                        <Link to={"/contact"} className="bg-red-500 justify-center text-center rounded-lg shadow px-10 py-3 flex items-center hover:bg-red-700 transition-all">
                             Contact
                         </Link>
                     </div>
                 </div>
-                <div className="flex mt-24 mb-12 flex-row justify-between">
-                    <Link className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase" to={"/about"}>About</Link>
-                    <Link className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase" to={"/"}>Browse</Link>
-                    <Link className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Services</Link>
-                    <Link className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Why us</Link>
-                    <Link className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Contact</Link>
+                <div className="flex mt-24 mb-12 flex-row justify-between transition-all">
+                    <Link className={linkClass} to={"/about"}>About</Link>
+                    <Link className={linkClass} to={"/"}>Browse</Link>
+                    <Link className={linkClass} >Services</Link>
+                    <Link className={linkClass} >Why us</Link>
+                    <Link className={linkClass} >Contact</Link>
                 </div>
+                <hr />
 
                 {/* Social Media Links */}
                 <div className="flex justify-center gap-6 mt-8">
@@ -52,3 +53,5 @@ export default function Footer() {
         </div>
     );
 }
+
+const linkClass = "hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase transition-all"
