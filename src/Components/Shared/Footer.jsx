@@ -4,7 +4,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import '../../styles/style.css';
 export default function Footer() {
     return (
-        <div className="w-full h-screen flex items-center justify-center">
+        <div className="w-full flex items-center justify-center bg-gray-950 p-12">
             <div className="md:w-2/3 w-full px-4 text-white flex flex-col">
                 <div className="w-full text-3xl md:text-5xl font-bold">
                     <h1 className="w-full md:w-2/3">How can we help?</h1>
@@ -22,7 +22,8 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className="flex mt-24 mb-12 flex-row justify-between">
-                    <Link className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">About</Link>
+                    <Link className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase" to={"/about"}>About</Link>
+                    <Link className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase" to={"/"}>Browse</Link>
                     <Link className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Services</Link>
                     <Link className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Why us</Link>
                     <Link className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Contact</Link>

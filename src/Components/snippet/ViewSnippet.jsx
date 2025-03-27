@@ -1,62 +1,77 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { FaCheck, FaCopy, FaHeart } from 'react-icons/fa6';
+import '../../styles/style.css';
+
 export default function ViewSnippet({
     snippet,
     handleSaveSnippet,
+    isSaved,
     setIsCopied,
     isCopied,
-    message,
-    heartIcon,
- 
-    checkIcon,
-    copyIcon,
-    copyCode
+    copyCode,
 }) {
-    return (
-        <>
-            <div className="bg-gray-900 text-white shadow-lg rounded-lg p-4 flex flex-col justify-between w-full">
-                <h1 className="text-2xl font-bold text-white">{snippet.title}</h1>
-                <hr className="mb-2 mt-2" />
-                <p className="text-gray-300"><strong>Description:</strong> {snippet.description}</p>
-                <p className="text-gray-400"><strong>Creator:</strong> @{snippet.username}</p>
-                <h2 className="text-lg font-semibold text-gray-300 mt-2">{snippet.language}</h2>
 
-                <hr className="my-4 border-gray-700" />
+    return (<>
+        <div className="text-white p-6 flex flex-col justify-between w-full ">
 
-                {/* Code Block */}
-                <div className="bg-gray-700 text-white p-4 rounded-lg overflow-x-auto flex flex-col mb-5">
-                    <div className="flex justify-between">
-                        <h4 className="mb-2 font-semibold text-gray-200">Code</h4>
-                        <button
-                            className="top-2 right-2 bg-gray-600 hover:bg-gray-500 p-2 rounded-lg transition-all"
-                            onClick={() => copyCode(snippet.code, setIsCopied, isCopied)}
-                        >
-                            <img src={isCopied ? checkIcon : copyIcon} alt="copy icon" className="h-6 cursor-pointer" />
-                        </button>
+            <h1 className="text-3xl font-bold text-teal-300">{snippet.title}</h1>
+            <hr className="mb-3 mt-2 border-gray-600" />
+            <p className="text-gray-300 mb-3 mt-3">{snippet.description}</p>
+            <h2 className="text-lg font-semibold text-gray-100 mt-2 p-2 bg-purple-500 w-fit rounded-4xl">{snippet.language}</h2>
+            <hr className="my-4 border-gray-700" />
 
-                        <button className="p-2 hover:bg-gray-600 rounded-lg transition-all cursor-pointer" onClick={handleSaveSnippet}>
-                            <img src={heartIcon} alt="save icon" className="h-6" />
-                        </button>
+
+            {/* Code Block Section */}
+            {snippet.user_text && (
+                <>
+                    <div className="flex gap-2 justify-around w-full bg-gradient-to-b from-gray-600 to-gray-700 rounded-t-xl p-6">
+
                     </div>
-                    <hr className="mb-3 mt-4 border-gray-400" />
-                    <pre className="whitespace-pre-wrap h-100 overflow-y-auto text-teal-300 drop-shadow-xl bg-gray-800 p-2 rounded-xl">
-                        {snippet.code}
-                    </pre>
-                </div>
+                    <div className="bg-gray-950 p-4  overflow-x-auto mb-5 shadow-md">
 
+                        <pre className="whitespace-pre-wrap  bg-gray-950 p-3 text-sm">
+                            <code>{snippet.user_text}</code>
+                        </pre>
+                    </div>
+                </>
+            )}
 
+            {/* Code Block Section */}
+            <div className="flex gap-2 justify-around w-full bg-gradient-to-b from-gray-600 to-gray-700 p-2 rounded-t-xl">
 
-                {/* Message */}
-                {message && <h2 className="text-center text-green-400 font-semibold">{message}</h2>}
+                <button className={actionButtonClass}
+                    onClick={() => copyCode(snippet.code, setIsCopied, isCopied)}>
+                    {isCopied ? <FaCheck /> : <FaCopy />}
+                </button>
 
-                {/* Return Link */}
-                <div className="px-2.5 py-1.5 mb-5">
-                    <Link to="/home" className="text-white p-2 bg-indigo-500 rounded-xl shadow-lg text-m hover:bg-indigo-700 transition-all">
-                        Return
-                    </Link>
-                </div>
+                <button className={actionButtonClass} onClick={handleSaveSnippet}>
+                    {isSaved ? <FaCheck /> : <FaHeart />}
+                </button>
             </div>
-        </>
-    );
+            <div className="bg-gray-950 p-4  overflow-x-auto mb-5 shadow-md">
 
+                <pre className="whitespace-pre-wrap  bg-gray-950 p-3 text-sm">
+                    <code>{snippet.code}</code>
+
+                </pre>
+
+
+            </div>
+            <p className="text-gray-400"><strong>Author:</strong> @{snippet.username}</p>
+            <p className="text-gray-400"><strong>Date upload: </strong>{new Date(snippet.created_at).toLocaleDateString()}</p>
+
+        </div>
+    </>
+
+    );
 }
+
+const actionButtonClass = " hover:bg-teal-600 p-2 rounded-lg transition-all cursor-pointer"
+
+/*     Return Button
+    <div className="mt-4">
+        <Link to="/home" className="block text-center text-white p-3 bg-indigo-500 rounded-lg shadow-lg hover:bg-indigo-700 transition-all">
+            Return
+        </Link>
+    </div> 
+    */

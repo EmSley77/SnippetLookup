@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import checkIcon from '../../assets/check white.png';
 import copyIcon from '../../assets/copy white.png';
-import heartIcon from '../../assets/heart.png';
 import { copyCode } from '../../js/copy';
 import { getSnippetById, saveSnippet } from '../../service/snippet-helper.js';
 import { FetchUser } from '../../service/user-metadata.js';
-
 import "../../styles/style.css";
+import Footer from '../Shared/Footer.jsx';
 import Header from '../Shared/Header.jsx';
 import CommentForm from './CommentForm.jsx';
 import ViewSnippet from './ViewSnippet.jsx';
@@ -18,6 +16,8 @@ export default function Snippet() {
   const [snippet, setSnippet] = useState({})
   const [message, setMessage] = useState('')
   const [isCopied, setIsCopied] = useState(false)
+  const [isSaved, setIsSaved] = useState(false)
+
 
 
   const { user, loading } = FetchUser()
@@ -51,39 +51,45 @@ export default function Snippet() {
       return
     }
     const params = {
-      setMessage: setMessage,
       snippetId: snippet.id,
       userId: user.id
     }
-    await saveSnippet(params)
+    const hasSaved = await saveSnippet(params)
+    setIsSaved(hasSaved)
   }
 
-
+  if (loading) {
+    return <><h1 className='text-white'>Loading in user details...</h1></>
+  }
 
   return (
     <>
       <Header />
-      <div className="flex p-3 gap-5 bg-black h-[800px]">
 
+      <div className="flex flex-col justify-center p-3 gap-5  w-full md:w-[1000px] mx-auto">
+
+        {/* Snippet View Component */}
         <ViewSnippet
           snippet={snippet}
           handleSaveSnippet={handleSaveSnippet}
+          isSaved={isSaved}
           setIsCopied={setIsCopied}
           isCopied={isCopied}
-          message={message}
-          heartIcon={heartIcon}
-          checkIcon={checkIcon}
           copyIcon={copyIcon}
           copyCode={copyCode}
         />
 
-        {user && <CommentForm
-          userId={user.id}
-          snippetId={snippet.id}
-          username={user.user_metadata.display_username}
-        />}
+        {/* Comment Form - Only Visible if User Exists */}
+        {user && (
+          <CommentForm
+            userId={user.id}
+            snippetId={snippet.id}
+            username={user.user_metadata.display_username}
+          />
+        )}
 
       </div>
+      <Footer />
     </>
   );
-};
+}

@@ -185,8 +185,7 @@ async function saveSnippet(params) {
     const isSaved = await checkSaved(params);
 
     if (isSaved) {
-        params.setMessage("Already saved This snippet");
-        return;
+        return false;
     }
 
     const { data, error } = await supabaseClient
@@ -199,15 +198,9 @@ async function saveSnippet(params) {
         ])
         .select();
 
-    if (error) {
-        params.setMessage(error.message);
-        return;
-    }
+    if (error || !data?.length) return false;
 
-    if (data && data.length > 0) {
-        params.setMessage("Snippet has been saved");
-        return;
-    }
+    return true;
 }
 
 //make a commetn

@@ -58,7 +58,7 @@ export default function App() {
         <h1 className='text-white text-center text-2xl'>CodeBox</h1>
         < LoaderTeal />
 
-        <Link to={"/about"} className='text-white p-6 py-2 bg-gray-800 mt-6 rounded-xl transition-all hover:bg-gray-700'>Go to About us</Link>
+        <Link to={"/about"} className='text-white p-6 py-2 bg-gray-800 mt-6 rounded-xl transition-all hover:bg-gray-700'>Read more about us</Link>
       </div>
       </>
     )
