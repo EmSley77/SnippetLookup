@@ -1,32 +1,53 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { getSnippetsWithPagination } from '../../service/snippet-helper.js';
+import { Link } from 'react-router';
+import { supabaseClient } from '../../service/supabase-helper.js';
 import '../../styles/style.css';
 import Search from '../search/Search.jsx';
 import Header from '../Shared/Header.jsx';
 import LoaderTeal from '../util/LoaderTeal.jsx';
 import HomeList from './HomeList.jsx';
-import {Link} from 'react-router'
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 
 export default function App() {
 
   const [data, setData] = useState([]);
-  const [page, setPage] = useState(0);
+  const [error, setError] = useState();
+  const [isLoading, setLoading] = useState(false);
+  const [offset, setOffset] = useState(0);
   const [searchInput, setSearchInput] = useState("");
   const [category, setCategory] = useState("");
 
-  //fetch snippet data
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getSnippetsWithPagination(page);
+    const abortController = new AbortController(); // Create AbortController
 
-      if (!data || data.length === 0) {
-        return
+    const fetchData = async () => {
+
+      try {
+        setLoading(true)
+        const { data, error } = await supabaseClient
+          .rpc('get_public_snippets', { p_offset: 0 })
+          .abortSignal(abortController.signal)
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+          setData(data);
+        }
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          setError(error);
+        }
+      } finally {
+        setLoading(false)
       }
-      setData(data)
-    }
+    };
+
     fetchData();
-  }, [page]);
+
+    return () => abortController.abort(); // Cleanup on unmount
+  }, [offset]);
+
 
   // Memoized filtered data
   const filteredData = useMemo(() => {
@@ -42,25 +63,38 @@ export default function App() {
       filtered = filtered.filter((item) =>
         item.title?.toLowerCase().includes(searchInput.toLowerCase()) ||
         item.username?.toLowerCase().includes(searchInput.toLowerCase()) ||
-        item.language?.toLowerCase().includes(searchInput.toLowerCase()) 
+        item.language?.toLowerCase().includes(searchInput.toLowerCase())
       );
     }
 
     return filtered;
   }, [data, category, searchInput]);
 
-  if (!data || data.length === 0) {
+  if (!data || data.length === 0 || error) {
+
     return (
       <>
         <Header />
-      <div className='flex flex-col h-screen justify-center items-center'>
+        <div className='flex flex-col h-screen justify-center items-center'>
 
-        <h2 className='text-white text-center'>No snippets available</h2>
-        <h1 className='text-white text-center text-2xl'>CodeBox</h1>
-        < LoaderTeal />
+          <h2 className='text-white text-center'>Something went wrong</h2>
+          <h1 className='text-white text-center text-2xl'>CodeBox</h1>
+          < LoaderTeal />
 
-        <Link to={"/about"} className='text-white p-6 py-2 bg-gray-800 mt-6 rounded-xl transition-all hover:bg-gray-700'>Read more about us</Link>
-      </div>
+          <Link to={"/about"} className='text-white p-6 py-2 bg-gray-800 mt-6 rounded-xl transition-all hover:bg-gray-700'>Read more about us</Link>
+        </div>
+      </>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        <Header />
+        <div className='flex flex-col h-screen justify-center items-center'>
+          <h1 className='text-white text-center text-2xl'>CodeBox</h1>
+          < LoaderTeal />
+        </div>
       </>
     )
   }
@@ -81,13 +115,16 @@ export default function App() {
 
 
         <div className='w-fit flex gap-3 p-4 bg-gray-900 rounded-xl '>
-          <button onClick={prev => setPage(prev - 1)}
+          <button onClick={prev => {
+            if (offset === 0) return
+            setOffset(prev - 20)
+          }}
             className='p-2 bg-gray-600 rounded-xl hover:bg-gray-400 transition-all cursor-pointer'>
-            back
+            <FaArrowLeft />
           </button>
-          <button onClick={prev => setPage(prev + 1)}
+          <button onClick={prev => setOffset(prev + 20)}
             className='p-2 bg-gray-600 rounded-xl hover:bg-gray-400 transition-all cursor-pointer'>
-            next
+            <FaArrowRight />
           </button>
         </div>
 

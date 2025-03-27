@@ -10,6 +10,7 @@ export {
     removeSaved,
     makeComment,
     getCommentsBySnippetId,
+    getSnippetsCounted
 };
 
 //get all public snippets
@@ -47,6 +48,19 @@ async function getSnippetsWithPagination(page) {
     }
 }
 
+//get counted
+async function getSnippetsCounted() {
+    const { count, error } = await supabaseClient
+        .from("snippets")
+        .select("*", { count: "exact", head: true });
+
+    if (error) {
+        console.error("Error fetching snippets count:", error);
+        return null;
+    }
+
+    return count;
+}
 //get snippet by id
 async function getSnippetById(snippetId) {
     const { data, error } = await supabaseClient
