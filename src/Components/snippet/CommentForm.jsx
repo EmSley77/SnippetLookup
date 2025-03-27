@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { handleInputChange } from '../../js/input.js';
-import { getCommentsBySnippetId, makeComment } from '../../service/snippet-helper.js';
+import { handleInputChange } from '../../utils/helpers.js';
+import { getCommentsBySnippetId, makeComment } from '../../service/snippets.js';
 import '../../styles/style.css';
 import CommentCard from './CommentCard.jsx';
 

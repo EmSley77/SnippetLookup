@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { copyCode } from '../../js/copy';
-import { removeSaved } from '../../service/snippet-helper.js';
-import { FetchUser } from '../../service/user-metadata.js';
+import { copyCode } from '../../utils/helpers.js';
+import { removeSaved } from '../../service/snippets.js';
+import { FetchUser } from '../../service/current-user.js';
 
 export default function SavedCard({ snippet }) {
 
     const [isCopied, setIsCopied] = useState(false)
     const [message, setMessage] = useState('')
-
     const { user, loading } = FetchUser()
-
-
-
 
     useEffect(() => {
         if (isCopied) {
@@ -24,17 +20,12 @@ export default function SavedCard({ snippet }) {
         }
     }, [isCopied])
 
-
     const handleDelete = async () => {
-
         const params = {
             userId: user.id,
             snippetId: snippet.id,
         }
-
         await removeSaved(params)
-
-
     }
 
 

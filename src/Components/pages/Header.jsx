@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router';
-import { supabaseClient } from '../../service/supabase-helper.js';
-import { getSession } from '../../service/user-session.js';
+import { supabaseClient } from '../../service/supabase.js';
+import { getSession } from '../../service/user.js';
 import '../../styles/style.css';
 
 export default function Header() {
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
     const data = await getSession()

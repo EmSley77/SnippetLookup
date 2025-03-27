@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { getSaved } from '../../service/snippet-helper.js'
-import { FetchUser } from '../../service/user-metadata.js'
-import { Link } from 'react-router'
-import Header from '../Shared/Header.jsx'
-import LoaderTeal from '../util/LoaderTeal.jsx'
-import SavedList from './SavedList.jsx'
+import { getSaved } from '../../service/snippets.js'
+import { FetchUser } from '../../service/current-user.js'
+import SavedList from '../saved/SavedList.jsx'
+import Header from './Header.jsx'
 
 export default function Saved() {
 

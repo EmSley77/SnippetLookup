@@ -2,7 +2,7 @@ import React from 'react'
 import SavedCard from './SavedCard.jsx'
 import { Link } from 'react-router'
 import '../../styles/style.css'
-import LoaderTeal from '../util/LoaderTeal.jsx'
+import LoaderTeal from '../helper/loaders/LoaderTeal.jsx'
 
 export default function SavedList({ data }) {
 

@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { getSnippetsByUserId } from '../../service/snippet-helper.js';
-import { FetchUser } from '../../service/user-metadata.js';
+import { getSnippetsByUserId } from '../../service/snippets.js';
+import { FetchUser } from '../../service/current-user.js';
 import '../../styles/style.css';
-import Header from '../Shared/Header.jsx';
-import UserInfo from './UserInfo.jsx';
+import Header from './Header.jsx';
+import UserInfo from '../account/UserInfo.jsx';
 
 export default function Account() {
 
-
-
   const [snippets, setSnippets] = useState([])
-
-
-
   const { user, loading } = FetchUser()
 
   useEffect(() => {
@@ -30,9 +25,6 @@ export default function Account() {
   const formatCreatedDate = (createdDate) => {
     return new Date(createdDate).toLocaleDateString()
   }
-
-
-
 
   if (loading) {
     return <>

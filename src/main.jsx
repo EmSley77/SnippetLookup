@@ -1,16 +1,16 @@
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router'
-import Account from './Components/account/Account.jsx'
+import Account from './Components/pages//Account.jsx'
 import Error from './Components/error/Error.jsx'
 import Wrapper from './Components/helper/Wrapper.jsx'
-import Home from './Components/home/Home.jsx'
-import Login from './Components/public/Login.jsx'
-import Register from './Components/public/Register.jsx'
-import ResetPassword from './Components/public/ResetPassword.jsx'
-import Saved from './Components/saved//Saved.jsx'
-import Snippet from './Components/snippet/Snippet.jsx'
-import SnippetForm from './Components/account/SnippetForm.jsx'
-import About from './Components/about/About.jsx'
+import Login from './Components/pages/Login.jsx'
+import Home from './Components/pages/Home.jsx'
+import Register from './Components/pages/Register.jsx'
+import ResetPassword from './Components/password/ResetPassword.jsx'
+import Saved from './Components/pages/Saved.jsx'
+import Snippet from './Components/pages/Snippet.jsx'
+import CreateSnippet from './Components/pages/CreateSnippet.jsx'
+import About from './Components/pages/About.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -37,7 +37,7 @@ createRoot(document.getElementById('root')).render(
       <Route path='/create'
         element={
           <Wrapper>
-            <SnippetForm />
+            <CreateSnippet />
           </Wrapper>}
       />
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate } from 'react-router'
-import { supabaseClient } from '../../service/supabase-helper.js'
+import { supabaseClient } from '../../service/supabase.js'
 
 
 export default function Wrapper({ children }) {
@@ -24,7 +24,7 @@ export default function Wrapper({ children }) {
     if (loading) {
         return <div>Loading...</div>
     } else if (authenticated) {
-        return <>{children}</>
+        return <>{children}</> 
     }
     return (
         <>

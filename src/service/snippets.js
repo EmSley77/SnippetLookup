@@ -1,4 +1,4 @@
-import { supabaseClient } from "../service/supabase-helper.js";
+import { supabaseClient } from "./supabase.js";
 export {
     createSnippet,
     getSnippetsByUserId,

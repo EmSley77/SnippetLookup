@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
-import { supabaseClient } from '../../service/supabase-helper.js';
+import { supabaseClient } from '../../service/supabase.js';
 import '../../styles/style.css';
-import Footer from '../Shared/Footer.jsx'
+import Footer from './Footer.jsx'
 import Search from '../search/Search.jsx';
-import Header from '../Shared/Header.jsx';
-import LoaderTeal from '../util/LoaderTeal.jsx';
-import HomeList from './HomeList.jsx';
+import LoaderTeal from '../helper/loaders/LoaderTeal.jsx';
+import HomeList from '../home/HomeList.jsx';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import Header from './Header.jsx';
 
 
 export default function App() {
@@ -102,7 +102,7 @@ export default function App() {
 
   return (
     <>
-      <Header />
+    <Header />
       <div className='h-screen flex flex-col items-center  text-white' >
 
         <Search

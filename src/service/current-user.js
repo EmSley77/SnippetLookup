@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { supabaseClient } from "./supabase-helper";
-import { getSession } from "./user-session";
+import { supabaseClient } from "./supabase";
+import { getSession } from "./user";
 
 export function FetchUser() {
     const [user, setUser] = useState(null);
@@ -28,3 +28,5 @@ export function FetchUser() {
 
     return { user, loading };
 }
+
+

@@ -1,4 +1,4 @@
-import { supabaseClient } from "./supabase-helper";
+import { supabaseClient } from "./supabase";
 
 async function getSession() {
     try {

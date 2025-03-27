@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router'
-import Header from '../Shared/Header.jsx'
-import { supabaseClient } from '../../service/supabase-helper.js'
-import { SiTrueup } from 'react-icons/si';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router';
+import { supabaseClient } from '../../service/supabase.js';
+import Header from './Header.jsx';
 
 
 export default function Register() {

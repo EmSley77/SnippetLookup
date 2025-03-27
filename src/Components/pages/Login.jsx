@@ -3,8 +3,8 @@ import { BsApple } from 'react-icons/bs';
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import FontAwesome icons
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router';
-import { supabaseClient } from '../../service/supabase-helper.js';
-import Header from '../Shared/Header.jsx';
+import { supabaseClient } from '../../service/supabase.js';
+import Header from './Header.jsx';
 
 export default function Login() {
 

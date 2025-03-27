@@ -1,7 +1,6 @@
 import React from 'react'
-import Footer from '../Shared/Footer.jsx'
-import '../../styles/style.css'
 import { Link } from 'react-router'
+import '../../styles/style.css'
 export default function Landing() {
     return (
         <>
@@ -43,10 +42,10 @@ export default ExampleComponent;`}
                     </div>
                 </div>
 
-  <div className='flex flex-col justify-center items-center'>
-      <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#fff"><path d="M446.67-800v513l-240-240L160-480l320 320 320-320-46.67-47-240 240v-513h-66.66Z" /></svg>
-      
-  </div>
+                <div className='flex flex-col justify-center items-center'>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#fff"><path d="M446.67-800v513l-240-240L160-480l320 320 320-320-46.67-47-240 240v-513h-66.66Z" /></svg>
+
+                </div>
             </section>
 
 

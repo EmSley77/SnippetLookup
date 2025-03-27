@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import copyIcon from '../../assets/copy white.png';
-import { copyCode } from '../../js/copy';
-import { getSnippetById, saveSnippet } from '../../service/snippet-helper.js';
-import { FetchUser } from '../../service/user-metadata.js';
+import { copyCode } from '../../utils/helpers.js';
+import { getSnippetById, saveSnippet } from '../../service/snippets.js';
+import { FetchUser } from '../../service/current-user.js';
 import "../../styles/style.css";
-import Footer from '../Shared/Footer.jsx';
-import Header from '../Shared/Header.jsx';
-import CommentForm from './CommentForm.jsx';
-import ViewSnippet from './ViewSnippet.jsx';
+import Footer from './Footer.jsx';
+import Header from './Header.jsx';
+import CommentForm from '../snippet/CommentForm.jsx';
+import ViewSnippet from '../snippet/ViewSnippet.jsx';
 
 export default function Snippet() {
 
@@ -75,7 +74,6 @@ export default function Snippet() {
           isSaved={isSaved}
           setIsCopied={setIsCopied}
           isCopied={isCopied}
-          copyIcon={copyIcon}
           copyCode={copyCode}
         />
 
