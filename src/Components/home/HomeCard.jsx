@@ -1,14 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router';
 import '../../styles/style.css'
+import { supabaseClient } from '../../service/supabase.js'
 
 export default function HomeCard({ snippet }) {
+
+//TODO fix this issue not working updating view_count
+//TODO last alternative use a new table to store each time its haas been view add new row
+  const handleCardClick = async () => {
+
+    const { data, error } = await supabaseClient
+      .from('snippets')
+      .update({ view_count: supabaseClient.raw('view_count + 1') })
+      .eq('snippet_id', snippet.id)
+      .select()
+
+    if (error) {
+      console.error('Error updating view count:', error);
+      return;
+    }
+
+    if (data) {
+      console.log("success");
+    }
+  }
+
+
   return (
     <div
       key={snippet.id}
       className="p-6 bg-gray-950 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-1 border border-gray-700 flex flex-col items-start"
     >
-      <Link to={`/view/${snippet.id}`} className="block w-full">
+      <Link onClick={handleCardClick} to={`/view/${snippet.id}`} className="block w-full">
         {/* Username */}
         <div className="flex flex-col w-full">
           {/* Title */}

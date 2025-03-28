@@ -16,8 +16,6 @@
     - View in full page
     - copy code
 
--TODOs:
      
-
-     fix all issues!
-     
+todo: when a user views a snippet blog/snippet increment the views_count + 1
+todo: when a user copies increment the copy_count + 1       
