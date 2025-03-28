@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { supabaseClient } from '../service/supabase.js';
 
@@ -7,22 +7,28 @@ const useAuth = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const isMounted = useRef(false)
     const navigate = useNavigate()
 
     useEffect(() => {
         const fetchSession = async () => {
 
-            const { data, error } = await supabaseClient.auth.getSession();
-            if (!data.session) {
-                console.log("No session for user");
-            }
-            if (error) {
-                console.error("No user found:", error.message);
-                setUser(null)
+            if(isMounted.current) {
+
+                const { data, error } = await supabaseClient.auth.getSession();
+                if (!data.session) {
+                    console.log("No session for user");
+                }
+                if (error) {
+                    console.error("No user found:", error.message);
+                    setUser(null)
+                } else {
+                    setUser(data.session.user)
+                }
+                setLoading(false);
             } else {
-                setUser(data.session.user)
+                isMounted.current = true;
             }
-            setLoading(false);
 
         };
 

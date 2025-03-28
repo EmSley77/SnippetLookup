@@ -1,28 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router';
 import '../../styles/style.css'
-import { supabaseClient } from '../../service/supabase.js'
+import { supabaseClient, getViewCount } from '../../service/supabase.js'
 
 export default function HomeCard({ snippet }) {
 
-//TODO fix this issue not working updating view_count
-//TODO last alternative use a new table to store each time its haas been view add new row
+  //TODO fix this issue not working updating view_count
+  //TODO last alternative use a new table to store each time its haas been view add new row
   const handleCardClick = async () => {
 
+    const currentViews = await getViewCount(snippet.id);
+    if (!snippet?.id) {
+      console.log("Snippet ID is missing");
+      return
+    }
+
+    const newCount = (currentViews || 0) + 1
     const { data, error } = await supabaseClient
       .from('snippets')
-      .update({ view_count: supabaseClient.raw('view_count + 1') })
-      .eq('snippet_id', snippet.id)
-      .select()
+      .update({ views_count: newCount }) // Ensure currentViews is valid
+      .eq('id', snippet?.id) // Safe optional chaining
+      .select("*"); // Explicit selection of all fields
 
     if (error) {
       console.error('Error updating view count:', error);
       return;
     }
 
-    if (data) {
-      console.log("success");
-    }
+    console.log("Success", data);
   }
 
 
