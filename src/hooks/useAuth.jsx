@@ -13,9 +13,9 @@ const useAuth = () => {
     useEffect(() => {
         const fetchSession = async () => {
 
-            if(isMounted.current) {
-
+            if (isMounted.current) {
                 const { data, error } = await supabaseClient.auth.getSession();
+
                 if (!data.session) {
                     console.log("No session for user");
                 }
@@ -28,6 +28,7 @@ const useAuth = () => {
                 setLoading(false);
             } else {
                 isMounted.current = true;
+
             }
 
         };

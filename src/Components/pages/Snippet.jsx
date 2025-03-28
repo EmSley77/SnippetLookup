@@ -8,6 +8,7 @@ import CommentForm from '../snippet/CommentForm.jsx';
 import ViewSnippet from '../snippet/ViewSnippet.jsx';
 import Footer from './Footer.jsx';
 import Header from './Header.jsx';
+import { supabaseClient } from '../../service/supabase.js';
 
 export default function Snippet() {
 
@@ -15,7 +16,7 @@ export default function Snippet() {
   const [snippet, setSnippet] = useState({})
   const [message, setMessage] = useState('')
   const [isCopied, setIsCopied] = useState(false)
-  const [isSaved, setIsSaved] = useState(false)
+  const [saved, setSaved] = useState(false)
 
 
 
@@ -49,13 +50,23 @@ export default function Snippet() {
       setMessage("You must be signed in to save code snippets")
       return
     }
+    //TODO check if already saved before proceeding
+    const { data, error } = await supabaseClient.from("saved").select("*").eq("snippet_id", snippet.id).eq("user_id", user.id)
+    if (error) {
+      setMessage(error.message)
+      return
+    }
+    if (data && data.length > 0) {
+      return;
+    }
     const params = {
       snippetId: snippet.id,
       userId: user.id
     }
     const hasSaved = await saveSnippet(params)
-    setIsSaved(hasSaved)
+    setSaved(hasSaved)
   }
+
 
 
 
@@ -69,7 +80,7 @@ export default function Snippet() {
         <ViewSnippet
           snippet={snippet}
           handleSaveSnippet={handleSaveSnippet}
-          isSaved={isSaved}
+          isSaved={saved}
           setIsCopied={setIsCopied}
           isCopied={isCopied}
           copyCode={copyCode}

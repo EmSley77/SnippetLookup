@@ -1,33 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router';
-import '../../styles/style.css'
-import { supabaseClient, getViewCount } from '../../service/supabase.js'
+import useAnon from '../../hooks/useAnon.jsx'
+import '../../styles/style.css';
 
 export default function HomeCard({ snippet }) {
 
-  //TODO fix this issue not working updating view_count
-  //TODO last alternative use a new table to store each time its haas been view add new row
+  const { getSnippetViews, updateSnippetViewCount } = useAnon();
+
   const handleCardClick = async () => {
 
-    const currentViews = await getViewCount(snippet.id);
+
     if (!snippet?.id) {
       console.log("Snippet ID is missing");
       return
     }
 
-    const newCount = (currentViews || 0) + 1
-    const { data, error } = await supabaseClient
-      .from('snippets')
-      .update({ views_count: newCount }) // Ensure currentViews is valid
-      .eq('id', snippet?.id) // Safe optional chaining
-      .select("*"); // Explicit selection of all fields
-
-    if (error) {
-      console.error('Error updating view count:', error);
-      return;
-    }
-
-    console.log("Success", data);
+    const currentViews = await getSnippetViews(snippet.id);
+    const updatedCount = (currentViews || 0) + 1
+    await updateSnippetViewCount(updatedCount, snippet?.id)
   }
 
 

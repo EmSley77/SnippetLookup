@@ -49,7 +49,6 @@ export default function App() {
     return () => abortController.abort(); // Cleanup on unmount
   }, [offset]);
 
-
   // Memoized filtered data
   const filteredData = useMemo(() => {
     let filtered = data;
