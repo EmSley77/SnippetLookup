@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { getSaved } from '../../service/snippets.js'
-import useAuth  from '../../hooks/useAuth.jsx'
+import useAuth from '../../hooks/useAuth.jsx'
+import { removeSaved } from '../../service/posts.js'
+import { supabaseClient } from '../../service/supabase.js'
 import SavedList from '../saved/SavedList.jsx'
 import Header from './Header.jsx'
 
+
 export default function Saved() {
 
-
-    const [snippets, setSnippets] = useState([])
+    const [posts, setPosts] = useState([])
     const { user, loading } = useAuth()
-
 
     // get user snippets
     useEffect(() => {
@@ -18,16 +18,26 @@ export default function Saved() {
 
             const fetchSnippets = async () => {
 
-                const params = { userId: user.id }
-                const data = await getSaved(params)
-                if (!data) return
+                const { data, error } = await supabaseClient.from("saved").select("*").eq("user_id", user.id)
 
-                setSnippets(data.flat())
+                if (error) {
+                    return []
+                }
+
+                if (data && data.length > 0) {
+                    setPosts(data)
+                }
             }
             fetchSnippets()
         }
 
     }, [user, loading])
+
+
+    const handleDelete = async (postId) => {
+        await removeSaved(user.id, postId)
+        setPosts(prevPosts => prevPosts.filter(post => post.id !== postId));
+    }
 
     if (loading) {
         return (
@@ -43,7 +53,10 @@ export default function Saved() {
     return (
         <>
             <Header />
-            <SavedList data={snippets} />
+            <SavedList
+                data={posts}
+                handleDelete={handleDelete}
+            />
         </>
     )
 }

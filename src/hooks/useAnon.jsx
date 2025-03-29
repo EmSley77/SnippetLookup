@@ -2,40 +2,43 @@ import { supabaseClient } from '../service/supabase';
 
 export default function useAnon() {
     //get view count for snippet
-    const getSnippetViews = async (id) => {
+    const getPostViews = async (postId) => {
         const { data, error } = await supabaseClient
             .from("posts")
             .select("views_count")
-            .eq("id", id);
+            .eq("id", postId)
+            .single(); // Ensures we get only one row instead of an array
+
 
         if (error) {
             return null;
         }
 
-        if (data) {
-            console.log(data[0].views_count + 1);
-            return data[0].views_count;
+        if (!data) {
+            return 0;
         }
 
-    }
-    //update view count
-    const updateSnippetViewCount = async (updatedCount, snippetId) => {
-        const { data, error } = await supabaseClient
-            .from('posts')
-            .update({ views_count: updatedCount }) // Ensure currentViews is valid
-            .eq('id', snippetId)
+        return data.views_count;
+    };
+
+    // Update the view count
+    const updatePostViewCount = async (updatedCount, postId) => {
+        const {  error } = await supabaseClient
+            .from("posts")
+            .update({ views_count: updatedCount })
+            .eq("id", postId)
             .select();
 
+
+
         if (error) {
-            console.error('Error updating view count:', error);
-            return;
+            return false;
         }
 
-        console.log("Success", data);
-    }
-
+        return true;
+    };
     //get a snippet copy count
-    const getSnippetCopyCount = async (id) => {
+    const getPostCopyCount = async (id) => {
         const { data, error } = await supabaseClient
             .from("posts")
             .select("copy_count")
@@ -46,25 +49,20 @@ export default function useAnon() {
         }
 
         if (data) {
-            console.log(data[0].copy_count + 1);
             return data[0].copy_count;
         }
     }
 
     //update snippet counter
-    const updateSnippetCopyCount = async (updatedCount, snippetId) => {
-        const { data, error } = await supabaseClient
+    const updatePostCopyCount = async (updatedCount, snippetId) => {
+        const { error } = await supabaseClient
             .from('posts')
             .update({ copy_count: updatedCount }) // Ensure currentViews is valid
             .eq('id', snippetId)
-            .select();
 
         if (error) {
-            console.error('Error updating view count:', error);
             return;
         }
-
-        console.log("Success", data);
     }
 
     //get snippet sections
@@ -79,11 +77,10 @@ export default function useAnon() {
         }
 
         if (data) {
-            console.log(data)
             return data
         }
     }
 
-    return { getSnippetViews, updateSnippetViewCount, getSnippetCopyCount, updateSnippetCopyCount, getPostSections }
+    return { getPostViews, updatePostViewCount, getPostCopyCount, updatePostCopyCount, getPostSections }
 
 }

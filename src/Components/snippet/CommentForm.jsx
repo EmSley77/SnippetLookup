@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { handleInputChange } from '../../utils/helpers.js';
-import { getCommentsBySnippetId, makeComment } from '../../service/snippets.js';
+import { getCommentsBySnippetId, makeComment } from '../../service/posts.js';
 import '../../styles/style.css';
 import CommentCard from './CommentCard.jsx';
 
 //get props from Snippet page
-export default function CommentForm({ snippetId, userId, username }) {
+export default function CommentForm({ postId, userId, username }) {
 
     const [comment, setComment] = useState('')
     const [message, setMessage] = useState('')
@@ -13,10 +13,10 @@ export default function CommentForm({ snippetId, userId, username }) {
 
     // Fetch comments when snippetId changes
     useEffect(() => {
-        if (snippetId) {
+        if (postId) {
             const fetchComments = async () => {
                 try {
-                    const data = await getCommentsBySnippetId(snippetId);
+                    const data = await getCommentsBySnippetId(postId);
                     setComments(data);
                 } catch (error) {
                     console.error("Error fetching comments:", error);
@@ -25,27 +25,27 @@ export default function CommentForm({ snippetId, userId, username }) {
 
             fetchComments();
         }
-    }, [snippetId]); // Re-fetch comments if snippetId changes
+    }, [postId]); // Re-fetch comments if snippetId changes
 
     // Handle comment submission
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
 
-        if (!snippetId || !userId || !username || !comment) {
+        if (!postId || !userId || !username || !comment) {
             setMessage("Please make sure all fields are filled.");
             return; // Prevent submission if required data is missing
         }
 
         try {
             // Submit the comment
-            const msg = await makeComment(userId, snippetId, comment, username);
+            const msg = await makeComment(userId, postId, comment, username);
             setMessage(msg);  // Show the message returned from the API
             setComment(''); // Clear the comment input
 
             // Optimistically add the new comment to the state (no need to re-fetch)
             setComments((prevComments) => [
                 ...prevComments,
-                { username, comment: comment, snippet_id: snippetId, user_id: userId, created_at: new Date().toLocaleDateString() },
+                { username, comment: comment, snippet_id: postId, user_id: userId, created_at: new Date().toLocaleDateString() },
             ]);
         } catch (error) {
             console.error("Error submitting comment:", error);
@@ -73,8 +73,11 @@ export default function CommentForm({ snippetId, userId, username }) {
 
             {/* Messages Container (Starts from Top) */}
             <div className="flex flex-col overflow-y-auto p-2 flex-grow">
-                {comments ? comments.map((item, index) => (
-                    <CommentCard item={item} index={index} key={item.id} />
+                {comments ? comments.map((comment) => (
+                    <CommentCard 
+                    comment={comment} 
+                    key={comment.id}
+                     />
                 )) : <p>No disscussion yet</p>}
                 {/* Comment Form (Always Stays at Bottom) */}
                 <form onSubmit={handleCommentSubmit} className="w-full">

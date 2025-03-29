@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import useAuth from '../../hooks/useAuth.jsx'
-import { createSnippet } from '../../service/snippets.js'
+import { createSnippet } from '../../service/posts.js'
 import '../../styles/style.css'
 import useSections from '../../hooks/useSections.jsx';
 import { Link } from 'react-router'
@@ -18,7 +18,7 @@ export default function CreateSnippet() {
     const { savePost } = useSections()
     const [language, setLanguage] = useState("JavaScript")
 
- 
+
     const { user, loading } = useAuth()
 
     const languages = [

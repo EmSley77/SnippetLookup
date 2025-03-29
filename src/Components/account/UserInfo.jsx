@@ -37,16 +37,13 @@ export default function UserInfo({ user, formatCreatedDate, snippets }) {
                                     {snippet.description}
                                 </p>
 
-                                {/* Language Badge */}
-                                <div className="mt-2 mb-4">
-                                    <span className="px-4 py-1 bg-teal-600 text-white font-semibold rounded-3xl text-sm">
-                                        {snippet.language}
-                                    </span>
-                                </div>
-
                                 {/* Username */}
                                 <p className="text-gray-400 text-sm font-bold mt-4">
                                     @{snippet.username}
+                                </p>
+
+                                <p>
+                                    uploaded {new Date(snippet.created_at).toLocaleDateString()}
                                 </p>
                             </div>
                         </div>

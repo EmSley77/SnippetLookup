@@ -101,7 +101,7 @@ export default function App() {
 
   return (
     <>
-    <Header />
+      <Header />
       <div className='h-screen flex flex-col items-center  text-white' >
 
         <Search

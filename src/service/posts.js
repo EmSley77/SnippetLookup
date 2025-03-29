@@ -1,20 +1,20 @@
 import { supabaseClient } from "./supabase.js";
 export {
     createSnippet,
-    getSnippetsByUserId,
-    getSnippets,
-    getSnippetById,
-    getSnippetsWithPagination,
-    saveSnippet,
-    getSaved,
-    removeSaved,
-    makeComment,
     getCommentsBySnippetId,
-    getSnippetsCounted
+    getSavedByUserId,
+    getPostById,
+    getPosts,
+    getPostsByUserId,
+    getSnippetsCounted,
+    getPaginatedPosts,
+    makeComment,
+    removeSaved,
+    savePost,
 };
 
 //get all public snippets
-async function getSnippets(setData) {
+async function getPosts(setData) {
     const { data, error } = await supabaseClient
         .from("posts")
         .select("*")
@@ -31,7 +31,7 @@ async function getSnippets(setData) {
 }
 
 //get public paginated
-async function getSnippetsWithPagination(page) {
+async function getPaginatedPosts(page) {
     const { data, error } = await supabaseClient
         .from("posts")
         .select("*")
@@ -61,12 +61,12 @@ async function getSnippetsCounted() {
 
     return count;
 }
-//get snippet by id
-async function getSnippetById(snippetId) {
+
+async function getPostById(postId) {
     const { data, error } = await supabaseClient
         .from("posts")
         .select("*")
-        .eq("id", snippetId);
+        .eq("id", postId);
 
     if (error) {
         return;
@@ -77,8 +77,7 @@ async function getSnippetById(snippetId) {
     }
 }
 
-//get snippets by user-id
-async function getSnippetsByUserId(userId) {
+async function getPostsByUserId(userId) {
     const { data, error } = await supabaseClient
         .from("posts")
         .select("*")
@@ -93,12 +92,11 @@ async function getSnippetsByUserId(userId) {
     }
 }
 
-//get snippet by id saved
-async function getSavedSnippetById(snippetId) {
+async function getSavedPostById(postId) {
     const { data, error } = await supabaseClient
         .from("posts")
         .select("*")
-        .eq("id", snippetId);
+        .eq("id", postId);
 
     if (error) {
         return;
@@ -109,8 +107,7 @@ async function getSavedSnippetById(snippetId) {
     }
 }
 
-//get saved snippets by user-id
-async function getSavedSnippets(userId) {
+async function getSavedPosts(userId) {
     const { data, error } = await supabaseClient
         .from("saved")
         .select("*")
@@ -125,14 +122,14 @@ async function getSavedSnippets(userId) {
     }
 }
 
-//get snippet by id saved
-async function getSaved(params) {
-    const savedlist = await getSavedSnippets(params.userId);
+async function getSavedByUserId(userId) {
+    const savedlist = await getSavedPosts(userId);
+
     if (!savedlist || savedlist.length === 0) return;
     if (savedlist.length > 0) {
         const results = await Promise.all(
             savedlist.map(async (item) => {
-                return await getSavedSnippetById(item.snippet_id);
+                return await getSavedPostById(item.snippet_id);
             })
         );
 
@@ -141,12 +138,6 @@ async function getSaved(params) {
 
     return [];
 }
-
-//fetch comments by snippet id
-
-//fetch likes by snippet id
-
-//fetch snippets paginated
 
 //newSnippet
 async function createSnippet(body, setMessage) {
@@ -159,7 +150,6 @@ async function createSnippet(body, setMessage) {
                 title: body.title,
                 description: body.description,
                 username: body.username,
-             
             },
         ])
         .select("*");
@@ -172,23 +162,22 @@ async function createSnippet(body, setMessage) {
     if (data && data.length > 0) {
         setMessage("Snippet has been created successfully");
         console.log(data[0].id);
-        
-        return data
+
+        return data;
     } else {
         setMessage("Failed to create snippet");
     }
 }
 
 //check snippet by snippet ID and user ID
-async function checkSaved(params) {
+async function checkSaved(userId, postId) {
     const { data, error } = await supabaseClient
         .from("saved")
         .select("*")
-        .eq("snippet_id", params.snippetId)
-        .eq("user_id", params.userId);
+        .eq("post_id", postId)
+        .eq("user_id", userId);
 
     if (error) {
-        params.setMessage("Something went wrong when checking saved snippets");
         return false;
     }
 
@@ -196,35 +185,34 @@ async function checkSaved(params) {
 }
 
 //save snippet to liked
-async function saveSnippet(params) {
-    const isSaved = await checkSaved(params);
+async function savePost(userId, postId) {
+    const isSaved = await checkSaved(userId, postId);
+
 
     if (isSaved) {
+        alert("already saved")
         return false;
     }
 
-    const { data, error } = await supabaseClient
-        .from("saved")
-        .insert([
-            {
-                user_id: params.userId,
-                snippet_id: params.snippetId,
-            },
-        ])
-        .select();
+    const { error } = await supabaseClient.from("saved").insert([
+        {
+            user_id: userId,
+            post_id: postId,
+        },
+    ]);
 
-    if (error || !data?.length) return false;
+    if (error) return false;
 
     return true;
 }
 
 //make a commetn
-async function makeComment(userId, snippetId, comment, username) {
+async function makeComment(userId, postId, comment, username) {
     const { data, error } = await supabaseClient
         .from("comments")
         .insert([
             {
-                snippet_id: snippetId,
+                post_id: postId,
                 user_id: userId,
                 comment: comment,
                 username: username,
@@ -242,11 +230,11 @@ async function makeComment(userId, snippetId, comment, username) {
 }
 
 //get comments by snippet id
-async function getCommentsBySnippetId(snippetId) {
+async function getCommentsBySnippetId(postId) {
     const { data, error } = await supabaseClient
         .from("comments")
         .select("*")
-        .eq("snippet_id", snippetId);
+        .eq("post_id", postId);
 
     if (error) {
         return [];
@@ -259,12 +247,12 @@ async function getCommentsBySnippetId(snippetId) {
 }
 
 //remove from favorites
-async function removeSaved(params) {
+async function removeSaved(userId, postId) {
     const { error } = await supabaseClient
         .from("saved")
         .delete()
-        .eq("snippet_id", params.snippetId)
-        .eq("user_id", params.userId);
+        .eq("post_id", postId)
+        .eq("user_id", userId);
 
     if (error) {
         return;

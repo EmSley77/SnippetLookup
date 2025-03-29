@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router'
 import '../../styles/style.css'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 export default function Landing() {
     return (
         <>
@@ -23,18 +25,11 @@ export default function Landing() {
                             <div className="bg-gray-800 p-6 rounded-lg shadow-xl">
                                 <pre className="text-sm">
                                     <code className="text-indigo-300">
-                                        {`import React from 'react';
+                                        <SyntaxHighlighter language='javascript' style={vscDarkPlus}>
+                                            {exampleCode}
+                                        </SyntaxHighlighter>
 
-const ExampleComponent = () => {
-  return (
-    <div className="p-4">
-      <h1>Hello, World!</h1>
-      <p>This is a simple React component.</p>
-    </div>
-  );
-  };
 
-export default ExampleComponent;`}
                                     </code>
                                 </pre>
                             </div>
@@ -52,3 +47,17 @@ export default ExampleComponent;`}
         </>
     )
 }
+
+
+const exampleCode = `import React from 'react';
+
+const ExampleComponent = () => {
+  return (
+    <div className="p-4">
+      <h1>Hello, World!</h1>
+      <p>This is a simple React component.</p>
+    </div>
+  );
+  };
+
+export default ExampleComponent;`

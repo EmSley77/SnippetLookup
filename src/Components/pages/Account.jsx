@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth.jsx';
-import { getSnippetsByUserId } from '../../service/snippets.js';
+import { getPostsByUserId } from '../../service/posts.js';
 import '../../styles/style.css';
 import UserInfo from '../account/UserInfo.jsx';
 import Header from './Header.jsx';
@@ -10,13 +10,10 @@ export default function Account() {
   const [snippets, setSnippets] = useState([])
   const { user, loading } = useAuth()
 
-  console.log(user);
-  
-
   useEffect(() => {
     if (!loading && user) {
       const fetchSnippets = async () => {
-        const data = await getSnippetsByUserId(user.id)
+        const data = await getPostsByUserId(user.id)
         if (data) {
           setSnippets(data)
         }
@@ -34,7 +31,6 @@ export default function Account() {
       <h1>Loading...</h1>
     </>
   }
-
 
   return (
     <div className="h-screen bg-gray-900 text-white">

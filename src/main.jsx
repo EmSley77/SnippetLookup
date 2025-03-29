@@ -8,8 +8,8 @@ import Home from './Components/pages/Home.jsx'
 import Register from './Components/pages/Register.jsx'
 import ResetPassword from './Components/password/ResetPassword.jsx'
 import Saved from './Components/pages/Saved.jsx'
-import Snippet from './Components/pages/Snippet.jsx'
-import CreateSnippet from './Components/pages/CreateSnippet.jsx'
+import Post from './Components/pages/Post.jsx'
+import CreateSnippet from './Components/pages/CreatePost.jsx'
 import About from './Components/pages/About.jsx'
 
 createRoot(document.getElementById('root')).render(
@@ -24,8 +24,8 @@ createRoot(document.getElementById('root')).render(
         element={<Home />}
       />
 
-      <Route path='/view/:snippetid'
-        element={<Snippet />}
+      <Route path='/view/:postId'
+        element={<Post />}
       />
 
       <Route path='/account'
