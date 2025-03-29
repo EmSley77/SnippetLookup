@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { handleInputChange } from '../../utils/helpers.js'
-import { createSnippet } from '../../service/snippets.js'
 import useAuth from '../../hooks/useAuth.jsx'
+import { createSnippet } from '../../service/snippets.js'
 import '../../styles/style.css'
-//TODO fix header
-import Header from './Header.jsx'
-import LoaderTeal from '../helper/loaders/LoaderTeal.jsx'
+import useSections from '../../hooks/useSections.jsx';
 import { Link } from 'react-router'
+import LoaderTeal from '../helper/loaders/LoaderTeal.jsx'
+import Header from './Header.jsx'
 
 
 export default function CreateSnippet() {
 
     const [title, setTitle] = useState('')
     const [isPrivate, setIsPrivate] = useState(false)
-    const [language, setLanguage] = useState('')
     const [description, setDescription] = useState('')
-    const [userText, setUserText] = useState('')
-    const [code, setCode] = useState('')
     const [message, setMessage] = useState('')
+    const [sections, setSections] = useState([])
+    const { savePost } = useSections()
+    const [language, setLanguage] = useState("JavaScript")
 
+ 
     const { user, loading } = useAuth()
-
 
     const languages = [
         'JavaScript',
@@ -45,29 +44,47 @@ export default function CreateSnippet() {
         'Clojure',
         'F#']
 
-
     const handleSnippetCreateSubmit = async (e) => {
         e.preventDefault();
+
+        if (!user) return;
 
         const body = {
             title: title,
             isPrivate: isPrivate,
-            language: language,
             description: description,
-            userText: userText,
-            code: code,
             username: user.user_metadata.display_username,
             userId: user.id
-
         }
 
-        if (!title || !language || !description || !code) {
+        if (!title || !description) {
             setMessage('Fill in all fields')
             return
         }
-        await createSnippet(body, setMessage)
-        alert("snippet has been added")
+        const data = await createSnippet(body, setMessage)
+
+        await savePost(sections, data[0].id)
+        alert("blog has been posted")
     }
+
+
+    const addSection = (type) => {
+        setSections(sections.concat({ id: Date.now(), type, content: "" }))
+    };
+
+    const updateSection = (id, content) => {
+        setSections(sections.map(sec => sec.id === id ? { ...sec, content } : sec));
+    };
+
+    const updateCodeSection = (id, content, language) => {
+        setSections(sections.map(sec => sec.id === id ? { ...sec, content, language } : sec));
+    };
+
+    //filter out where id !== and keep the rest
+    const removeSection = (id) => {
+        setSections(sections.filter(sec => sec.id !== id));
+    };
+
 
 
     useEffect(() => {
@@ -126,19 +143,6 @@ export default function CreateSnippet() {
                         />
 
 
-                        {/* Language Dropdown */}
-                        <select
-                            className="bg-gray-700 text-white p-3 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-                            onChange={e => setLanguage(e.target.value)}
-                            required
-                        >
-                            <option value="" disabled selected>Select Language</option>
-                            {languages.map(lang => (
-                                <option key={lang.toLowerCase()} value={lang.toLowerCase()}>
-                                    {lang}
-                                </option>
-                            ))}
-                        </select>
 
                         {/* Private Snippet Checkbox */}
                         <div className="inline-flex items-center">
@@ -161,23 +165,73 @@ export default function CreateSnippet() {
                             </p>
                         </div>
 
-                        {/* User Text Textarea */}
-                        <textarea
-                            placeholder="Write about your snippet (optional)..."
-                            value={userText}
-                            onChange={(e) => handleInputChange(e, setUserText)}
-                            className="resize-none w-full bg-gray-700 text-white p-3 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500 mb-4"  // Add bottom margin
-                            style={{ overflow: 'hidden' }}
-                        ></textarea>
+                        <h2 className="text-2xl font-bold mb-4 text-blue-400">Create Post</h2>
 
-                        {/* Code Textarea */}
-                        <textarea
-                            placeholder="Write your code here..."
-                            value={code}
-                            onChange={(e) => handleInputChange(e, setCode)}
-                            className="resize-none w-full bg-gray-700 text-white p-3 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500 mb-4"  // Add bottom margin
-                            style={{ overflow: 'hidden' }}
-                        ></textarea>
+                        {/* Section List */}
+                        {sections.map((sec, index) => (
+                            <div key={sec.id} className="mb-4">
+                                <label className="block text-sm font-semibold text-gray-400">
+                                    Section {index + 1} ({sec.type})
+                                </label>
+                                {sec.type === "code" ? (
+                                    <>
+                                        <select
+                                            className="bg-gray-700 text-white p-3 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                            onChange={e => setLanguage(e.target.value)}
+                                            required
+                                        >
+                                            <option value="" disabled selected>Select Language</option>
+                                            {languages.map(lang => (
+                                                <option key={lang.toLowerCase()} value={lang.toLowerCase()}>
+                                                    {lang}
+                                                </option>
+                                            ))}
+                                        </select>
+
+
+                                        <textarea
+                                            placeholder="Enter code..."
+                                            value={sec.content}
+                                            onChange={(e) => updateCodeSection(sec.id, e.target.value, language)}
+                                            className="w-full p-2 mt-1 bg-gray-700 text-green-400 font-mono border border-gray-600 rounded-lg focus:ring focus:ring-blue-500"
+                                        />
+                                    </>
+                                ) : (
+                                    <textarea
+                                        placeholder={`Enter ${sec.type}...`}
+                                        value={sec.content}
+                                        onChange={(e) => updateSection(sec.id, e.target.value)}
+                                        className="w-full p-2 mt-1 bg-gray-700 text-gray-300 border border-gray-600 rounded-lg focus:ring focus:ring-blue-500"
+                                    />
+                                )}
+                                <button
+                                    type="button"
+                                    onClick={() => removeSection(sec.id)}
+                                    className="mt-2 px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm"
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        ))
+                        }
+
+                        {/* Add Section Buttons */}
+                        <div className="flex gap-2 flex-wrap mb-4">
+                            <button type="button" onClick={() => addSection("text")} className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg">
+                                Add Text
+                            </button>
+                            <button type="button" onClick={() => addSection("code")} className="px-3 py-1 bg-purple-500 hover:bg-purple-600 text-white rounded-lg">
+                                Add Code
+                            </button>
+                            <button type="button" onClick={() => addSection("requirements")} className="px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded-lg">
+                                Add Requirements
+                            </button>
+                            <button type="button" onClick={() => addSection("block")} className="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg">
+                                Add Block
+                            </button>
+                        </div>
+
+
 
                         {/* Submit Button */}
                         <button

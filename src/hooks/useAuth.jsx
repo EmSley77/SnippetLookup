@@ -13,7 +13,7 @@ const useAuth = () => {
     useEffect(() => {
         const fetchSession = async () => {
 
-            if (isMounted.current) {
+
                 const { data, error } = await supabaseClient.auth.getSession();
 
                 if (!data.session) {
@@ -26,10 +26,7 @@ const useAuth = () => {
                     setUser(data.session.user)
                 }
                 setLoading(false);
-            } else {
-                isMounted.current = true;
-
-            }
+            
 
         };
 

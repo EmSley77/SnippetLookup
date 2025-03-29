@@ -16,7 +16,7 @@ export {
 //get all public snippets
 async function getSnippets(setData) {
     const { data, error } = await supabaseClient
-        .from("snippets")
+        .from("posts")
         .select("*")
         .eq("is_private", false);
 
@@ -33,7 +33,7 @@ async function getSnippets(setData) {
 //get public paginated
 async function getSnippetsWithPagination(page) {
     const { data, error } = await supabaseClient
-        .from("snippets")
+        .from("posts")
         .select("*")
         .eq("is_private", false)
         .range(page, 20);
@@ -51,7 +51,7 @@ async function getSnippetsWithPagination(page) {
 //get counted
 async function getSnippetsCounted() {
     const { count, error } = await supabaseClient
-        .from("snippets")
+        .from("posts")
         .select("*", { count: "exact", head: true });
 
     if (error) {
@@ -64,7 +64,7 @@ async function getSnippetsCounted() {
 //get snippet by id
 async function getSnippetById(snippetId) {
     const { data, error } = await supabaseClient
-        .from("snippets")
+        .from("posts")
         .select("*")
         .eq("id", snippetId);
 
@@ -80,7 +80,7 @@ async function getSnippetById(snippetId) {
 //get snippets by user-id
 async function getSnippetsByUserId(userId) {
     const { data, error } = await supabaseClient
-        .from("snippets")
+        .from("posts")
         .select("*")
         .eq("user_id", userId);
 
@@ -96,7 +96,7 @@ async function getSnippetsByUserId(userId) {
 //get snippet by id saved
 async function getSavedSnippetById(snippetId) {
     const { data, error } = await supabaseClient
-        .from("snippets")
+        .from("posts")
         .select("*")
         .eq("id", snippetId);
 
@@ -151,20 +151,18 @@ async function getSaved(params) {
 //newSnippet
 async function createSnippet(body, setMessage) {
     const { data, error } = await supabaseClient
-        .from("snippets")
+        .from("posts")
         .insert([
             {
                 user_id: body.userId,
                 is_private: body.isPrivate,
                 title: body.title,
-                language: body.language,
                 description: body.description,
                 username: body.username,
-                code: body.code,
-                user_text: body.userText,
+             
             },
         ])
-        .select();
+        .select("*");
 
     if (error) {
         setMessage(error.message);
@@ -173,6 +171,9 @@ async function createSnippet(body, setMessage) {
 
     if (data && data.length > 0) {
         setMessage("Snippet has been created successfully");
+        console.log(data[0].id);
+        
+        return data
     } else {
         setMessage("Failed to create snippet");
     }

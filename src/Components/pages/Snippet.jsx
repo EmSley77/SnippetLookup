@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import useAnon from '../../hooks/useAnon.jsx';
 import useAuth from '../../hooks/useAuth.jsx';
 import { getSnippetById, saveSnippet } from '../../service/snippets.js';
+import { supabaseClient } from '../../service/supabase.js';
 import "../../styles/style.css";
-import { copyCode } from '../../utils/helpers.js';
 import CommentForm from '../snippet/CommentForm.jsx';
 import ViewSnippet from '../snippet/ViewSnippet.jsx';
 import Footer from './Footer.jsx';
 import Header from './Header.jsx';
-import { supabaseClient } from '../../service/supabase.js';
+import useSections from '../../hooks/useSections.jsx';
+
 
 export default function Snippet() {
 
@@ -17,18 +19,45 @@ export default function Snippet() {
   const [message, setMessage] = useState('')
   const [isCopied, setIsCopied] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [sections, setSections] = useState([])
 
-
-
+  const {getSectionsBySnippetId} = useSections()
   const { user } = useAuth()
+
+  const { updateSnippetCopyCount, getSnippetCopyCount } = useAnon();
+
+  const handleCopyCode = async (code, setIsCopied, isCopied) => {
+    if (isCopied) return;
+
+    if (!snippet?.id) return
+
+    const currentCount = await getSnippetCopyCount(snippet.id);
+
+    const updatedCount = currentCount + 1
+    await updateSnippetCopyCount(updatedCount, snippet.id)
+
+
+    try {
+      await navigator.clipboard.writeText(code);
+      setIsCopied(true);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   useEffect(() => {
     const fetchById = async () => {
       const data = await getSnippetById(param.snippetid)
       setSnippet(data)
+
+      const sectionData = await getSectionsBySnippetId(param.snippetid)
+      setSections(sectionData)
+
     }
     fetchById()
   }, [param.snippetid])
+  console.log(sections);
+
 
   // if copied ||true reset after 3000 of text
   useEffect(() => {
@@ -67,9 +96,6 @@ export default function Snippet() {
     setSaved(hasSaved)
   }
 
-
-
-
   return (
     <>
       <Header />
@@ -83,7 +109,8 @@ export default function Snippet() {
           isSaved={saved}
           setIsCopied={setIsCopied}
           isCopied={isCopied}
-          copyCode={copyCode}
+          handleCopyCode={handleCopyCode}
+          sections={sections}
         />
 
         {/* Comment Form - Only Visible if User Exists */}

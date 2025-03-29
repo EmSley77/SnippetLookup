@@ -1,7 +1,9 @@
-export { copyCode, handleInputChange, colorGenerator, formatCreatedDate };
+export { colorGenerator, copyCode, formatCreatedDate, handleInputChange };
+
 //copying code when viewing in fullscreen
 async function copyCode(code, setIsCopied, isCopied) {
     if (isCopied) return;
+
     try {
         await navigator.clipboard.writeText(code);
         setIsCopied(true);

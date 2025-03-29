@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark, materialDark, nightOwl, vscDarkPlus, a11yDark, solarizedDarkAtom, oneLight, duotoneLight, materialLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { a11yDark, atomDark, duotoneLight, materialDark, materialLight, nightOwl, oneLight, solarizedDarkAtom, vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import { FaCheck, FaCopy, FaEye, FaHeart } from 'react-icons/fa6';
 import '../../styles/style.css';
@@ -11,11 +11,11 @@ export default function ViewSnippet({
     isSaved,
     setIsCopied,
     isCopied,
-    copyCode, }) {
+    handleCopyCode, sections }) {
+
+
 
     const [theme, setTheme] = useState(vscDarkPlus);
-    console.log(theme);
-
 
     const handleThemeChange = (event) => {
         const selectedTheme = event.target.value;
@@ -34,6 +34,10 @@ export default function ViewSnippet({
 
 
 
+    console.log(sections);
+
+//TODO: fix views count not counting
+
     return (
         <>
             <div className="p-6 flex flex-col justify-between w-full text-white">
@@ -41,70 +45,64 @@ export default function ViewSnippet({
                 <h1 className="text-3xl font-bold text-teal-300">{snippet.title}</h1>
                 <hr className="mb-3 mt-2 border-gray-600" />
                 <p className="text-gray-300 mb-3 mt-3">{snippet.description}</p>
-                <h2 className="text-l font-semibold text-gray-100 mt-2 p-2 bg-purple-500 w-fit rounded-4xl">{snippet.language}</h2>
                 <hr className="my-4 border-gray-700 " />
                 <div className='flex items-center gap-2 mb-3'>
+
                     <FaEye className='size-7' /> {snippet.views_count}
                 </div>
 
+              
+                {sections.map((sec) => (
+                    sec.type === "code" ? (
+                        <>
+                            {/* Code Block Section */}
+                            <div className="flex gap-2 justify-around w-full bg-gradient-to-b from-gray-600 to-gray-700 p-2 rounded-t-xl">
+                                <button className={actionButtonClass}
+                                    onClick={() => handleCopyCode(snippet.code, setIsCopied, isCopied)}>
+                                    {isCopied ? <FaCheck /> : <FaCopy />}
+                                </button>
+                                <select onChange={e => handleThemeChange(e)} className='text-white bg-gray-700 p-2 rounded-xl border-2 border-teal-300'>
+                                    <option value="" disabled>Change theme</option>
+                                    <optgroup label='Dark'>
+                                        <option value="vscDarkPlus">VSC Dark Plus</option>
+                                        <option value="nightOwl">Night Owl</option>
+                                        <option value="materialDark">Material Dark</option>
+                                        <option value="atomDark">Atom Dark</option>
+                                        <option value="a11Dark">A11Dark</option>
+                                        <option value="solarizedDarkAtom">Solarized Dark Atom</option>
+                                    </optgroup>
 
-                {/* optioanl User Text Section */}
-                {snippet.user_text && (
-                    <>
-                        <div className="text-white flex gap-2 justify-around w-full bg-gradient-to-b from-gray-600 to-gray-700 rounded-t-xl p-6">
+                                    <optgroup label='Light'>
+                                        <option value="oneLight">One Light</option>
+                                        <option value="materialLight">Material Light</option>
+                                        <option value="duotoneLight">Duotone Light</option>
+                                    </optgroup>
+                                </select>
 
-                        </div>
-                        <div className="bg-gray-950 p-4  overflow-x-auto mb-5 shadow-md">
+                                <button className={actionButtonClass} onClick={handleSaveSnippet}>
+                                    {isSaved ? <FaCheck /> : <FaHeart />}
+                                </button>
+                            </div>
+                            <div className="bg-gray-950 overflow-x-auto mb-5 shadow-md">
+                                {/* display code with theme */}
+                                <SyntaxHighlighter
+                                    language={sec.language}
+                                    style={theme}
+                                >
+                                    {sec.content}
+                                </SyntaxHighlighter>
+                            </div>
+                        </>
+                    ) : (
+                            <div key={sec.id} className='flex space-x-1 justify-center'>
+                                <h1 className='text-xl'>{sec.order_index}.</h1>
+                                <pre className="bg-gray-950 p-4 rounded-xl whitespace-pre-wrap break-words mb-5 shadow-md w-full">
+                                    {sec.content}
+                                </pre>
+                            </div>
+                    )
+                ))}
 
-                            <pre className="whitespace-pre-wrap  bg-gray-950 p-3 text-sm ">
-                                <code>{snippet.user_text}</code>
-                            </pre>
-                        </div>
-                    </>
-                )}
-
-                {/* Code Block Section */}
-                <div className="flex gap-2 justify-around w-full bg-gradient-to-b from-gray-600 to-gray-700 p-2 rounded-t-xl ">
-
-                    <button className={actionButtonClass}
-                        onClick={() => copyCode(snippet.code, setIsCopied, isCopied)}>
-                        {isCopied ? <FaCheck /> : <FaCopy />}
-                    </button>
-                    <select onChange={e => handleThemeChange(e)} className='text-white bg-gray-700 p-2 rounded-xl border-2 border-teal-300'>
-                        <option value="" disabled>Change theme</option>
-                        <optgroup label='Dark'>
-
-                            <option value="vscDarkPlus">VSC Dark Plus</option>
-                            <option value="nightOwl">Night Owl</option>
-                            <option value="materialDark">Material Dark</option>
-                            <option value="atomDark">Atom Dark</option>
-                            <option value="a11Dark">A11Dark</option>
-                            <option value="solarizedDarkAtom">Solarized Dark Atom</option>
-                        </optgroup>
-
-                        <optgroup label='Light'>
-                            <option value="oneLight">One Light</option>
-                            <option value="materialLight">Material Light</option>
-                            <option value="duotoneLight">Duotone Light</option>
-                        </optgroup>
-                    </select>
-
-                    <button className={actionButtonClass} onClick={handleSaveSnippet}>
-                        {isSaved ? <FaCheck /> : <FaHeart />}
-                    </button>
-                </div>
-                <div className="bg-gray-950  overflow-x-auto mb-5 shadow-md">
-
-                    {/* display code with theme */}
-                    <SyntaxHighlighter
-                        language={snippet.language}
-                        style={theme}
-                    >
-                        {snippet.code}
-                    </SyntaxHighlighter>
-
-
-                </div>
                 <p className="text-gray-400"><strong>Author:</strong> @{snippet.username}</p>
                 <p className="text-gray-400"><strong>Date upload: </strong>{new Date(snippet.created_at).toLocaleDateString()}</p>
 

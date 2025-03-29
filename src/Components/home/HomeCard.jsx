@@ -39,12 +39,7 @@ export default function HomeCard({ snippet }) {
             {snippet.description}
           </p>
 
-          {/* Language Badge */}
-          <div className="mt-2 mb-4">
-            <span className="px-4 py-1 bg-teal-600 text-white font-semibold rounded-3xl text-sm">
-              {snippet.language}
-            </span>
-          </div>
+        
 
           //TODO: when user clicks on a username in homecard fetch all snippets beloning to that user
           <p className="text-gray-100 text-sm font-bold mt-4 p-2 bg-indigo-400 w-fit rounded-3xl mb-2 ">
