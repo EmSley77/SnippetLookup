@@ -11,6 +11,7 @@ import Saved from './Components/pages/Saved.jsx'
 import Post from './Components/pages/Post.jsx'
 import CreateSnippet from './Components/pages/CreatePost.jsx'
 import About from './Components/pages/About.jsx'
+import Bar from './Components/chart/Bar.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -32,6 +33,13 @@ createRoot(document.getElementById('root')).render(
         element={
           <Wrapper>
             <Account />
+          </Wrapper>}
+      />
+
+      <Route path='/statistics'
+        element={
+          <Wrapper>
+            <Bar />
           </Wrapper>}
       />
       <Route path='/create'

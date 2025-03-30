@@ -47,10 +47,13 @@ export default function ViewPost({
             <div className='flex items-center justify-around gap-4 mb-6 text-gray-400'>
                 <div className="flex items-center gap-2"><FaCopy className='size-5 text-indigo-400' /> {copyCount}</div>
                 <div className="flex items-center gap-2"><FaEye className='size-5 text-indigo-400' /> {post.views_count}</div>
+                <button className="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-all duration-200 shadow-lg"
+                    onClick={handleSaveSnippet}>
+                    {isSaved ? <FaCheck className="text-green-400" /> : <FaHeart />}
+                </button>
             </div>
 
             <hr className="my-5 border-gray-600" />
-
             {sections.map((sec) => (
                 sec.type === "code" ? (
                     <div key={sec.id} className="mb-8">
@@ -79,20 +82,26 @@ export default function ViewPost({
                                     <option value="duotoneLight">Duotone Light</option>
                                 </optgroup>
                             </select>
-                            <button className="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-all duration-200 shadow-lg"
-                                onClick={handleSaveSnippet}>
-                                {isSaved ? <FaCheck className="text-green-400" /> : <FaHeart />}
-                            </button>
+                          
                         </div>
                         <SyntaxHighlighter language={sec.language} style={theme}
                             className="rounded-b-xl overflow-hidden shadow-lg">
                             {sec.content}
                         </SyntaxHighlighter>
                     </div>
-                ) : (
-                    <div key={sec.id} className='mb-10 p-5 bg-gray-800 rounded-xl shadow-lg'>
+                ) : sec.type === "requirements" ? (
+                    // Render requirements in boxes
+                    <div key={sec.id} className='mb-10 p-5 bg-gray-900 rounded-xl shadow-lg'>
                         <h2 className='text-xl text-indigo-300'>{sec.order_index}.</h2>
-                        <pre className="bg-gray-900 text-gray-300 p-4 rounded-lg whitespace-pre-wrap break-words shadow-md w-full">
+                        <div className=" text-white p-2 rounded-lg  w-full">
+                            {sec.content}
+                        </div>
+                    </div>
+                ) : (
+                    // Regular text section
+                    <div key={sec.id} className='mb-10 p-5 rounded-xl'>
+                        <h2 className='text-xl text-indigo-300'>{sec.order_index}.</h2>
+                        <pre className="text-gray-300 p-4 rounded-lg whitespace-pre-wrap break-words  w-full">
                             {sec.content}
                         </pre>
                     </div>

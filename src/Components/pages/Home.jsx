@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 import { supabaseClient } from '../../service/supabase.js';
 import '../../styles/style.css';
@@ -19,35 +19,36 @@ export default function App() {
   const [searchInput, setSearchInput] = useState("");
   const [category, setCategory] = useState("");
 
+  const fetchData = useCallback(async (abortController) => {
+
+    try {
+      setLoading(true)
+      const { data, error } = await supabaseClient
+        .rpc('get_public_snippets', { p_offset: 0 })
+        .abortSignal(abortController.signal)
+
+      if (error) throw error;
+
+      if (data && data.length > 0) {
+        setData(data);
+      }
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        setError(error);
+      }
+    } finally {
+      setLoading(false)
+    }
+  }, []);
+
+
   useEffect(() => {
     const abortController = new AbortController(); // Create AbortController
 
-    const fetchData = async () => {
-
-      try {
-        setLoading(true)
-        const { data, error } = await supabaseClient
-          .rpc('get_public_snippets', { p_offset: 0 })
-          .abortSignal(abortController.signal)
-
-        if (error) throw error;
-
-        if (data && data.length > 0) {
-          setData(data);
-        }
-      } catch (error) {
-        if (error.name !== "AbortError") {
-          setError(error);
-        }
-      } finally {
-        setLoading(false)
-      }
-    };
-
-    fetchData();
+    fetchData(abortController);
 
     return () => abortController.abort(); // Cleanup on unmount
-  }, [offset]);
+  }, [fetchData]);
 
   // Memoized filtered data
   const filteredData = useMemo(() => {

@@ -5,10 +5,7 @@ import '../../styles/style.css';
 
 export default function HomeCard({ post }) {
 
-  const { getPostViews, updatePostViewCount } = useAnon();
-
-  console.log(post);
-  
+  const { getPostViews, updatePostViewCount } = useAnon();  
 
   // Handle card click to increase view count
   const handleCardClick = async () => {
@@ -22,13 +19,12 @@ export default function HomeCard({ post }) {
       console.warn("Could not retrieve current views.");
       return;
     }
-
     const updatedCount = currentViews + 1;
-    
     await updatePostViewCount(updatedCount, post.id);
 
   };
 
+  //TODO: when user clicks on a username in homecard fetch all snippets beloning to that user
   return (
     <div
       key={post.id}
@@ -49,7 +45,6 @@ export default function HomeCard({ post }) {
 
 
 
-          //TODO: when user clicks on a username in homecard fetch all snippets beloning to that user
           <p className="text-gray-100 text-sm font-bold mt-4 p-2 bg-indigo-400 w-fit rounded-3xl mb-2 ">
             @{post.username}
           </p>

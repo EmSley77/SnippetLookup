@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { handleInputChange } from '../../utils/helpers.js';
-import { getCommentsBySnippetId, makeComment } from '../../service/posts.js';
+import React, { useCallback, useEffect, useState } from 'react';
+import usePosts from '../../hooks/usePosts.jsx';
 import '../../styles/style.css';
+import { handleInputChange } from '../../utils/helpers.js';
 import CommentCard from './CommentCard.jsx';
 
 //get props from Snippet page
@@ -10,22 +10,27 @@ export default function CommentForm({ postId, userId, username }) {
     const [comment, setComment] = useState('')
     const [message, setMessage] = useState('')
     const [comments, setComments] = useState([])
+    const { getCommentsByPostId, createComment } = usePosts()
 
     // Fetch comments when snippetId changes
+    const fetchComments = useCallback(async () => {
+
+
+        try {
+            const data = await getCommentsByPostId(postId);
+            setComments(data);
+        } catch (error) {
+            console.error("Error fetching comments:", error);
+        }
+
+    }, [postId])
+
     useEffect(() => {
         if (postId) {
-            const fetchComments = async () => {
-                try {
-                    const data = await getCommentsBySnippetId(postId);
-                    setComments(data);
-                } catch (error) {
-                    console.error("Error fetching comments:", error);
-                }
-            };
 
             fetchComments();
         }
-    }, [postId]); // Re-fetch comments if snippetId changes
+    }, [fetchComments, postId]); // Re-fetch comments if snippetId changes
 
     // Handle comment submission
     const handleCommentSubmit = async (e) => {
@@ -38,7 +43,7 @@ export default function CommentForm({ postId, userId, username }) {
 
         try {
             // Submit the comment
-            const msg = await makeComment(userId, postId, comment, username);
+            const msg = await createComment(userId, postId, comment, username);
             setMessage(msg);  // Show the message returned from the API
             setComment(''); // Clear the comment input
 
@@ -74,10 +79,10 @@ export default function CommentForm({ postId, userId, username }) {
             {/* Messages Container (Starts from Top) */}
             <div className="flex flex-col overflow-y-auto p-2 flex-grow">
                 {comments ? comments.map((comment) => (
-                    <CommentCard 
-                    comment={comment} 
-                    key={comment.id}
-                     />
+                    <CommentCard
+                        comment={comment}
+                        key={comment.id}
+                    />
                 )) : <p>No disscussion yet</p>}
                 {/* Comment Form (Always Stays at Bottom) */}
                 <form onSubmit={handleCommentSubmit} className="w-full">

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import useAuth from '../../hooks/useAuth.jsx'
-import { createSnippet } from '../../service/posts.js'
-import '../../styles/style.css'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router';
+import useAuth from '../../hooks/useAuth.jsx';
+import usePosts from '../../hooks/usePosts.jsx';
 import useSections from '../../hooks/useSections.jsx';
-import { Link } from 'react-router'
-import LoaderTeal from '../helper/loaders/LoaderTeal.jsx'
-import Header from './Header.jsx'
+import '../../styles/style.css';
+import LoaderTeal from '../helper/loaders/LoaderTeal.jsx';
+
+import Header from './Header.jsx';
 
 
 export default function CreateSnippet() {
@@ -18,7 +19,7 @@ export default function CreateSnippet() {
     const { savePost } = useSections()
     const [language, setLanguage] = useState("JavaScript")
 
-
+    const { createPost } = usePosts()
     const { user, loading } = useAuth()
 
     const languages = [
@@ -61,7 +62,7 @@ export default function CreateSnippet() {
             setMessage('Fill in all fields')
             return
         }
-        const data = await createSnippet(body, setMessage)
+        const data = await createPost(body)
 
         await savePost(sections, data[0].id)
         alert("blog has been posted")
@@ -193,7 +194,7 @@ export default function CreateSnippet() {
                                             placeholder="Enter code..."
                                             value={sec.content}
                                             onChange={(e) => updateCodeSection(sec.id, e.target.value, language)}
-                                            className="w-full p-2 mt-1 bg-gray-700 text-green-400 font-mono border border-gray-600 rounded-lg focus:ring focus:ring-blue-500"
+                                            className="w-full p-2 mt-1 bg-gray-700 text-green-300 font-mono border border-gray-600 rounded-lg focus:ring focus:ring-blue-500"
                                         />
                                     </>
                                 ) : (
@@ -226,9 +227,7 @@ export default function CreateSnippet() {
                             <button type="button" onClick={() => addSection("requirements")} className="px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded-lg">
                                 Add Requirements
                             </button>
-                            <button type="button" onClick={() => addSection("block")} className="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg">
-                                Add Block
-                            </button>
+
                         </div>
 
 

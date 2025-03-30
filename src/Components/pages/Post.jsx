@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import useAnon from '../../hooks/useAnon.jsx';
 import useAuth from '../../hooks/useAuth.jsx';
+import usePosts from '../../hooks/usePosts.jsx';
 import useSections from '../../hooks/useSections.jsx';
-import { getPostById, savePost } from '../../service/posts.js';
 import { supabaseClient } from '../../service/supabase.js';
 import "../../styles/style.css";
-import CommentForm from '../snippet/CommentForm.jsx';
-import ViewPost from '../snippet/ViewPost.jsx';
+import CommentForm from '../post/CommentForm.jsx';
+import ViewPost from '../post/ViewPost.jsx';
 import Footer from './Footer.jsx';
 import Header from './Header.jsx';
 
@@ -22,23 +22,26 @@ export default function Snippet() {
   const [saved, setSaved] = useState(false)
   const [sections, setSections] = useState([])
 
+  const { getPostById, savePost } = usePosts()
   const { getSectionsByPostId } = useSections()
   const { user } = useAuth()
 
   const { updatePostCopyCount, getPostCopyCount } = useAnon();
 
 
+  const fetchPostData = useCallback(async () => {
+
+    const postdata = await getPostById(param.postId)
+    setPost(postdata)
+
+    const sections = await getSectionsByPostId(param.postId)
+    setSections(sections)
+  }, [param.postId])
+
+
   useEffect(() => {
-
-    const fetchPostData = async () => {
-      const postdata = await getPostById(param.postId)
-      setPost(postdata)
-
-      const sections = await getSectionsByPostId(param.postId)
-      setSections(sections)
-    }
     fetchPostData()
-  }, [])
+  }, [fetchPostData])
 
 
   // if copied ||true reset after 3000 of text
@@ -64,7 +67,7 @@ export default function Snippet() {
 
     const currentCount = await getPostCopyCount(post.id);
 
-    const updatedCount = currentCount + 1
+    const updatedCount = (currentCount || 0) + 1
     await updatePostCopyCount(updatedCount, post.id)
 
 
@@ -78,13 +81,24 @@ export default function Snippet() {
 
   const handleSaveSnippet = async () => {
     if (!user) {
-      setMessage("You must be signed in to save code snippets")
+      alert("You must be signed in to save posts")
       return
     }
+    
+
+    if (saved) {
+      alert("already saved this post")
+      return
+    }
+
     //TODO check if already saved before proceeding
-    const {  error } = await supabaseClient.from("saved").select("*").eq("post_id", param.postId).eq("user_id", user.id)
+    const { error } = await supabaseClient
+      .from("saved")
+      .select("*")
+      .eq("post_id", param.postId)
+      .eq("user_id", user.id)
+
     if (error) {
-      setMessage(error.message)
       return
     }
 

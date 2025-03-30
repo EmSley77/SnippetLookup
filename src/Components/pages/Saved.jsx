@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import useAuth from '../../hooks/useAuth.jsx'
-import { removeSaved } from '../../service/posts.js'
+import usePosts from '../../hooks/usePosts.jsx';
 import { supabaseClient } from '../../service/supabase.js'
 import SavedList from '../saved/SavedList.jsx'
 import Header from './Header.jsx'
@@ -10,33 +10,36 @@ export default function Saved() {
 
     const [posts, setPosts] = useState([])
     const { user, loading } = useAuth()
+    const { deleteSaved } = usePosts()
 
+    const fetchPosts = useCallback(async () => {
+
+        if (user) {
+
+            const { data, error } = await supabaseClient.from("saved").select("*").eq("user_id", user.id)
+
+            if (error) {
+                return []
+            }
+
+            if (data && data.length > 0) {
+                setPosts(data)
+            }
+
+        }
+    }, [user])
     // get user snippets
     useEffect(() => {
 
-        if (!loading && user) {
+        fetchPosts()
 
-            const fetchSnippets = async () => {
-
-                const { data, error } = await supabaseClient.from("saved").select("*").eq("user_id", user.id)
-
-                if (error) {
-                    return []
-                }
-
-                if (data && data.length > 0) {
-                    setPosts(data)
-                }
-            }
-            fetchSnippets()
-        }
-
-    }, [user, loading])
+    }, [fetchPosts])
 
 
     const handleDelete = async (postId) => {
-        await removeSaved(user.id, postId)
-        setPosts(prevPosts => prevPosts.filter(post => post.id !== postId));
+        await deleteSaved(user.id, postId)
+        setPosts(posts.filter(post => post.id !== postId));
+        alert("post has been removed")
     }
 
     if (loading) {
