@@ -36,12 +36,6 @@ createRoot(document.getElementById('root')).render(
           </Wrapper>}
       />
 
-      <Route path='/statistics'
-        element={
-          <Wrapper>
-            <Bar />
-          </Wrapper>}
-      />
       <Route path='/create'
         element={
           <Wrapper>

@@ -38,7 +38,8 @@ export default function Saved() {
 
     const handleDelete = async (postId) => {
         await deleteSaved(user.id, postId)
-        setPosts(posts.filter(post => post.id !== postId));
+        const updatedPosts = posts.filter(savedPost => savedPost.post_id !== postId);
+        setPosts(updatedPosts);
         alert("post has been removed")
     }
 

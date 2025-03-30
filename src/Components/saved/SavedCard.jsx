@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { supabaseClient } from '../../service/supabase.js';
-export default function SavedCard({  savedPost, handleDelete }) {
+export default function SavedCard({ savedPost, handleDelete }) {
 
     const [postData, setPostData] = useState({})
+
+
 
     //fetch post
     useEffect(() => {
@@ -25,6 +27,7 @@ export default function SavedCard({  savedPost, handleDelete }) {
         fetchPostData()
 
     }, [savedPost])
+
 
 
 

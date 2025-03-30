@@ -58,17 +58,12 @@ export default function Account() {
   }
 
   return (
-    <div className="h-screen bg-gray-900 text-white">
+    <div className="h-screen  bg-gray-900 text-white">
 
       {/* Header Section */}
       <Header />
-      <div className="w-full p-2 h-8 flex gap-4 justify-around">
-        <Link to="/statistics" className="text-blue-500 hover:underline">Statistics</Link>
-        <Link to="/settings" className="text-blue-500 hover:underline">Settings</Link>
-      </div>
-      <hr />
 
-      <div className="flex p-3 gap-5 h-full">
+      <div className="flex flex-col p-3 gap-5 h-full">
 
         {/* User Info Section */}
         <UserInfo
@@ -77,6 +72,7 @@ export default function Account() {
           posts={posts}
           handleDelete={handleDelete}
         />
+
       </div>
 
     </div>

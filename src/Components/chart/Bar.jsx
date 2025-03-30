@@ -9,11 +9,8 @@ import {
 } from 'chart.js';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Bar as BarChartJs } from 'react-chartjs-2';
-import usePosts from '../../hooks/usePosts';
 import useAuth from '../../hooks/useAuth';
-import Header from '../pages/Header';
-import Footer from '../pages/Footer';
-
+import usePosts from '../../hooks/usePosts';
 
 ChartJS.register(
     CategoryScale,
@@ -25,81 +22,75 @@ ChartJS.register(
 );
 
 const Bar = () => {
-
-    const [chartData, setChartData] = useState([])
+    const [chartData, setChartData] = useState([]);
     const { getPostsByUserId } = usePosts();
-    const { user, loading } = useAuth()
-
-
+    const { user, loading } = useAuth();
 
     const fetchPosts = useCallback(async () => {
-        if (!user) return;
+        if (!user?.id) return;
 
         try {
             const data = await getPostsByUserId(user.id);
             if (data) {
-                // Transform data before updating state
                 const chartDataArray = data.map((object) => ({
                     title: object.title,
                     number: object.views_count + object.copy_count
                 }));
 
-                setChartData(chartDataArray); // Update state once instead of multiple times       
+                setChartData(chartDataArray);
             }
         } catch (error) {
             console.error("Error fetching posts:", error);
         }
-    }, [user]);
+    }, [user?.id, getPostsByUserId]);
 
     useEffect(() => {
-        fetchPosts()
-    }, [fetchPosts])
-
+        fetchPosts();
+    }, [fetchPosts]);
 
     const options = {
         scales: {
+            x: {
+                ticks: { color: "#fff" }, // White X-axis labels
+                grid: { color: "rgba(255, 255, 255, 0.2)" } // Light grid lines
+            },
             y: {
-                beginAtZero: true
+                ticks: { color: "#fff" }, // White Y-axis labels
+                grid: { color: "rgba(255, 255, 255, 0.2)" }
             }
         },
         animation: true,
         plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Statistics',
-            },
+            legend: { labels: { color: "#fff" } }, // Legend text color
+            title: { display: true, text: 'My Post Statistics', color: "#fff" }, // Chart title color
         },
     };
 
-
     const data = {
-        labels: chartData.map((item) => item.title), // Titles from your posts
+        labels: chartData.map((item) => item.title),
         datasets: [
             {
                 label: 'Views + Copies',
-                data: chartData.map((item) => item.number), // Views + Copies count
-                backgroundColor: 'rgba(54, 162, 235, 2)',
-
+                data: chartData.map((item) => item.number),
+                backgroundColor: 'rgba(54, 162, 235, 0.8)',  // Increased opacity
+                hoverBackgroundColor: "rgba(54, 200, 180, 0.9)", // Higher contrast on hover
+                borderWidth: 2,
+                barThickness: 50,
             },
         ],
     };
 
-    if (loading) {
-        return <><p>Loading in user</p></>
-    }
-    return (
-        <>
-            <Header />
-            <div className='p-4 h-[500px]'>
+    if (loading) return <p>Loading user...</p>;
 
-                <BarChartJs options={options} data={data} />
-            </div>
-            <Footer />
-        </>
+    return (
+        <div className='h-100 bg-gray-800 rounded-xl w-full p-6 '>
+
+            <BarChartJs
+                options={options}
+                data={data} />
+                </div>
+        
     );
-}
+};
 
 export default Bar;
