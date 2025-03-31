@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth.jsx';
-import usePosts from '../../hooks/usePosts.jsx'
+import usePosts from '../../hooks/usePosts.jsx';
 import '../../styles/style.css';
-import UserInfo from '../account/UserInfo.jsx';
-import Header from './Header.jsx';
+import UploadedPosts from '../account/UploadedPosts.jsx';
 import Bar from '../chart/Bar.jsx';
-import { Link } from 'react-router';
+import Header from './Header.jsx';
 
 export default function Account() {
 
@@ -47,9 +46,6 @@ export default function Account() {
     fetchPosts()
   }, [fetchPosts])
 
-  const formatCreatedDate = (createdDate) => {
-    return new Date(createdDate).toLocaleDateString()
-  }
 
   if (loading) {
     return <>
@@ -58,23 +54,27 @@ export default function Account() {
   }
 
   return (
-    <div className="h-screen text-white">
-
-      {/* Header Section */}
-      <Header />
-
-      <div className="flex flex-col p-3 gap-5 h-full">
-
-        {/* User Info Section */}
-        <UserInfo
-          user={user}
-          formatCreatedDate={formatCreatedDate}
-          posts={posts}
-          handleDelete={handleDelete}
-        />
-
+    <>
+    <Header />
+    <div className="p-6 max-w-6xl mx-auto">
+      {/* User Info Section */}
+      <div className="bg-white p-6 rounded-2xl shadow-xl text-gray-800 w-full mb-6 flex flex-col items-center text-center">
+        <h1 className="text-4xl font-bold text-indigo-600">Welcome Back, {user.user_metadata.name} {user.user_metadata.lastname}</h1>
+        <p className="text-lg text-gray-600">Member since {new Date(user?.created_at).toLocaleDateString()}</p>
+        <p className="text-md text-gray-500">Preferred language: {user?.user_metadata.preferred_language}</p>
+        <p className="text-md text-gray-500">@{user?.user_metadata.display_username}</p>
       </div>
 
+      {/* Dashboard Content */}
+      <div className="grid grid-cols-2 lg:grid-cols-2 gap-3">
+        {/* Stats Chart */}
+        <Bar />
+
+        {/* Posted blogs */}
+        <UploadedPosts posts={posts} handleDelete={handleDelete} />
+
+      </div>
     </div>
+    </>
   );
-};
+}

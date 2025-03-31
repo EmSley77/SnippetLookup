@@ -17,5 +17,4 @@
     - copy code
 
      
-todo: when a user views a snippet blog/snippet increment the views_count + 1
-todo: when a user copies increment the copy_count + 1       
+  //TODO: when user clicks on a username in homecard fetch all snippets beloning to that user

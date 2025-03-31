@@ -29,12 +29,16 @@ export default function SavedList({ data, handleDelete }) {
       <div className="flex flex-col gap-6 p-6  rounded-xl w-[800px]">
 
         {/* Map through snippets and display each saved card */}
-        {data.map((post, index) => (          
-          <SavedCard
-            key={index}
-            savedPost={post}
-            handleDelete={handleDelete}
-          />
+        {data.map((post) => (
+          <div key={post.id}>
+
+            <SavedCard
+              post={post}
+              handleDelete={handleDelete}
+            />
+
+
+          </div>
         ))}
 
       </div>

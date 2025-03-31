@@ -118,7 +118,7 @@ export default function CreateSnippet() {
             <div className='flex justify-center h-screen'>
 
 
-                <div className="flex flex-col p-6  text-white rounded-xl  w-[1000px] h-full ">
+                <div className="flex flex-col p-6 rounded-xl  w-[1000px] h-full ">
                     <h1 className="text-center text-2xl font-semibold">Create New Snippet</h1>
 
                     <form
@@ -128,7 +128,7 @@ export default function CreateSnippet() {
                         {/* Title Input */}
                         <input
                             type="text"
-                            className="w-full bg-gray-700 text-white rounded-lg p-3 shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                            className="w-full bg-white rounded-lg p-3 shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                             placeholder="Title"
                             onChange={e => setTitle(e.target.value)}
                             required
@@ -137,7 +137,7 @@ export default function CreateSnippet() {
                         {/* Description Input */}
                         <input
                             type="text"
-                            className="w-full bg-gray-700 text-white rounded-lg p-3 shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                            className="w-full bg-white rounded-lg p-3 shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                             placeholder="Provide a brief description of your snippet"
                             onChange={e => setDescription(e.target.value)}
                             required
@@ -150,7 +150,7 @@ export default function CreateSnippet() {
                             <label className="flex items-center cursor-pointer relative" htmlFor="check-2">
                                 <input type="checkbox"
                                     onChange={e => setIsPrivate(e.target.checked)}
-                                    className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-teal-300 checked:border-slate-800"
+                                    className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-indigo-700 checked:border-slate-800"
                                     id="check-2" />
                                 <span className="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
@@ -166,7 +166,7 @@ export default function CreateSnippet() {
                             </p>
                         </div>
 
-                        <h2 className="text-2xl font-bold mb-4 text-blue-400">Create Post</h2>
+                        <h2 className="text-2xl font-bold mb-4 text-gray-700">Create Post</h2>
 
                         {/* Section List */}
                         {sections.map((sec, index) => (
@@ -194,7 +194,7 @@ export default function CreateSnippet() {
                                             placeholder="Enter code..."
                                             value={sec.content}
                                             onChange={(e) => updateCodeSection(sec.id, e.target.value, language)}
-                                            className="w-full p-2 mt-1 bg-gray-700 text-green-300 font-mono border border-gray-600 rounded-lg focus:ring focus:ring-blue-500"
+                                            className="w-full p-2 mt-1 bg-gray-700 text-green-200 font-mono border border-gray-600 rounded-lg focus:ring focus:ring-blue-500"
                                         />
                                     </>
                                 ) : (
@@ -202,7 +202,7 @@ export default function CreateSnippet() {
                                         placeholder={`Enter ${sec.type}...`}
                                         value={sec.content}
                                         onChange={(e) => updateSection(sec.id, e.target.value)}
-                                        className="w-full p-2 mt-1 bg-gray-700 text-gray-300 border border-gray-600 rounded-lg focus:ring focus:ring-blue-500"
+                                        className="w-full p-2 mt-1 bg-white border border-gray-600 rounded-lg focus:ring focus:ring-blue-500"
                                     />
                                 )}
                                 <button
@@ -235,7 +235,7 @@ export default function CreateSnippet() {
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="p-3 bg-teal-500 text-white rounded-lg hover:bg-teal-400 shadow-md cursor-pointer transition-all"
+                            className="p-3 bg-indigo-700 text-white rounded-lg hover:bg-indigo-600 shadow-md cursor-pointer transition-all"
                         >
                             Submit
                         </button>

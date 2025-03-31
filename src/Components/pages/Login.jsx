@@ -32,42 +32,46 @@ export default function Login() {
     return (
         <>
             <Header />
-            <div className="flex items-center justify-center h-screen ">
-                <div className="w-full max-w-md p-8 space-y-6 ">
-                    <h2 className="text-2xl font-bold text-white text-center">Sign in</h2>
-                    <form className="space-y-4" onSubmit={(e) => {
-                        e.preventDefault()
-                        signIn(email, password)
-                    }} autoComplete='off'>
+            <div className="flex items-center justify-center h-screen">
+                <div className="w-full max-w-md p-8 space-y-6">
+                    <h2 className="text-2xl font-bold text-gray-700 text-center">Sign in</h2>
+                    <form
+                        className="space-y-4"
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            signIn(email, password);
+                        }}
+                        autoComplete="off"
+                    >
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                                 Email
                             </label>
                             <input
-                                onChange={e => setEmail(e.target.value)}
+                                onChange={(e) => setEmail(e.target.value)}
                                 type="email"
                                 id="email"
-                                className="w-full px-3 py-2 mt-1 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-300 text-white"
+                                className="w-full px-3 py-2 mt-1  bg-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-300 "
                                 placeholder="you@example.com"
                                 required
                             />
                         </div>
                         <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-300">
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                                 Password
                             </label>
-                            <div className="flex items-center justify-between bg-gray-700 border  rounded-lg p-2">
+                            <div className="flex items-center justify-between bg-white border rounded-lg p-2">
                                 <input
-                                    onChange={e => setPassword(e.target.value)}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     type={show ? "text" : "password"}
                                     id="password"
-                                    className="w-full px-3 py-2 bg-transparent focus:outline-none text-white"
+                                    className="w-full px-3 py-2 bg-transparent focus:outline-none "
                                     placeholder="password"
                                     required
                                 />
                                 <button
-                                    className="cursor-pointer text-gray-400 hover:text-gray-200"
-                                    onClick={e => {
+                                    className="cursor-pointer text-gray-700 hover:text-gray-400"
+                                    onClick={(e) => {
                                         e.preventDefault();
                                         setShow(!show);
                                     }}
@@ -84,9 +88,8 @@ export default function Login() {
                             Sign in
                         </button>
                     </form>
-                    <div className="relative flex items-center justify-center my-4">
-                        <span className="absolute px-2 text-gray-400 ">or</span>
-                        <div className="w-full border-t border-gray-700"></div>
+                    <div className="flex  items-center justify-center my-4">
+                        <p className="absolute px-2 text-gray-700">or</p>
                     </div>
                     <button
                         onClick={handleGoogleLogin}
@@ -111,4 +114,5 @@ export default function Login() {
             </div>
         </>
     );
+
 }

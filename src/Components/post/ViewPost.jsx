@@ -92,38 +92,46 @@ export default function ViewPost({
         if (selectedTheme === "duotoneLight") setTheme(duotoneLight);
     };
     return (
-        <div className="max-w-3xl mx-auto p-8  ">
-            <h1 className="text-4xl font-extrabold text-indigo-800">{post.title}</h1>
-            <p className="mt-3 text-lg  ">{post.description}</p>
+        <div className="max-w-3xl mx-auto p-6 md:p-10 bg-gray-100 shadow-lg rounded-xl">
+            {/* Title & Description */}
+            <h1 className="text-4xl font-extrabold text-gray-900">{post.title}</h1>
+            <p className="mt-3 text-lg text-gray-700">{post.description}</p>
 
-            <hr className="my-5 border-gray-600" />
+            <hr className="my-5 border-gray-300" />
 
-            <div className='flex items-center justify-around gap-4 mb-6 '>
-                <div className="flex items-center gap-2"><FaCopy className='size-5 text-indigo-800' /> {copyCount}</div>
-                <div className="flex items-center gap-2"><FaEye className='size-5 text-indigo-800' /> {post.views_count}</div>
-                <button className="p-2 rounded-lg bg-red-500 hover:bg-red-600  transition-all duration-200 shadow-lg"
+            {/* Post Info */}
+            <div className="flex items-center justify-around gap-4 mb-6  text-gray-600">
+                <div className="flex items-center gap-2"><FaCopy className="size-5 text-indigo-600" /> {copyCount}</div>
+                <div className="flex items-center gap-2"><FaEye className="size-5 text-indigo-600" /> {post.views_count}</div>
+                <button
+                    className="p-2 rounded-lg bg-red-500 hover:bg-red-600 transition-all duration-200 shadow-md"
                     onClick={handleSavePost}>
-                    {saved ? <FaCheck className="text-green-400" /> : <FaHeart className='text-white' />}
+                    {saved ? <FaCheck className="text-green-400" /> : <FaHeart className="text-white" />}
                 </button>
             </div>
 
-            <hr className="my-5 border-gray-600" />
+            <hr className="my-5 border-gray-300" />
+
+            {/* Sections */}
             {sections.map((sec) => (
                 sec.type === "code" ? (
                     <div key={sec.id} className="mb-8">
-                        <div className="flex justify-between items-center bg-gray-500 p-4 rounded-t-xl shadow-lg">
-                            <button className="p-2 rounded-lg bg-indigo-500 hover:bg-indigo-600  transition-all duration-200"
+                        {/* Code Header */}
+                        <div className="flex justify-between items-center  bg-gray-200 p-3 rounded-t-xl shadow-md">
+                            <button
+                                className="p-2 rounded-lg bg-indigo-500 hover:bg-indigo-600 transition-all duration-200 text-white"
                                 onClick={() => {
                                     setCopyCount(copyCount + 1);
-                                    updateCopyCount()
+                                    updateCopyCount();
                                     copyText(sec.content);
                                 }}>
-                                {saved ? <FaCheck className="text-green-400" /> : <FaCopy className='text-white' />}
+                                {saved ? <FaCheck className="text-green-400" /> : <FaCopy />}
                             </button>
-                            <select onChange={e => handleThemeChange(e)}
-                                className=" bg-gray-200 p-2 rounded-xl border-2 border-indigo-400 outline-none">
+                            <select
+                                onChange={handleThemeChange}
+                                className="bg-white p-2 rounded-xl border-2 border-indigo-400 outline-none">
                                 <option value="" disabled>Change theme</option>
-                                <optgroup label='Dark'>
+                                <optgroup label="Dark">
                                     <option value="vscDarkPlus">VSC Dark Plus</option>
                                     <option value="nightOwl">Night Owl</option>
                                     <option value="materialDark">Material Dark</option>
@@ -131,43 +139,40 @@ export default function ViewPost({
                                     <option value="a11Dark">A11Dark</option>
                                     <option value="solarizedDarkAtom">Solarized Dark Atom</option>
                                 </optgroup>
-                                <optgroup label='Light'>
+                                <optgroup label="Light">
                                     <option value="oneLight">One Light</option>
                                     <option value="materialLight">Material Light</option>
                                     <option value="duotoneLight">Duotone Light</option>
                                 </optgroup>
                             </select>
-
                         </div>
-                        <SyntaxHighlighter language={sec.language} style={theme}
-                            className="rounded-b-xl overflow-hidden shadow-lg">
+
+                        {/* Code Block */}
+                        <SyntaxHighlighter language={sec.language} style={theme || oneLight} className="rounded-b-xl overflow-hidden shadow-md">
                             {sec.content}
                         </SyntaxHighlighter>
                     </div>
                 ) : sec.type === "requirements" ? (
-                    // Render requirements in boxes
-                    <div key={sec.id} className='mb-10 p-5 bg-gray-800 rounded-xl shadow-lg'>
-                        {/* <h2 className='text-xl text-indigo-300 '>{sec.order_index}.</h2> */}
-                        <div className=" p-2 rounded-lg  w-full  text-gray-200 flex justify-between">
+                    <div key={sec.id} className="mb-8 p-5 bg-gray-900 rounded-xl shadow-md">
+                        <div className="p-2 text-gray-100 flex justify-between">
                             {sec.content}
-                            <button className='cursor-pointer ' onClick={() => copyText(sec.content)}>
+                            <button className="cursor-pointer text-indigo-500" onClick={() => copyText(sec.content)}>
                                 {saved ? <FaCheck /> : <FaCopy />}
                             </button>
                         </div>
                     </div>
                 ) : (
-                    // Regular text section
-                    <div key={sec.id} className='mb-10 p-5 rounded-xl  '>
-                        {/* <h2 className='text-xl text-indigo-300 '>{sec.order_index}.</h2> */}
-                        <pre className=" p-4 rounded-lg whitespace-pre-wrap break-words  w-full">
-                            {sec.content}
-                        </pre>
+                    <div key={sec.id} className="mb-8 p-5 rounded-xl bg-gray-50 shadow-md">
+                        <pre className="p-4 text-gray-800 whitespace-pre-wrap break-words">{sec.content}</pre>
                     </div>
                 )
             ))}
 
-            <p className=" mt-6"><strong>Written By:</strong> @{post.username}</p>
-            <p className="text-xs text-gray-200 ">{new Date(post.created_at).toLocaleDateString()}</p>
+            {/* Author Info */}
+            <p className="mt-6 text-gray-600">
+                <strong>Written By:</strong> @{post.username}
+            </p>
+            <p className="text-xs text-gray-400">{new Date(post.created_at).toLocaleDateString()}</p>
         </div>
     );
 }

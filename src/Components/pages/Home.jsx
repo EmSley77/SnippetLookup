@@ -103,8 +103,9 @@ export default function App() {
   return (
     <>
       <Header />
-      <div className='h-screen flex flex-col items-center  text-white' >
+      <div className="h-screen flex flex-col items-center text-white">
 
+        {/* Search Bar */}
         <Search
           category={category}
           searchInput={searchInput}
@@ -112,26 +113,29 @@ export default function App() {
           setCategory={setCategory}
         />
 
+        {/* List Data */}
         <HomeList data={filteredData} />
 
-
-        {/* <div className='w-fit flex gap-3 p-4 bg-gray-900 rounded-xl '>
-          <button onClick={prev => {
-            if (offset === 0) return
-            setOffset(prev - 20)
-          }}
-            className='p-2 bg-gray-600 rounded-xl hover:bg-gray-400 transition-all cursor-pointer'>
+        {/* Pagination Buttons (Uncomment if needed) */}
+        {/* 
+        <div className="w-fit flex gap-3 p-4 bg-gray-900 rounded-xl">
+          <button 
+            onClick={() => offset > 0 && setOffset(prev => prev - 20)}
+            className="p-2 bg-gray-600 rounded-xl hover:bg-gray-400 transition-all"
+          >
             <FaArrowLeft />
           </button>
-          <button onClick={prev => setOffset(prev + 20)}
-            className='p-2 bg-gray-600 rounded-xl hover:bg-gray-400 transition-all cursor-pointer'>
+          <button 
+            onClick={() => setOffset(prev => prev + 20)}
+            className="p-2 bg-gray-600 rounded-xl hover:bg-gray-400 transition-all"
+          >
             <FaArrowRight />
           </button>
-        </div> */}
-
+        </div>
+        */}
 
       </div>
       <Footer />
     </>
-  )
+  );
 }

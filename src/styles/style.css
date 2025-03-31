@@ -9,6 +9,6 @@
 
 body {
     background-color: var(--color-gray-200);
-    color: var(--color-gray-900);
+    color: var(--color-gray-700);
     /* oklch(0.21 0.034 264.665) */
 }

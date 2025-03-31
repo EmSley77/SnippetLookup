@@ -51,18 +51,18 @@ const Bar = () => {
     const options = {
         scales: {
             x: {
-                ticks: { color: "#fff" }, // White X-axis labels
+                ticks: { color: "#000" }, // White X-axis labels
                 grid: { color: "rgba(255, 255, 255, 0.2)" } // Light grid lines
             },
             y: {
-                ticks: { color: "#fff" }, // White Y-axis labels
-                grid: { color: "rgba(255, 255, 255, 0.2)" }
+                ticks: { color: "#000" }, // White Y-axis labels
+                grid: { color: "#d3d3d3d3" }
             }
         },
         animation: true,
         plugins: {
-            legend: { labels: { color: "#fff" } }, // Legend text color
-            title: { display: true, text: 'My Post Statistics', color: "#fff" }, // Chart title color
+            legend: { labels: { color: "#000" } }, // Legend text color
+            title: { display: true, text: 'MY POSTS', color: "#000" }, // Chart title color
         },
     };
 
@@ -83,13 +83,12 @@ const Bar = () => {
     if (loading) return <p>Loading user...</p>;
 
     return (
-        <div className='h-100 bg-gray-800 rounded-xl w-full p-6 '>
-
+        <div className='h-full bg-white rounded-xl shadow-xl w-full p-6 '>
             <BarChartJs
                 options={options}
                 data={data} />
-                </div>
-        
+        </div>
+
     );
 };
 
