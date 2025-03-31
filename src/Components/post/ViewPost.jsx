@@ -15,7 +15,7 @@ export default function ViewPost({
 
     const { updatePostCopyCount, getPostCopyCount } = useAnon();
 
-    const [theme, setTheme] = useState(vscDarkPlus);
+    const [theme, setTheme] = useState(nightOwl);
     const [saved, setSaved] = useState(false);
     const [copyCount, setCopyCount] = useState(post.copy_count);
     const { savePost } = usePosts()
@@ -92,7 +92,7 @@ export default function ViewPost({
         if (selectedTheme === "duotoneLight") setTheme(duotoneLight);
     };
     return (
-        <div className="max-w-3xl mx-auto p-6 md:p-10 bg-gray-100 shadow-lg rounded-xl">
+        <div className=" mx-auto p-6 md:p-10 bg-gray-100 shadow-lg rounded-xl">
             {/* Title & Description */}
             <h1 className="text-4xl font-extrabold text-gray-900">{post.title}</h1>
             <p className="mt-3 text-lg text-gray-700">{post.description}</p>
@@ -162,7 +162,7 @@ export default function ViewPost({
                         </div>
                     </div>
                 ) : (
-                    <div key={sec.id} className="mb-8 p-5 rounded-xl bg-gray-50 shadow-md">
+                    <div key={sec.id} className="mb-8 ">
                         <pre className="p-4 text-gray-800 whitespace-pre-wrap break-words">{sec.content}</pre>
                     </div>
                 )

@@ -11,6 +11,8 @@ export default function Header() {
   // const linkClass = "text-lg font-medium hover:text-indigo-400 transition-all"
   // const actionButtonClass = "px-5 py-2.5 text-gray-700 bg-gray-300 rounded-md text-lg font-medium hover:bg-gray-400 hover:text-indigo-700 transition-all cursor-pointer shadow-lg"
 
+  const buttons = "border-primary border rounded-md inline-flex items-center justify-center py-3 px-7  hover:bg-blue-light-5 hover:text-indigo-500 dark:hover:text-dark-3 disabled:bg-gray-3 disabled:border-gray-3 disabled:text-dark-5 active:bg-blue-light-3 transition-all"
+
   return (
     <header className="bg-white shadow-md sticky top-0 z-50 border-b border-gray-200">
       <div className="container mx-auto flex h-16 items-center justify-between px-6">
@@ -32,19 +34,21 @@ export default function Header() {
 
         {/* User Actions (Desktop) */}
         <div className="hidden md:flex items-center gap-4">
-          <Link className="px-4 py-2 rounded-lg bg-indigo-500 text-white hover:bg-indigo-600 transition" to="/create">
+          <Link className={buttons} to="/create">
             Create Post
           </Link>
           <button
             onClick={signOut}
-            className="px-4 py-2 rounded-lg bg-gray-300 text-gray-700 hover:bg-gray-400 transition"
+            className={buttons}
           >
             Sign Out
           </button>
-          <Link className="px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition" to="/login">
+          <Link
+            className={buttons} to="/login">
             Login
           </Link>
-          <Link className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition" to="/register">
+          <Link
+            className={buttons} to="/register">
             Register
           </Link>
         </div>

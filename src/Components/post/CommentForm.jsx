@@ -70,7 +70,7 @@ export default function CommentForm({ postId, userId, username }) {
     }, [message]);
 
     return (
-        <div className="w-full max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-xl">
+        <div className="w-full  mx-auto p-6 bg-white shadow-lg rounded-xl">
             {/* Comments Header */}
             <div className="flex items-center gap-2 mb-4 text-gray-900">
                 <FaComment className="size-6 text-indigo-600" />

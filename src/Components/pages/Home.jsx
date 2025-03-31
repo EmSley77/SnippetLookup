@@ -2,11 +2,10 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 import { supabaseClient } from '../../service/supabase.js';
 import '../../styles/style.css';
-import Footer from './Footer.jsx'
-import Search from '../search/Search.jsx';
 import LoaderTeal from '../helper/loaders/LoaderTeal.jsx';
 import HomeList from '../home/HomeList.jsx';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import Search from '../search/Search.jsx';
+import Footer from './Footer.jsx';
 import Header from './Header.jsx';
 
 
