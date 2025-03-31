@@ -26,31 +26,34 @@ export default function HomeCard({ post }) {
 
   //TODO: when user clicks on a username in homecard fetch all snippets beloning to that user
   return (
-    <div
-      key={post.id}
-      className="p-6 bg-gray-950 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-1 border border-gray-700 flex flex-col items-start"
-    >
-      <Link onClick={handleCardClick} to={`/view/${post.id}`} className="block w-full">
-        {/* Username */}
-        <div className="flex flex-col w-full">
-          {/* Title */}
-          <h3 className="text-xl font-semibold tracking-wide text-teal-400 mb-2 overflow-hidden text-ellipsis whitespace-nowrap">
-            {post.title}
+    <div className="w-full px-4 ">
+      <div className="mb-10 w-full">
+        <div className="mb-8 overflow-hidden rounded-lg w-full h-64 flex justify-center items-center bg-gray-800">
+          <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+        </div>
+        <div>
+          {post.date && (
+            <span className="mb-5 inline-block rounded bg-indigo-500 px-4 py-1 text-center text-xs font-semibold leading-loose text-white">
+              {new Date(post.created_at).toLocaleDateString()}
+            </span>
+          )}
+          <h3>
+            <Link
+              to={`/view/${post.id}`}
+              onClick={handleCardClick}
+              className="mb-4 inline-block text-xl font-semibold text-white hover:text-indigo-400 sm:text-2xl lg:text-xl xl:text-2xl"
+            >
+              {post.title}
+            </Link>
           </h3>
-
-          {/* Description */}
-          <p className="text-gray-300 text-md mb-4">
+          <p className=" text-gray-300 overflow-x-hidden">
             {post.description}
           </p>
-
-
-
-          <p className="text-gray-100 text-sm font-bold mt-4 p-2 bg-indigo-400 w-fit rounded-3xl mb-2 ">
+          <p className="text-sm font-bold mt-4 p-2 bg-indigo-400 rounded-3xl text-white">
             @{post.username}
           </p>
-
         </div>
-      </Link>
+      </div>
     </div>
   );
 }

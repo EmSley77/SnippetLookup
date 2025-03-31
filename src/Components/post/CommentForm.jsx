@@ -70,12 +70,8 @@ export default function CommentForm({ postId, userId, username }) {
 
     return (
         <div className="w-full flex flex-col  p-4 text-white">
-            {/* Header */}
-            <div className="w-full">
-                <h1 className=" text-center text-2xl font-bold text-white">Discussion</h1>
-                <hr className="my-4" />
-            </div>
-
+        
+                <h1 className='text-2xl'>{comments.length} Comments</h1>
             {/* Messages Container (Starts from Top) */}
             <div className="flex flex-col overflow-y-auto p-2 flex-grow">
                 {comments ? comments.map((comment) => (
@@ -86,7 +82,7 @@ export default function CommentForm({ postId, userId, username }) {
                 )) : <p>No disscussion yet</p>}
                 {/* Comment Form (Always Stays at Bottom) */}
                 <form onSubmit={handleCommentSubmit} className="w-full">
-                    <div className="w-full px-3 my-2">
+                    <div className="w-full  my-2">
                         <textarea
                             onChange={e => handleInputChange(e, setComment)}
                             className="bg-gray-700 rounded border border-gray-400 leading-normal resize-none w-full py-2 px-3 font-medium focus:outline-none"
@@ -96,10 +92,10 @@ export default function CommentForm({ postId, userId, username }) {
                         ></textarea>
                     </div>
 
-                    <div className="w-full flex flex-col justify-end px-3">
+                    <div className="w-full flex flex-col justify-end ">
                         <input
                             type="submit"
-                            className="px-2.5 py-1.5 rounded-xl w-fit text-m bg-indigo-500 cursor-pointer hover:bg-indigo-700 transition-all"
+                            className="px-2.5 py-1.5 rounded-xl  text-m bg-indigo-500 cursor-pointer hover:bg-indigo-700 transition-all"
                             value="Post Comment"
                         />
 

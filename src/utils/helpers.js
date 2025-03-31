@@ -1,4 +1,8 @@
-export { colorGenerator, copyCode, formatCreatedDate, handleInputChange };
+export {
+    colorGenerator,
+    copyCode, formatCreatedDate,
+    handleInputChange
+};
 
 //copying code when viewing in fullscreen
 async function copyCode(code, setIsCopied, isCopied) {

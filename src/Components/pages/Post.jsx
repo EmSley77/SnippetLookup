@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import useAnon from '../../hooks/useAnon.jsx';
 import useAuth from '../../hooks/useAuth.jsx';
 import usePosts from '../../hooks/usePosts.jsx';
 import useSections from '../../hooks/useSections.jsx';
-import { supabaseClient } from '../../service/supabase.js';
 import "../../styles/style.css";
 import CommentForm from '../post/CommentForm.jsx';
 import ViewPost from '../post/ViewPost.jsx';
@@ -19,21 +17,18 @@ export default function Snippet() {
   const [post, setPost] = useState({})
   const [message, setMessage] = useState('')
   const [isCopied, setIsCopied] = useState(false)
-  const [saved, setSaved] = useState(false)
   const [sections, setSections] = useState([])
 
-  const { getPostById, savePost } = usePosts()
+  const { getPostById } = usePosts()
   const { getSectionsByPostId } = useSections()
   const { user } = useAuth()
 
-  const { updatePostCopyCount, getPostCopyCount } = useAnon();
 
 
   const fetchPostData = useCallback(async () => {
 
     const postdata = await getPostById(param.postId)
     setPost(postdata)
-
     const sections = await getSectionsByPostId(param.postId)
     setSections(sections)
   }, [param.postId])
@@ -60,51 +55,9 @@ export default function Snippet() {
   }, [message])
 
 
-  const handleCopyCode = async (code, setIsCopied, isCopied) => {
-    if (isCopied) return;
-
-    if (!post?.id) return
-
-    const currentCount = await getPostCopyCount(post.id);
-
-    const updatedCount = (currentCount || 0) + 1
-    await updatePostCopyCount(updatedCount, post.id)
 
 
-    try {
-      await navigator.clipboard.writeText(code);
-      setIsCopied(true);
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
-  const handleSaveSnippet = async () => {
-    if (!user) {
-      alert("You must be signed in to save posts")
-      return
-    }
-    
-
-    if (saved) {
-      alert("already saved this post")
-      return
-    }
-
-    //TODO check if already saved before proceeding
-    const { error } = await supabaseClient
-      .from("saved")
-      .select("*")
-      .eq("post_id", param.postId)
-      .eq("user_id", user.id)
-
-    if (error) {
-      return
-    }
-
-    const hasSaved = await savePost(user.id, post.id)
-    setSaved(hasSaved)
-  }
 
   return (
     <>
@@ -114,12 +67,8 @@ export default function Snippet() {
 
         {/* Snippet View Component */}
         <ViewPost
+          user={user}
           post={post}
-          handleSaveSnippet={handleSaveSnippet}
-          isSaved={saved}
-          setIsCopied={setIsCopied}
-          isCopied={isCopied}
-          handleCopyCode={handleCopyCode}
           sections={sections}
         />
 

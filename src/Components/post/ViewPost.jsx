@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { FaCheck, FaCopy, FaEye, FaHeart } from 'react-icons/fa6';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { supabaseClient } from '../../service/supabase.js';
 import { a11yDark, atomDark, duotoneLight, materialDark, materialLight, nightOwl, oneLight, solarizedDarkAtom, vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import useAnon from '../../hooks/useAnon.jsx';
 import '../../styles/style.css';
+import usePosts from '../../hooks/usePosts.jsx';
 
 export default function ViewPost({
+    user,
     post,
-    handleSaveSnippet,
-    isSaved,
-    setIsCopied,
-    isCopied,
-    handleCopyCode,
     sections }) {
 
+
+    const { updatePostCopyCount, getPostCopyCount } = useAnon();
+
     const [theme, setTheme] = useState(vscDarkPlus);
+    const [saved, setSaved] = useState(false);
     const [copyCount, setCopyCount] = useState(post.copy_count);
+    const { savePost } = usePosts()
 
     useEffect(() => {
         if (post && post?.copy_count) {
@@ -22,6 +26,56 @@ export default function ViewPost({
         }
     }, [post])
 
+    useEffect(() => {
+        if (saved) {
+            const timer = setTimeout(() => {
+
+                setSaved(false)
+            }, 3000)
+            return () => clearTimeout(timer)
+        }
+    }, [saved])
+    async function copyText(text) {
+        try {
+            await navigator.clipboard.writeText(text);
+            setSaved(true)
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const updateCopyCount = async () => {
+        const currentCount = await getPostCopyCount(post.id);
+        const updatedCount = (currentCount || 0) + 1
+        await updatePostCopyCount(updatedCount, post.id)
+    }
+
+    const handleSavePost = async () => {
+        if (!user) {
+            alert("You must be signed in to save posts")
+            return
+        }
+
+
+        if (saved) {
+            alert("already saved this post")
+            return
+        }
+
+        const { error } = await supabaseClient
+            .from("saved")
+            .select("*")
+            .eq("post_id", post.id)
+            .eq("user_id", user.id)
+
+        if (error) {
+            return
+        }
+
+        const isSaved = await savePost(user.id, post.id)
+        setSaved(isSaved)
+    }
 
     const handleThemeChange = (event) => {
         const selectedTheme = event.target.value;
@@ -38,18 +92,18 @@ export default function ViewPost({
         if (selectedTheme === "duotoneLight") setTheme(duotoneLight);
     };
     return (
-        <div className="max-w-3xl mx-auto p-8 shadow-2xl rounded-xl  bg-gradient-to-br from-gray-700 to-gray-800 text-white">
-            <h1 className="text-4xl font-extrabold text-indigo-400">{post.title}</h1>
-            <p className="mt-3 text-lg text-gray-300 ">{post.description}</p>
+        <div className="max-w-3xl mx-auto p-8  ">
+            <h1 className="text-4xl font-extrabold text-indigo-800">{post.title}</h1>
+            <p className="mt-3 text-lg  ">{post.description}</p>
 
             <hr className="my-5 border-gray-600" />
 
-            <div className='flex items-center justify-around gap-4 mb-6 text-gray-400'>
-                <div className="flex items-center gap-2"><FaCopy className='size-5 text-indigo-400' /> {copyCount}</div>
-                <div className="flex items-center gap-2"><FaEye className='size-5 text-indigo-400' /> {post.views_count}</div>
-                <button className="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-all duration-200 shadow-lg"
-                    onClick={handleSaveSnippet}>
-                    {isSaved ? <FaCheck className="text-green-400" /> : <FaHeart />}
+            <div className='flex items-center justify-around gap-4 mb-6 '>
+                <div className="flex items-center gap-2"><FaCopy className='size-5 text-indigo-800' /> {copyCount}</div>
+                <div className="flex items-center gap-2"><FaEye className='size-5 text-indigo-800' /> {post.views_count}</div>
+                <button className="p-2 rounded-lg bg-red-500 hover:bg-red-600  transition-all duration-200 shadow-lg"
+                    onClick={handleSavePost}>
+                    {saved ? <FaCheck className="text-green-400" /> : <FaHeart className='text-white' />}
                 </button>
             </div>
 
@@ -57,16 +111,17 @@ export default function ViewPost({
             {sections.map((sec) => (
                 sec.type === "code" ? (
                     <div key={sec.id} className="mb-8">
-                        <div className="flex justify-between items-center bg-gray-900 p-4 rounded-t-xl shadow-lg">
-                            <button className="p-2 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white transition-all duration-200"
+                        <div className="flex justify-between items-center bg-gray-500 p-4 rounded-t-xl shadow-lg">
+                            <button className="p-2 rounded-lg bg-indigo-500 hover:bg-indigo-600  transition-all duration-200"
                                 onClick={() => {
                                     setCopyCount(copyCount + 1);
-                                    handleCopyCode(sec.content, setIsCopied, isCopied);
+                                    updateCopyCount()
+                                    copyText(sec.content);
                                 }}>
-                                {isCopied ? <FaCheck className="text-green-400" /> : <FaCopy />}
+                                {saved ? <FaCheck className="text-green-400" /> : <FaCopy className='text-white' />}
                             </button>
                             <select onChange={e => handleThemeChange(e)}
-                                className="text-white bg-gray-800 p-2 rounded-xl border-2 border-indigo-400 outline-none">
+                                className=" bg-gray-200 p-2 rounded-xl border-2 border-indigo-400 outline-none">
                                 <option value="" disabled>Change theme</option>
                                 <optgroup label='Dark'>
                                     <option value="vscDarkPlus">VSC Dark Plus</option>
@@ -91,31 +146,35 @@ export default function ViewPost({
                     </div>
                 ) : sec.type === "requirements" ? (
                     // Render requirements in boxes
-                    <div key={sec.id} className='mb-10 p-5 bg-gray-900 rounded-xl shadow-lg'>
-                        <h2 className='text-xl text-indigo-300 '>{sec.order_index}.</h2>
-                        <div className=" text-white p-2 rounded-lg  w-full">
+                    <div key={sec.id} className='mb-10 p-5 bg-gray-800 rounded-xl shadow-lg'>
+                        {/* <h2 className='text-xl text-indigo-300 '>{sec.order_index}.</h2> */}
+                        <div className=" p-2 rounded-lg  w-full  text-gray-200 flex justify-between">
                             {sec.content}
+                            <button className='cursor-pointer ' onClick={() => copyText(sec.content)}>
+                                {saved ? <FaCheck /> : <FaCopy />}
+                            </button>
                         </div>
                     </div>
                 ) : (
                     // Regular text section
-                    <div key={sec.id} className='mb-10 p-5 rounded-xl bg-gray-800 '>
-                        <h2 className='text-xl text-indigo-300 '>{sec.order_index}.</h2>
-                        <pre className="text-gray-200 p-4 rounded-lg whitespace-pre-wrap break-words  w-full">
+                    <div key={sec.id} className='mb-10 p-5 rounded-xl  '>
+                        {/* <h2 className='text-xl text-indigo-300 '>{sec.order_index}.</h2> */}
+                        <pre className=" p-4 rounded-lg whitespace-pre-wrap break-words  w-full">
                             {sec.content}
                         </pre>
                     </div>
                 )
             ))}
 
-            <p className="text-gray-400 mt-6"><strong>Author:</strong> @{post.username}</p>
-            <p className="text-gray-400"><strong>Date upload: </strong>{new Date(post.created_at).toLocaleDateString()}</p>
+            <p className=" mt-6"><strong>Written By:</strong> @{post.username}</p>
+            <p className="text-xs text-gray-200 ">{new Date(post.created_at).toLocaleDateString()}</p>
         </div>
     );
 }
 
 
 //     return (
+
 //         <>
 //             <div className="p-6 flex flex-col justify-between w-full text-white">
 

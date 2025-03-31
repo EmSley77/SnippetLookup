@@ -115,7 +115,7 @@ export default function App() {
         <HomeList data={filteredData} />
 
 
-        <div className='w-fit flex gap-3 p-4 bg-gray-900 rounded-xl '>
+        {/* <div className='w-fit flex gap-3 p-4 bg-gray-900 rounded-xl '>
           <button onClick={prev => {
             if (offset === 0) return
             setOffset(prev - 20)
@@ -127,7 +127,7 @@ export default function App() {
             className='p-2 bg-gray-600 rounded-xl hover:bg-gray-400 transition-all cursor-pointer'>
             <FaArrowRight />
           </button>
-        </div>
+        </div> */}
 
 
       </div>

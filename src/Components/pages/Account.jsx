@@ -58,7 +58,7 @@ export default function Account() {
   }
 
   return (
-    <div className="h-screen  bg-gray-900 text-white">
+    <div className="h-screen text-white">
 
       {/* Header Section */}
       <Header />
