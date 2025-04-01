@@ -11,9 +11,9 @@ export default function UploadedPosts({ posts, handleDelete }) {
             </div>
 
             {posts?.length > 0 ? (
-                <div className="space-y-4 overflow-y-auto p-2">
+                <div  className="space-y-4 overflow-y-auto p-2">
                     {posts.map((post) => (
-                        <UploadedPostCard post={post} handleDelete={handleDelete} />
+                        <UploadedPostCard post={post} key={post.id} handleDelete={handleDelete} />
                     ))}
                 </div>
             ) : (

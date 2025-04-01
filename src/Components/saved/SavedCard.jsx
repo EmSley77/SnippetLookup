@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabaseClient } from '../../service/supabase.js';
 import { Link } from 'react-router';
+import { FaTrash } from 'react-icons/fa';
 export default function SavedCard({ post, handleDelete }) {
 
     const [postData, setPostData] = useState({})
@@ -63,9 +64,9 @@ export default function SavedCard({ post, handleDelete }) {
 
             <button
                 onClick={() => handleDelete(postData.id)}
-                className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-all"
+                className="mt-4 w-fit bg-red-600 hover:bg-red-700 text-white p-2 rounded-lg transition-all"
             >
-                Delete
+                <FaTrash className='w-fit' />
             </button>
         </div>
     );
