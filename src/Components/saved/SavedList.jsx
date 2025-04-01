@@ -25,23 +25,22 @@ export default function SavedList({ data, handleDelete }) {
 
 
   return (
-    <div className='h-full p-4 flex justify-center '>
-      <div className="flex flex-col gap-6 p-6  rounded-xl w-[800px]">
+    <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6 rounded-lg w-full max-w-7xl ">
 
-        {/* Map through snippets and display each saved card */}
-        {data.map((post) => (
-          <div key={post.id}>
+      {/* Map through snippets and display each saved card */}
+      {data.map((post) => (
+        <div key={post.id}>
 
-            <SavedCard
-              post={post}
-              handleDelete={handleDelete}
-            />
+          <SavedCard
+            post={post}
+            handleDelete={handleDelete}
+          />
 
 
-          </div>
-        ))}
+        </div>
+      ))}
 
-      </div>
     </div>
+
   );
 }

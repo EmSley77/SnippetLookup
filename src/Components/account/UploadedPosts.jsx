@@ -1,5 +1,6 @@
 import { FaTrash, FaInbox } from "react-icons/fa";
 import React from "react";
+import UploadedPostCard from "./UploadedPostCard";
 
 export default function UploadedPosts({ posts, handleDelete }) {
     return (
@@ -12,24 +13,7 @@ export default function UploadedPosts({ posts, handleDelete }) {
             {posts?.length > 0 ? (
                 <div className="space-y-4 overflow-y-auto p-2">
                     {posts.map((post) => (
-                        <div
-                            key={post.id}
-                            className="cursor-pointer bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] flex flex-col gap-2">
-
-                            {/* Header with Delete Icon */}
-                            <div className="flex justify-between items-center">
-                                <h3 className="text-lg font-semibold text-indigo-500 truncate">{post.title}</h3>
-                                <FaTrash
-                                    className="cursor-pointer text-gray-500 hover:text-red-500 transition-all"
-                                    onClick={() => handleDelete(post.id)}
-                                />
-                            </div>
-
-                            {/* Post Date */}
-                            <p className="text-gray-700 text-sm">
-                                Uploaded on {new Date(post.created_at).toLocaleDateString()}
-                            </p>
-                        </div>
+                        <UploadedPostCard post={post} handleDelete={handleDelete} />
                     ))}
                 </div>
             ) : (

@@ -17,6 +17,7 @@ export default function ViewPost({
 
     const [theme, setTheme] = useState(nightOwl);
     const [saved, setSaved] = useState(false);
+    const [copiedId, setCopiedId] = useState(null);
     const [copyCount, setCopyCount] = useState(post.copy_count);
     const { savePost } = usePosts()
 
@@ -35,11 +36,14 @@ export default function ViewPost({
             return () => clearTimeout(timer)
         }
     }, [saved])
-    async function copyText(text) {
-        try {
-            await navigator.clipboard.writeText(text);
-            setSaved(true)
 
+
+    async function copyText(text, id) {
+        try {
+
+            await navigator.clipboard.writeText(text);
+            setCopiedId(id)
+            setTimeout(() => setCopiedId(null), 3000)
         } catch (error) {
             console.error(error);
         }
@@ -123,9 +127,9 @@ export default function ViewPost({
                                 onClick={() => {
                                     setCopyCount(copyCount + 1);
                                     updateCopyCount();
-                                    copyText(sec.content);
+                                    copyText(sec.content, sec.id);
                                 }}>
-                                {saved ? <FaCheck className="text-green-400" /> : <FaCopy />}
+                                {copiedId === sec.id ? <FaCheck className="text-green-400" /> : <FaCopy />}
                             </button>
                             <select
                                 onChange={handleThemeChange}
@@ -156,8 +160,8 @@ export default function ViewPost({
                     <div key={sec.id} className="mb-8 p-5 bg-gray-900 rounded-xl shadow-md">
                         <div className="p-2 text-gray-100 flex justify-between">
                             {sec.content}
-                            <button className="cursor-pointer text-indigo-500" onClick={() => copyText(sec.content)}>
-                                {saved ? <FaCheck /> : <FaCopy />}
+                            <button className="cursor-pointer text-indigo-500" onClick={() => copyText(sec.content, sec.id)}>
+                                {copiedId === sec.id ? <FaCheck /> : <FaCopy />}
                             </button>
                         </div>
                     </div>
@@ -176,84 +180,3 @@ export default function ViewPost({
         </div>
     );
 }
-
-
-//     return (
-
-//         <>
-//             <div className="p-6 flex flex-col justify-between w-full text-white">
-
-//                 <h1 className="text-3xl font-bold text-teal-300">{post.title}</h1>
-//                 <hr className="mb-3 mt-2 border-gray-600" />
-//                 <p className="text-gray-300 mb-3 mt-3">{post.description}</p>
-//                 <hr className="my-4 border-gray-700 " />
-//                 <div className='flex items-center gap-2 mb-3'>
-//                     <FaCopy className='size-7' /> {copyCount}
-//                     <FaEye className='size-7' /> {post.views_count}
-//                 </div>
-
-
-//                 {sections.map((sec) => (
-//                     sec.type === "code" ? (
-//                         <div key={sec.id}>
-//                             {/* Code Block Section */}
-//                             <div className="flex gap-2 justify-around w-full bg-gradient-to-b from-gray-600 to-gray-700 p-2 rounded-t-xl">
-//                                 <button className={actionButtonClass}
-//                                     onClick={() => {
-//                                         setCopyCount(copyCount + 1)
-//                                         handleCopyCode(sec.content, setIsCopied, isCopied)
-//                                     }}>
-//                                     {isCopied ? <FaCheck /> : <FaCopy />}
-//                                 </button>
-//                                 <select onChange={e => handleThemeChange(e)} className='text-white bg-gray-700 p-2 rounded-xl border-2 border-teal-300'>
-//                                     <option value="" disabled>Change theme</option>
-//                                     <optgroup label='Dark'>
-//                                         <option value="vscDarkPlus">VSC Dark Plus</option>
-//                                         <option value="nightOwl">Night Owl</option>
-//                                         <option value="materialDark">Material Dark</option>
-//                                         <option value="atomDark">Atom Dark</option>
-//                                         <option value="a11Dark">A11Dark</option>
-//                                         <option value="solarizedDarkAtom">Solarized Dark Atom</option>
-//                                     </optgroup>
-
-//                                     <optgroup label='Light'>
-//                                         <option value="oneLight">One Light</option>
-//                                         <option value="materialLight">Material Light</option>
-//                                         <option value="duotoneLight">Duotone Light</option>
-//                                     </optgroup>
-//                                 </select>
-
-//                                 <button className={actionButtonClass} onClick={handleSaveSnippet}>
-//                                     {isSaved ? <FaCheck /> : <FaHeart />}
-//                                 </button>
-//                             </div>
-//                             <div className=" overflow-x-auto mb-5 shadow-md">
-//                                 {/* display code with theme */}
-//                                 <SyntaxHighlighter
-//                                     language={sec.language}
-//                                     style={theme}
-//                                 >
-//                                     {sec.content}
-//                                 </SyntaxHighlighter>
-//                             </div>
-//                         </div>
-//                     ) : (
-//                         <div key={sec.id} className='flex space-x-1 justify-center text-black'>
-//                             <h2 className='text-xl text-white'>{sec.order_index}.</h2>
-//                             <pre className="bg-gray-100 p-4 rounded-xl whitespace-pre-wrap break-words mb-5 shadow-md w-full">
-//                                 {sec.content}
-//                             </pre>
-//                         </div>
-//                     )
-//                 ))}
-
-//                 <p className="text-gray-400"><strong>Author:</strong> @{post.username}</p>
-//                 <p className="text-gray-400"><strong>Date upload: </strong>{new Date(post.created_at).toLocaleDateString()}</p>
-
-//             </div>
-//         </>
-
-//     );
-// }
-
-// const actionButtonClass = " hover:bg-teal-600 p-2 rounded-lg transition-all cursor-pointer"

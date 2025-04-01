@@ -24,7 +24,7 @@ export default function HomeCard({ post }) {
   };
 
   return (
-    <div className="w-full p-4 bg-white rounded-xl flex flex-col shadow-xl">
+    <div className="w-full p-4 bg-white rounded-xl flex flex-col shadow-lg">
 
       <div className="mb-4 overflow-hidden rounded-lg w-full h-48 flex justify-center items-center bg-gray-800">
         <img src={post.image} alt={post.title} className="w-full h-full object-cover" />

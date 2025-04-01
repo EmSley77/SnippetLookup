@@ -3,7 +3,7 @@ import useAuth from '../../hooks/useAuth.jsx';
 import usePosts from '../../hooks/usePosts.jsx';
 import '../../styles/style.css';
 import UploadedPosts from '../account/UploadedPosts.jsx';
-import Bar from '../chart/Bar.jsx';
+import BarChart from '../chart/BarChart.jsx';
 import Header from './Header.jsx';
 
 export default function Account() {
@@ -55,26 +55,27 @@ export default function Account() {
 
   return (
     <>
-    <Header />
-    <div className="p-6 max-w-6xl mx-auto">
-      {/* User Info Section */}
-      <div className="bg-white p-6 rounded-2xl shadow-xl text-gray-800 w-full mb-6 flex flex-col items-center text-center">
-        <h1 className="text-4xl font-bold text-indigo-600">Welcome Back, {user.user_metadata.name} {user.user_metadata.lastname}</h1>
-        <p className="text-lg text-gray-600">Member since {new Date(user?.created_at).toLocaleDateString()}</p>
-        <p className="text-md text-gray-500">Preferred language: {user?.user_metadata.preferred_language}</p>
-        <p className="text-md text-gray-500">@{user?.user_metadata.display_username}</p>
+      <Header />
+      <div className="p-6 max-w-6xl mx-auto">
+        {/* User Info Section */}
+        <div className="bg-white p-6 rounded-2xl shadow-xl text-gray-800 w-full mb-6 flex flex-col items-center text-center">
+          <h1 className="text-4xl font-bold text-indigo-600">Welcome Back, {user.user_metadata.name} {user.user_metadata.lastname}</h1>
+          <p className="text-lg text-gray-600">Member since {new Date(user?.created_at).toLocaleDateString()}</p>
+          <p className="text-md text-gray-500">Preferred language: {user?.user_metadata.preferred_language}</p>
+          <p className="text-md text-gray-500">@{user?.user_metadata.display_username}</p>
+        </div>
+
+        {/* Dashboard Content */}
+        <div className="flex flex-col lg:grid-cols-2 gap-3 ">
+
+          {/* Posted blogs */}
+          <UploadedPosts posts={posts} handleDelete={handleDelete} />
+          
+          {/* Stats Chart */}
+          <BarChart />
+
+        </div>
       </div>
-
-      {/* Dashboard Content */}
-      <div className="grid grid-cols-2 lg:grid-cols-2 gap-3">
-        {/* Stats Chart */}
-        <Bar />
-
-        {/* Posted blogs */}
-        <UploadedPosts posts={posts} handleDelete={handleDelete} />
-
-      </div>
-    </div>
     </>
   );
 }

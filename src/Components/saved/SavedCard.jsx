@@ -4,13 +4,11 @@ import { Link } from 'react-router';
 export default function SavedCard({ post, handleDelete }) {
 
     const [postData, setPostData] = useState({})
-    console.log(post);
-
 
     //fetch post
     useEffect(() => {
 
-        if (!post || !post.id) return; // Prevents running the effect with undefined post.id
+        if (!post || !post.post_id) return; // Prevents running the effect with undefined post.id
 
 
         const fetchPostData = async () => {
@@ -30,38 +28,45 @@ export default function SavedCard({ post, handleDelete }) {
     }, [post])
 
 
-    //TODO: currently not incrementing view when viewing from saved
+
     return (
-        <div className="p-6 bg-white rounded-xl shadow-md transition-all">
-            <div className="flex flex-col space-y-4">
-                {/* Title */}
-                <h1 className="text-xl font-semibold text-gray-900">{postData.title}</h1>
+        <div className="w-full p-4 bg-white rounded-xl flex flex-col shadow-lg">
 
-                {/* Description */}
-                <p className="text-indigo-700">{postData.description}</p>
 
-                {/* Creator & Date Info */}
-                <div className="text-sm text-gray-600 space-y-1">
-                    <p><strong>Creator:</strong> @{postData.username}</p>
-                    <p><strong>Created:</strong> {new Date(postData.created_at).toLocaleDateString()}</p>
-                </div>
+            <div className="mb-4 overflow-hidden rounded-lg w-full h-48 flex justify-center items-center bg-gray-800">
+                <img src={postData.image} alt={postData.title} className="w-full h-full object-cover" />
+            </div>
 
-                {/* View Button */}
-                <Link
-                    to={`/view/${postData.id}`}
-                    className="px-4 py-2 bg-indigo-700 text-white rounded-lg shadow-md hover:bg-indigo-600 transition"
-                >
-                    View
+
+            {postData.created_at && (
+                <span className="mb-3 inline-block rounded bg-indigo-800 px-3 py-1 text-xs font-semibold text-white w-fit">
+                    {new Date(postData.created_at).toLocaleDateString()}
+                </span>
+            )}
+
+            <h3 className="mb-2 text-lg font-semibold text-indigo-700 hover:text-indigo-400 transition-all line-clamp-1">
+                <Link to={`/view/${postData.id}`}>
+                    {postData.title}
                 </Link>
 
-                {/* Delete button */}
-                <button
-                    onClick={() => handleDelete(post.post_id)}
-                    className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-all"
-                >
-                    Delete
-                </button>
-            </div>
+            </h3>
+
+            <p className="text-sm text-gray-700 line-clamp-2">
+                {postData.description}
+            </p>
+
+            <p className="text-xs font-bold mt-3 px-3 py-1 bg-indigo-800 rounded-2xl text-white w-fit">
+                @{postData.username}
+            </p>
+
+            {/* Delete button */}
+
+            <button
+                onClick={() => handleDelete(postData.id)}
+                className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-all"
+            >
+                Delete
+            </button>
         </div>
     );
 };

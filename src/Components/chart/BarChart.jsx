@@ -21,7 +21,7 @@ ChartJS.register(
     Legend
 );
 
-const Bar = () => {
+const BarChart = () => {
     const [chartData, setChartData] = useState([]);
     const { getPostsByUserId } = usePosts();
     const { user, loading } = useAuth();
@@ -62,7 +62,7 @@ const Bar = () => {
         animation: true,
         plugins: {
             legend: { labels: { color: "#000" } }, // Legend text color
-            title: { display: true, text: 'MY POSTS', color: "#000" }, // Chart title color
+            title: { display: true, text: 'My Posts Analytics', color: "#000" }, // Chart title color
         },
     };
 
@@ -83,7 +83,8 @@ const Bar = () => {
     if (loading) return <p>Loading user...</p>;
 
     return (
-        <div className='h-full bg-white rounded-xl shadow-xl w-full p-6 '>
+        <div className='bg-white p-6 rounded-2xl shadow-xl'>
+
             <BarChartJs
                 options={options}
                 data={data} />
@@ -92,4 +93,4 @@ const Bar = () => {
     );
 };
 
-export default Bar;
+export default BarChart;
