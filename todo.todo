@@ -10,3 +10,6 @@ TODO: create links to blog
 TODO: impl payment with stripe
 TODO: impl better UI componets / structure
 TODO: currently not incrementing view when viewing from saved card 
+TODO: Refactor all pages and componets to e resued instead of creating new 
+TODO: ReDo account Page look / dashboard vibes
+TODO: 
