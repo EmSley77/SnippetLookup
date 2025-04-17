@@ -7,10 +7,6 @@ export default function Header() {
 
 
   const { signOut } = useAuth()
-
-  // const linkClass = "text-lg font-medium hover:text-indigo-400 transition-all"
-  // const actionButtonClass = "px-5 py-2.5 text-gray-700 bg-gray-300 rounded-md text-lg font-medium hover:bg-gray-400 hover:text-indigo-700 transition-all cursor-pointer shadow-lg"
-
   const buttons = "border-primary border rounded-md inline-flex items-center justify-center py-3 px-7  hover:bg-blue-light-5 hover:text-indigo-500 dark:hover:text-dark-3 disabled:bg-gray-3 disabled:border-gray-3 disabled:text-dark-5 active:bg-blue-light-3 transition-all"
 
   return (
@@ -34,7 +30,7 @@ export default function Header() {
 
         {/* User Actions (Desktop) */}
         <div className="hidden md:flex items-center gap-4">
-          <Link className={buttons} to="/create">
+          <Link className={`${buttons} bg-indigo-600 text-white`} to="/create">
             Create Post
           </Link>
           <button

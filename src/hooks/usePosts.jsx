@@ -1,29 +1,12 @@
-import React from 'react'
-import { supabaseClient } from "../service/supabase.js";
+import {supabaseClient} from "../service/supabase.js";
 
 
 const usePosts = () => {
 
-    //get all public snippets
-    async function getPosts(setData) {
-        const { data, error } = await supabaseClient
-            .from("posts")
-            .select("*")
-            .eq("is_private", false);
-
-        if (error) {
-            setData([]);
-            return;
-        }
-
-        if (data && data.length > 0) {
-            return data;
-        }
-    }
 
     //get public paginated
     async function getPaginatedPosts(page) {
-        const { data, error } = await supabaseClient
+        const {data, error} = await supabaseClient
             .from("posts")
             .select("*")
             .eq("is_private", false)
@@ -41,9 +24,9 @@ const usePosts = () => {
 
     //get counted
     async function getPostCounted() {
-        const { count, error } = await supabaseClient
+        const {count, error} = await supabaseClient
             .from("posts")
-            .select("*", { count: "exact", head: true });
+            .select("*", {count: "exact", head: true});
 
         if (error) {
             console.error("Error fetching snippets count:", error);
@@ -54,7 +37,7 @@ const usePosts = () => {
     }
 
     async function getPostById(postId) {
-        const { data, error } = await supabaseClient
+        const {data, error} = await supabaseClient
             .from("posts")
             .select("*")
             .eq("id", postId);
@@ -69,7 +52,7 @@ const usePosts = () => {
     }
 
     async function getPostsByUserId(userId) {
-        const { data, error } = await supabaseClient
+        const {data, error} = await supabaseClient
             .from("posts")
             .select("*")
             .eq("user_id", userId);
@@ -84,7 +67,7 @@ const usePosts = () => {
     }
 
     async function getPostsByUsername(username) {
-        const { data, error } = await supabaseClient
+        const {data, error} = await supabaseClient
             .from("posts")
             .select("*")
             .eq("username", username);
@@ -118,7 +101,7 @@ const usePosts = () => {
     }
 
     async function getSavedPosts(userId) {
-        const { data, error } = await supabaseClient
+        const {data, error} = await supabaseClient
             .from("saved")
             .select("*")
             .eq("user_id", userId);
@@ -133,7 +116,7 @@ const usePosts = () => {
     }
 
     async function getSavedPostById(postId) {
-        const { data, error } = await supabaseClient
+        const {data, error} = await supabaseClient
             .from("posts")
             .select("*")
             .eq("id", postId);
@@ -146,9 +129,10 @@ const usePosts = () => {
             return data;
         }
     }
+
     //newSnippet
     async function createPost(body) {
-        const { data, error } = await supabaseClient
+        const {data, error} = await supabaseClient
             .from("posts")
             .insert([
                 {
@@ -172,7 +156,7 @@ const usePosts = () => {
 
     //check snippet by snippet ID and user ID
     async function checkIfSaved(userId, postId) {
-        const { data, error } = await supabaseClient
+        const {data, error} = await supabaseClient
             .from("saved")
             .select("*")
             .eq("post_id", postId)
@@ -195,7 +179,7 @@ const usePosts = () => {
             return false;
         }
 
-        const { error } = await supabaseClient.from("saved").insert([
+        const {error} = await supabaseClient.from("saved").insert([
             {
                 user_id: userId,
                 post_id: postId,
@@ -209,7 +193,7 @@ const usePosts = () => {
 
     //make a commetn
     async function createComment(userId, postId, comment, username) {
-        const { data, error } = await supabaseClient
+        const {data, error} = await supabaseClient
             .from("comments")
             .insert([
                 {
@@ -232,7 +216,7 @@ const usePosts = () => {
 
     //get comments by snippet id
     async function getCommentsByPostId(postId) {
-        const { data, error } = await supabaseClient
+        const {data, error} = await supabaseClient
             .from("comments")
             .select("*")
             .eq("post_id", postId);
@@ -249,33 +233,17 @@ const usePosts = () => {
 
     //remove from favorites
     async function deleteSaved(userId, postId) {
-        const { error } = await supabaseClient
+        const {error} = await supabaseClient
             .from("saved")
             .delete()
             .eq("post_id", postId)
             .eq("user_id", userId);
 
         if (error) {
-            return;
+            return
         }
     }
 
-    //delete post
-    async function deletePost(userId, postId) {
-        const { data, error } = await supabaseClient
-            .from("posts")
-            .delete()
-            .eq("id", postId)
-            .eq("user_id", userId).single();
-
-        if (error) {
-            return false;
-        }
-
-        if (data) {
-            return true;
-        }
-    }
 
     return {
         getPaginatedPosts,

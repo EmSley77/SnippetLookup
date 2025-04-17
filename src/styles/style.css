@@ -8,7 +8,6 @@
 }
 
 body {
-    background-color: var(--color-gray-200);
+    background: linear-gradient(to right, var(--color-indigo-500), var(--color-indigo-700));
     color: var(--color-gray-700);
-    /* oklch(0.21 0.034 264.665) */
 }

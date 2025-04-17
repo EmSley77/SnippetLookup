@@ -52,8 +52,8 @@ export default function Landing() {
                 <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
                     <img src="https://raw.githubusercontent.com/kufii/CodeSnap/master/examples/material_operator-mono.png" className="rounded-lg shadow-lg" alt="Code snippet example" />
                     <div>
-                        <h2 className="text-3xl font-semibold text-indigo-700">Join the Developer Community</h2>
-                        <p className="mt-4 text-gray-600">Share your work, receive feedback, and collaborate with other developers to improve your skills. Being part of a community accelerates your growth and enhances your coding journey.</p>
+                        <h2 className="text-3xl font-semibold text-white">Join the Developer Community</h2>
+                        <p className="mt-4 text-white">Share your work, receive feedback, and collaborate with other developers to improve your skills. Being part of a community accelerates your growth and enhances your coding journey.</p>
                     </div>
                 </div>
             </section>
@@ -62,7 +62,7 @@ export default function Landing() {
             <section className="py-16 bg-gray-50">
                 <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
                     <div>
-                        <h2 className="text-3xl font-semibold text-indigo-700">Save Your Work, Improve Over Time</h2>
+                        <h2 className="text-3xl font-semibold text-black">Save Your Work, Improve Over Time</h2>
                         <p className="mt-4 text-gray-600">Store your snippets, add comments, and revisit them anytime. Keep your code organized and improve iteratively.</p>
                     </div>
                     <img src="https://raw.githubusercontent.com/kufii/CodeSnap/master/examples/material_operator-mono.png" className="rounded-lg shadow-lg" alt="Save and Go Back" />

@@ -1,12 +1,12 @@
 import React from 'react'
 import '../../styles/style.css'
-import { FaTrash } from 'react-icons/fa'
+import {FaTrash} from 'react-icons/fa'
 
-export default function UploadedPostCard({ post, handleDelete }) {
+export default function UploadedPostCard({post, handleDelete}) {
     return (
-        <div className="space-y-4 overflow-y-auto p-2">
+        <div className="space-y-4  p-2">
             <div
-                key={post.id}
+
                 className="cursor-pointer bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition-all transform hover:translate-y-2 flex flex-col gap-2">
 
                 {/* Header with Delete Icon */}

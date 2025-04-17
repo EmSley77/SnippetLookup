@@ -26,10 +26,6 @@ export default function HomeCard({ post }) {
   return (
     <div className="w-full p-4 bg-white rounded-xl flex flex-col shadow-lg">
 
-      <div className="mb-4 overflow-hidden rounded-lg w-full h-48 flex justify-center items-center bg-gray-800">
-        <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
-      </div>
-
       {post.created_at && (
         <span className="mb-3 inline-block rounded bg-indigo-800 px-3 py-1 text-xs font-semibold text-white w-fit">
           {new Date(post.created_at).toLocaleDateString()}
