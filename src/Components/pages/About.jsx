@@ -50,7 +50,7 @@ export default function Landing() {
             {/* Community Section */}
             <section className="py-16">
                 <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-                    <img src="https://raw.githubusercontent.com/kufii/CodeSnap/master/examples/material_operator-mono.png" className="rounded-lg shadow-lg" alt="Code snippet example" />
+                    <img src="https://bloggerspassion.com/wp-content/uploads/2019/12/best-programming-blogs.webp" className="rounded-lg shadow-lg" alt="Code snippet example" />
                     <div>
                         <h2 className="text-3xl font-semibold text-white">Join the Developer Community</h2>
                         <p className="mt-4 text-white">Share your work, receive feedback, and collaborate with other developers to improve your skills. Being part of a community accelerates your growth and enhances your coding journey.</p>

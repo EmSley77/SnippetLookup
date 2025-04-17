@@ -23,7 +23,6 @@ export default function ViewPost({
                                      sections
                                  }) {
 
-
     const {updatePostCopyCount, getPostCopyCount} = useAnon();
 
     const [theme, setTheme] = useState(nightOwl);
@@ -31,6 +30,7 @@ export default function ViewPost({
     const [copiedId, setCopiedId] = useState(null);
     const [copyCount, setCopyCount] = useState(post.copy_count);
     const {savePost} = usePosts()
+
 
     useEffect(() => {
         if (post && post?.copy_count) {
@@ -62,8 +62,10 @@ export default function ViewPost({
 
     const updateCopyCount = async () => {
         const currentCount = await getPostCopyCount(post.id);
-        const updatedCount = (currentCount || 0) + 1
-        await updatePostCopyCount(updatedCount, post.id)
+        if (typeof currentCount === 'number') {
+            const updatedCount = (currentCount || 0) + 1
+            await updatePostCopyCount(updatedCount, post.id)
+        }
     }
 
     const handleSavePost = async () => {
@@ -116,9 +118,9 @@ export default function ViewPost({
 
             {/* Post Info */}
             <div
-                className="flex items-center justify-around gap-4 mb-6  text-gray-600">
+                className="flex items-center justify-around gap-4 mb-6  text-black">
                 <div className="flex items-center gap-2"><FaCopy
-                    className="size-5 text-indigo-600"/> {copyCount}</div>
+                    className="size-5 text-indigo-600"/>{copyCount}</div>
                 <div className="flex items-center gap-2"><FaEye
                     className="size-5 text-indigo-600"/> {post.views_count}
                 </div>
@@ -178,9 +180,10 @@ export default function ViewPost({
                         </div>
 
                         {/* Code Block */}
-                        <SyntaxHighlighter language={sec.language}
-                                           style={theme || oneLight}
-                                           className="rounded-b-xl overflow-hidden shadow-md">
+                        <SyntaxHighlighter
+                            language={sec.language}
+                            style={theme || oneLight}
+                            className="rounded-b-xl overflow-hidden shadow-md mt-0 !mt-0  ">
                             {sec.content}
                         </SyntaxHighlighter>
                     </div>
@@ -190,7 +193,7 @@ export default function ViewPost({
                         <div className="p-2 text-gray-100 flex justify-between">
                             {sec.content}
                             <button className="cursor-pointer text-indigo-500"
-                                    onClick={() => copyText(sec.content, sec.id)}>
+                                    onClick={async () => await copyText(sec.content, sec.id)}>
                                 {copiedId === sec.id ? <FaCheck/> : <FaCopy/>}
                             </button>
                         </div>
@@ -198,7 +201,7 @@ export default function ViewPost({
                 ) : (
                     <div key={sec.id} className="mb-8 ">
                         <pre
-                            className="p-4 text-gray-800 bg-gray-300 rounded-xl whitespace-pre-wrap break-words shadow-lg">{sec.content}</pre>
+                            className="p-4 text-gray-900 bg-gradient-to-r from-gray-200 to-gray-300 rounded-xl whitespace-pre-wrap break-words shadow-lg">{sec.content}</pre>
                     </div>
                 )
             ))}
