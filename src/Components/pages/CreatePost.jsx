@@ -9,7 +9,7 @@ import LoaderTeal from '../helper/loaders/LoaderTeal.jsx';
 import Header from './Header.jsx';
 
 
-export default function CreateSnippet() {
+export default function CreatePost() {
 
     const [title, setTitle] = useState('')
     const [isPrivate, setIsPrivate] = useState(false)
@@ -64,6 +64,7 @@ export default function CreateSnippet() {
         }
         const data = await createPost(body)
 
+        //data[0] = the saved post in post table and retrieves ID
         await savePost(sections, data[0].id)
         alert("blog has been posted")
     }
@@ -84,9 +85,7 @@ export default function CreateSnippet() {
     //filter out where id !== and keep the rest
     const removeSection = (id) => {
         setSections(sections.filter(sec => sec.id !== id));
-    };
-
-
+    };    
 
     useEffect(() => {
         if (message) {
@@ -171,19 +170,19 @@ export default function CreateSnippet() {
                         {/* Section List */}
                         {sections.map((sec, index) => (
                             <div key={sec.id} className="mb-4">
-                                <label className="block text-sm font-semibold text-gray-400">
+                                <label className="block text-sm font-semibold text-white">
                                     Section {index + 1} ({sec.type})
                                 </label>
                                 {sec.type === "code" ? (
                                     <>
-                                        <select
-                                            className="bg-gray-700 text-white p-3 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                        <select value={language}
+                                            className="bg-white text-black p-3 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                                             onChange={e => setLanguage(e.target.value)}
                                             required
                                         >
-                                            <option value="" disabled selected>Select Language</option>
+                                            <option disabled>Select Language</option>
                                             {languages.map(lang => (
-                                                <option key={lang.toLowerCase()} value={lang.toLowerCase()}>
+                                                <option key={lang.toLowerCase()} >
                                                     {lang}
                                                 </option>
                                             ))}
@@ -194,7 +193,7 @@ export default function CreateSnippet() {
                                             placeholder="Enter code..."
                                             value={sec.content}
                                             onChange={(e) => updateCodeSection(sec.id, e.target.value, language)}
-                                            className="w-full p-2 mt-1 bg-gray-700 text-green-200 font-mono border border-gray-600 rounded-lg focus:ring focus:ring-blue-500"
+                                            className="w-full p-2 mt-1 bg-white text-black font-mono border border-gray-600 rounded-lg focus:ring focus:ring-blue-500"
                                         />
                                     </>
                                 ) : (
@@ -218,13 +217,13 @@ export default function CreateSnippet() {
 
                         {/* Add Section Buttons */}
                         <div className="flex gap-2 flex-wrap mb-4">
-                            <button type="button" onClick={() => addSection("text")} className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg">
+                            <button type="button" onClick={() => addSection("text")} className="px-3 py-1 shadow bg-blue-400 hover:bg-blue-600 text-white rounded-lg">
                                 Add Text
                             </button>
-                            <button type="button" onClick={() => addSection("code")} className="px-3 py-1 bg-purple-500 hover:bg-purple-600 text-white rounded-lg">
+                            <button type="button" onClick={() => addSection("code")} className="px-3 py-1 shadow bg-purple-400 hover:bg-purple-600 text-white rounded-lg">
                                 Add Code
                             </button>
-                            <button type="button" onClick={() => addSection("requirements")} className="px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded-lg">
+                            <button type="button" onClick={() => addSection("requirements")} className="px-3 py-1 shadow bg-green-400 hover:bg-green-600 text-white rounded-lg">
                                 Add Requirements
                             </button>
 
@@ -235,9 +234,9 @@ export default function CreateSnippet() {
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="p-3 bg-indigo-800 text-white rounded-lg hover:bg-indigo-900 shadow-md cursor-pointer transition-all"
+                            className="p-3 bg-white text-black rounded-lg hover:bg-gray-200 shadow-md cursor-pointer transition-all"
                         >
-                            Submit
+                            Create
                         </button>
 
 

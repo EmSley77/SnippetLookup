@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {FaCheck, FaCopy, FaEye, FaHeart} from 'react-icons/fa6';
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
-import {supabaseClient} from '../../service/supabase.js';
+import React, { useEffect, useState } from 'react';
+import { FaCheck, FaCopy, FaEye, FaHeart } from 'react-icons/fa6';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { supabaseClient } from '../../service/supabase.js';
 import {
     a11yDark,
     atomDark,
@@ -18,18 +18,18 @@ import '../../styles/style.css';
 import usePosts from '../../hooks/usePosts.jsx';
 
 export default function ViewPost({
-                                     user,
-                                     post,
-                                     sections
-                                 }) {
+    user,
+    post,
+    sections
+}) {
 
-    const {updatePostCopyCount, getPostCopyCount} = useAnon();
+    const { updatePostCopyCount, getPostCopyCount } = useAnon();
 
     const [theme, setTheme] = useState(nightOwl);
     const [saved, setSaved] = useState(false);
     const [copiedId, setCopiedId] = useState(null);
     const [copyCount, setCopyCount] = useState(post.copy_count);
-    const {savePost} = usePosts()
+    const { savePost } = usePosts()
 
 
     useEffect(() => {
@@ -80,7 +80,7 @@ export default function ViewPost({
             return
         }
 
-        const {error} = await supabaseClient
+        const { error } = await supabaseClient
             .from("saved")
             .select("*")
             .eq("post_id", post.id)
@@ -114,25 +114,25 @@ export default function ViewPost({
             <h1 className="text-4xl font-extrabold text-gray-900">{post.title}</h1>
             <p className="mt-3 text-lg text-gray-700">{post.description}</p>
 
-            <hr className="my-5 border-gray-300"/>
+            <hr className="my-5 border-gray-300" />
 
             {/* Post Info */}
             <div
                 className="flex items-center justify-around gap-4 mb-6  text-black">
                 <div className="flex items-center gap-2"><FaCopy
-                    className="size-5 text-indigo-600"/>{copyCount}</div>
+                    className="size-5 text-blue-600" />{copyCount}</div>
                 <div className="flex items-center gap-2"><FaEye
-                    className="size-5 text-indigo-600"/> {post.views_count}
+                    className="size-5 text-blue-600" /> {post.views_count}
                 </div>
                 <button
                     className="p-2 rounded-lg bg-red-500 hover:bg-red-600 transition-all duration-200 shadow-md"
                     onClick={handleSavePost}>
-                    {saved ? <FaCheck className="text-green-400"/> :
-                        <FaHeart className="text-white"/>}
+                    {saved ? <FaCheck className="text-green-400" /> :
+                        <FaHeart className="text-white" />}
                 </button>
             </div>
 
-            <hr className="my-5 border-gray-300"/>
+            <hr className="my-5 border-gray-300" />
 
             {/* Sections */}
             {sections.map((sec) => (
@@ -142,19 +142,19 @@ export default function ViewPost({
                         <div
                             className="flex justify-between items-center  bg-gray-800 p-3 rounded-t-xl shadow-md">
                             <button
-                                className="p-2 rounded-lg bg-indigo-500 hover:bg-indigo-600 transition-all duration-200 text-white"
+                                className="p-2 rounded-lg bg-blue-500 hover:bg-blue-600 transition-all duration-200 text-white"
                                 onClick={async () => {
                                     setCopyCount(copyCount + 1);
                                     await updateCopyCount();
                                     await copyText(sec.content, sec.id);
                                 }}>
                                 {copiedId === sec.id ?
-                                    <FaCheck className="text-green-400"/> :
-                                    <FaCopy/>}
+                                    <FaCheck className="text-green-400" /> :
+                                    <FaCopy />}
                             </button>
                             <select
                                 onChange={handleThemeChange}
-                                className="bg-white p-2 rounded-xl border-2 border-indigo-400 outline-none">
+                                className="bg-white p-2 rounded-xl  outline-none">
                                 <option value="" disabled>Change theme</option>
                                 <optgroup label="Dark">
                                     <option value="vscDarkPlus">VSC Dark Plus
@@ -183,25 +183,25 @@ export default function ViewPost({
                         <SyntaxHighlighter
                             language={sec.language}
                             style={theme || oneLight}
-                            className="rounded-b-xl overflow-hidden shadow-md mt-0 !mt-0  ">
+                            className="rounded-b-xl overflow-hidden shadow-md  !mt-0  ">
                             {sec.content}
                         </SyntaxHighlighter>
                     </div>
                 ) : sec.type === "requirements" ? (
                     <div key={sec.id}
-                         className="mb-8 p-5 bg-gray-900 rounded-xl shadow-md">
+                        className="mb-8 p-5 bg-gray-900 rounded-xl shadow-md">
                         <div className="p-2 text-gray-100 flex justify-between">
                             {sec.content}
-                            <button className="cursor-pointer text-indigo-500"
-                                    onClick={async () => await copyText(sec.content, sec.id)}>
-                                {copiedId === sec.id ? <FaCheck/> : <FaCopy/>}
+                            <button className="cursor-pointer text-blue-800"
+                                onClick={async () => await copyText(sec.content, sec.id)}>
+                                {copiedId === sec.id ? <FaCheck /> : <FaCopy />}
                             </button>
                         </div>
                     </div>
                 ) : (
                     <div key={sec.id} className="mb-8 ">
                         <pre
-                            className="p-4 text-gray-900 bg-gradient-to-r from-gray-200 to-gray-300 rounded-xl whitespace-pre-wrap break-words shadow-lg">{sec.content}</pre>
+                            className="p-4 text-gray-900 rounded-xl whitespace-pre-wrap break-words text-lg">{sec.content}</pre>
                     </div>
                 )
             ))}

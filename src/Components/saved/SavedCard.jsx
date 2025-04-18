@@ -31,14 +31,9 @@ export default function SavedCard({ post, handleDelete }) {
 
 
     return (
-        <div className="w-full p-4 bg-white rounded-xl flex flex-col shadow-lg">
-            {postData.created_at && (
-                <span className="mb-3 inline-block rounded bg-indigo-800 px-3 py-1 text-xs font-semibold text-white w-fit">
-                    {new Date(postData.created_at).toLocaleDateString()}
-                </span>
-            )}
+        <div className="w-full p-4 bg-white rounded-xl flex flex-col shadow-lg border-6 border-blue-300">
 
-            <h3 className="mb-2 text-lg font-semibold text-indigo-700 hover:text-indigo-400 transition-all line-clamp-1">
+            <h3 className="mb-2 text-lg font-semibold text-blue-800 hover:text-blue-400 transition-all line-clamp-1">
                 <Link to={`/view/${postData.id}`}>
                     {postData.title}
                 </Link>
@@ -50,14 +45,14 @@ export default function SavedCard({ post, handleDelete }) {
             </p>
 
             <p className="text-xs font-bold mt-3 px-3 py-1 bg-indigo-800 rounded-2xl text-white w-fit">
-                @{postData.username}
+                Author @{postData.username}
             </p>
 
             {/* Delete button */}
 
             <button
                 onClick={() => handleDelete(postData.id)}
-                className="mt-4 w-full text-red-600 hover:text-red-900 cursor-pointer text-right p-2 transition-all"
+                className="mt-4 w-full text-red-600 hover:text-red-800 cursor-pointer text-right p-2 transition-all"
             >
                 <FaTrash />
             </button>

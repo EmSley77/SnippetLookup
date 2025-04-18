@@ -4,10 +4,11 @@
   
     font-family: inter ,roboto, monospace;
     font-weight: 700;
-
+    
 }
 
 body {
-    background: linear-gradient(to right, var(--color-indigo-500), var(--color-indigo-700));
+    color: #1689b9;
+    background-color: #0a507c;
     color: var(--color-gray-700);
 }

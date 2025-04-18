@@ -52,17 +52,17 @@ const BarChart = () => {
         scales: {
             x: {
                 ticks: { color: "#000" }, // White X-axis labels
-                grid: { color: "rgba(255, 255, 255, 0.2)" } // Light grid lines
+                grid: { color: "#1689b9" } // Light grid lines
             },
             y: {
                 ticks: { color: "#000" }, // White Y-axis labels
-                grid: { color: "#d3d3d3d3" }
+                grid: { color: "#1689b9" }
             }
         },
         animation: true,
         plugins: {
             legend: { labels: { color: "#000" } }, // Legend text color
-            title: { display: true, text: 'My Posts Analytics', color: "#000" }, // Chart title color
+            title: { display: true, text: 'My Posts', color: "#000" }, // Chart title color
         },
     };
 
@@ -72,9 +72,10 @@ const BarChart = () => {
             {
                 label: 'Views + Copies',
                 data: chartData.map((item) => item.number),
-                backgroundColor: 'rgba(54, 162, 235, 0.8)',  // Increased opacity
-                hoverBackgroundColor: "rgba(54, 200, 180, 0.9)", // Higher contrast on hover
-                borderWidth: 2,
+                backgroundColor: 'rgba(85,136,255)',  // Increased opacity
+                hoverBackgroundColor: "rgba(0,35,149)", // Higher contrast on hover
+                borderWidth: 3,
+                borderColor:"#0a507c",
                 barThickness: 50,
             },
         ],
@@ -83,7 +84,7 @@ const BarChart = () => {
     if (loading) return <p>Loading user...</p>;
 
     return (
-        <div className='bg-white p-6 rounded-2xl shadow-xl'>
+        <div className='bg-blue-100 p-6 rounded-xl shadow-xl'>
 
             <BarChartJs
                 options={options}

@@ -24,15 +24,15 @@ export default function HomeCard({ post }) {
   };
 
   return (
-    <div className="w-full p-4 bg-white rounded-xl flex flex-col shadow-lg">
+    <div className="w-full p-4 bg-white rounded-xl flex flex-col shadow-lg border-6 border-blue-300">
 
       {post.created_at && (
-        <span className="mb-3 inline-block rounded bg-indigo-800 px-3 py-1 text-xs font-semibold text-white w-fit">
+        <span className="mb-3 inline-block rounded-xl bg-blue-800 px-3 py-1 text-xs font-semibold text-white w-fit">
           {new Date(post.created_at).toLocaleDateString()}
         </span>
       )}
 
-      <h3 className="mb-2 text-lg font-semibold text-indigo-700 hover:text-indigo-400 transition-all">
+      <h3 className="mb-2 text-lg font-semibold text-blue-800 hover:text-blue-400 transition-all">
         <Link to={`/view/${post.id}`} onClick={handleCardClick}>
           {post.title}
         </Link>
@@ -42,7 +42,7 @@ export default function HomeCard({ post }) {
         {post.description}
       </p>
 
-      <p className="text-xs font-bold mt-3 px-3 py-1 bg-indigo-800 rounded-2xl text-white w-fit">
+      <p className="text-xs font-bold mt-3 px-3 py-1 bg-blue-900 rounded-2xl text-white w-fit">
         @{post.username}
       </p>
 

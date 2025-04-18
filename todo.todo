@@ -1,6 +1,5 @@
 
 TODO: when user clicks on a username in homecard fetch all snippets beloning to that user
-// TODO: when user copies only make action in that snippet of code
 TODO: add an image in posts
 TODO: better UI for blogs, add h1 titles for each box
 TODO: add Like function / if liked already cannot like again
@@ -8,8 +7,4 @@ TODO: add better error handling
 TODO: validate input / clean script / length...
 TODO: create links to blog 
 TODO: impl payment with stripe
-TODO: impl better UI componets / structure
-TODO: currently not incrementing view when viewing from saved card 
 TODO: Refactor all pages and componets to e resued instead of creating new 
-TODO: ReDo account Page look / dashboard vibes
-TODO: 

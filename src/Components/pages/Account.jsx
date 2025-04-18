@@ -1,22 +1,22 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth.jsx';
 import usePosts from '../../hooks/usePosts.jsx';
 import '../../styles/style.css';
 import UploadedPosts from '../account/UploadedPosts.jsx';
 import BarChart from '../chart/BarChart.jsx';
 import Header from './Header.jsx';
-import {supabaseClient} from "../../service/supabase.js";
+import { supabaseClient } from "../../service/supabase.js";
 
 export default function Account() {
 
     const [posts, setPosts] = useState([])
 
-    const {user, loading} = useAuth()
-    const {getPostsByUserId} = usePosts()
+    const { user, loading } = useAuth()
+    const { getPostsByUserId } = usePosts()
 
     //delete post
     async function deletePost(postId) {
-        const {data, error} = await supabaseClient
+        const { data, error } = await supabaseClient
             .from("posts")
             .delete()
             .eq("id", postId)
@@ -70,28 +70,30 @@ export default function Account() {
 
     return (
         <>
-            <Header/>
+            <Header />
             <div className="p-6 max-w-6xl mx-auto">
                 {/* User Info Section */}
                 <div
-                    className="bg-white p-6 rounded-2xl shadow-xl text-gray-800 w-full mb-6 flex flex-col items-center text-center">
-                    <h1 className="text-4xl font-bold text-indigo-600">Welcome
-                        Back, {user.user_metadata.name} {user.user_metadata.lastname}</h1>
-                    <p className="text-lg text-gray-600">Member
+                    className="bg-blue-100  p-6 rounded-xl shadow-xl text-gray-500 w-full mb-6 flex flex-col items-center text-center">
+                    <h1 className="text-2xl font-bold text-blue-900">{user.user_metadata.name} {user.user_metadata.lastname}</h1>
+                    <p className="text-lg">Member
                         since {new Date(user?.created_at).toLocaleDateString()}</p>
-                    <p className="text-md text-gray-500">Preferred
+                    <p className="text-md ">Preferred
                         language: {user?.user_metadata.preferred_language}</p>
-                    <p className="text-md text-gray-500">@{user?.user_metadata.display_username}</p>
+                    <p className="text-md">@{user?.user_metadata.display_username}</p>
                 </div>
 
                 {/* Dashboard Content */}
                 <div className="flex flex-col lg:grid-cols-2 gap-3 ">
 
                     {/* Posted blogs */}
-                    <UploadedPosts posts={posts} handleDelete={handleDelete}/>
+                    <UploadedPosts
+                        posts={posts}
+                        handleDelete={handleDelete}
+                    />
 
                     {/* Stats Chart */}
-                    <BarChart/>
+                    <BarChart />
 
                 </div>
             </div>
