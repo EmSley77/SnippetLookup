@@ -1,12 +1,20 @@
-# React + Vite
+🧩 Snippet Lookup
+Snippet Lookup is a simple and powerful web app that lets users upload code snippets or blog posts, interact with others through comments, and engage with content using likes and more.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+✨ Features
+📤 Upload code snippets or blog posts
 
-Currently, two official plugins are available:
+💬 Comment on any post
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+❤️ Like and save your favorite snippets
 
-## Expanding the ESLint configuration
+🔍 Search and browse uploaded content
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🔐 User authentication and profiles
+
+🚀 Tech Stack
+Backend: Java, Spring Boot, REST API
+
+Frontend: React
+Database: Supabase
+Authentication: Supabase auth
